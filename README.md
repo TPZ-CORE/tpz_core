@@ -3,7 +3,7 @@
 
 # Development API 
 
-Checkout the official website - [Gitbook(https://tpz-core.gitbook.io/tpz-core-documentation) 
+Checkout the official website - [Gitbook](https://tpz-core.gitbook.io/tpz-core-documentation) 
 to use our Framework on your scripts.
 
 We provide all the functions related to the player object, player inventory, utility functions
