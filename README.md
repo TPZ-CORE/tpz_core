@@ -11,7 +11,7 @@ such as webhooks, notifications and many more, including all the commands relate
 
 
 
-@Credits to VORP-CORE for the Server Callback & Client Callback files.
-@Credits to REDEM:RP for useful native and clothing functions.
+- @Credits to VORP-CORE for the logic of Server & Client Callbacks.
+- @Credits to REDEM:RP for useful native and clothing functions.
 
 
