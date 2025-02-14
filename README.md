@@ -8,6 +8,9 @@ All the official resources that have been shared to the public,
 are very well made, fully configurable, including webhooks and most importantly,
 they all have DevTools - Injection Cheating Protections.
  
+# Repositories
+
+You can find all of our repositories [here](https://github.com/TPZ-CORE?tab=repositories)
 # Development API
 
 Checkout the official website - [Gitbook](https://tpz-core.gitbook.io/tpz-core-documentation) 
