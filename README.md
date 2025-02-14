@@ -1,6 +1,13 @@
 # TPZ-CORE Base
 
+# About
 
+The specified Framework has been created by @Nosmakos.
+
+All the official resources that have been shared to the public,
+are very well made, fully configurable, including webhooks and most importantly,
+they all have DevTools - Injection Cheating Protections.
+ 
 # Development API 
 
 Checkout the official website - [Gitbook](https://tpz-core.gitbook.io/tpz-core-documentation) 
