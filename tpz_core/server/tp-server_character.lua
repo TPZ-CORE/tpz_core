@@ -27,7 +27,13 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData, 
 
     generatedIdentityId = Config.IdentityIdGeneratedData.first_letters .. os.date('%M') .. os.date('%S') .. generatedIdentityId
 
-    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, skinData['model'], SkinData, job, 0, Config.NewCharacter.Accounts[0], Config.NewCharacter.Accounts[1], Config.NewCharacter.Accounts[2], Config.NewCharacter.Accounts[3], generatedIdentityId, 500,100,500,100, newCoords, 0, "0") 
+    local accounts = json.encode( { 
+            cash        = Config.NewCharacter.Accounts[0], 
+            gold        = Config.NewCharacter.Accounts[1], 
+            black_money = Config.NewCharacter.Accounts[2] 
+    })
+
+    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, skinData['model'], SkinData, job, 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0") 
 
     local Parameters = {
         ['identifier']          = tostring(sid),
@@ -42,11 +48,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData, 
         ['job']                 = job,
         ['jobGrade']            = 0,
 
-        ['accounts']            = json.encode( { 
-            cash = Config.NewCharacter.Accounts[0], 
-            gold = Config.NewCharacter.Accounts[1], 
-            black_money = Config.NewCharacter.Accounts[2] 
-        }),
+        ['accounts']            = accounts,
 
         ['identity_id']         = generatedIdentityId,
         ['healthOuter']         = 500,
