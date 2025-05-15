@@ -61,7 +61,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData, 
 
     Citizen.CreateThread(function()
     
-        exports.ghmattimysql:execute("INSERT INTO characters (`identifier`, `steamname`, `group`, `firstname`, `lastname`, `gender`, `dob`, `skin`, `skinComp`, `job`, `jobGrade`,`accounts`, `identity_id` = @identity_id, `healthOuter`, `healthInner`, `staminaOuter`, `staminaInner`, `coords`, `isdead`) VALUES (@identifier, @steamname, @group, @firstname, @lastname, @gender, @dob, @skin, @skinComp, @job, @jobGrade, @accounts, @healthOuter, @healthInner, @staminaOuter, @staminaInner, @coords, @isdead)", Parameters)
+        exports.ghmattimysql:execute("INSERT INTO characters (`identifier`, `steamname`, `group`, `firstname`, `lastname`, `gender`, `dob`, `skin`, `skinComp`, `job`, `jobGrade`,`accounts`, `identity_id`, `healthOuter`, `healthInner`, `staminaOuter`, `staminaInner`, `coords`, `isdead`) VALUES (@identifier, @steamname, @group, @firstname, @lastname, @gender, @dob, @skin, @skinComp, @job, @jobGrade, @accounts, @identity_id, @healthOuter, @healthInner, @staminaOuter, @staminaInner, @coords, @isdead)", Parameters)
         
         Wait(2000)
 
