@@ -96,9 +96,10 @@ end)
 -----------------------------------------------------------
 
 -- Registering the death prompt actions.
-Citizen.CreateThread(function() RegisterDeathPromptActions() end)
-
 Citizen.CreateThread(function()
+
+ RegisterDeathPromptActions()
+
   while true do
 
     Wait(0)
