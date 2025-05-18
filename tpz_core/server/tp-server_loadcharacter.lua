@@ -48,6 +48,7 @@ onSelectedCharacter = function(tSource, charId, newChar, firstname, lastname, do
         
                 local status = { healthOuter = data.healthOuter, healthInner = data.healthInner, staminaOuter = data.staminaOuter, staminaInner = data.staminaInner }
                 TriggerClientEvent("tpz_core:onPlayerFirstSpawn", _source, lastLocation, status, tonumber(data.isdead), 0)
+                TriggerEvent('tpz_core:isPlayerReady', _source, 0)
             end
 
         end)
@@ -67,6 +68,7 @@ onSelectedCharacter = function(tSource, charId, newChar, firstname, lastname, do
         
                 local status = { healthOuter = data.healthOuter, healthInner = data.healthInner, staminaOuter = data.staminaOuter, staminaInner = data.staminaInner }
                 TriggerClientEvent("tpz_core:onPlayerFirstSpawn", _source, lastLocation, status, tonumber(data.isdead), 1)
+                TriggerEvent('tpz_core:isPlayerReady', _source, 1)
             end
     
         end)
