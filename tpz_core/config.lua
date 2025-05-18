@@ -172,7 +172,7 @@ Config.OnPlayerDeath = {
 
     -- RedM Keys List: https://github.com/mja00/redm-shit/blob/master/nuiweaponspawner/config.lua
     PromptKeys = {
-        ['RESPAWN']  = {Enabled = false,  label = "Respawn",  key = 0xC7B5340A,  holdMode = 5000,  cooldown = 600 }, -- Cooldown: To display (Enable) the Respawn Button (in seconds).
+        ['RESPAWN']  = {enabled = false,  label = "Respawn",  key = 0xC7B5340A,  holdMode = 5000,  cooldown = 600 }, -- Cooldown: To display (Enable) the Respawn Button (in seconds).
     },
 
     BottomPromptLabelDisplays = {
