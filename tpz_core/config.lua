@@ -253,7 +253,7 @@ Config.DiscordWebhooking = {
 Config.Commands = {
 
     ['cleartasks'] = { 
-        Suggestion = "Perform this command to teleport on the marked coords.",
+        Suggestion = "Perform this command to clear the ped tasks.",
     },
 
     ['setgroup'] = { 
