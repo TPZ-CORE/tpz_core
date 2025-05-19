@@ -37,6 +37,10 @@ such as webhooks, notifications and many more, including all the commands relate
 
 All the commands and their names, descriptions and permissions are fully configurable.
 
+## 
+
+For more information and support related to our Framework you can contact us on our discord: https://discord.gg/Ms7TR9VsAB
+
 ## Disclaimer and Credits
 
 Credits to VORP-CORE for the logic of Server & Client Callbacks, Notifications and to REDEM:RP for useful native and clothing functions.
