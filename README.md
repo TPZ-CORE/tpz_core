@@ -21,19 +21,19 @@ such as webhooks, notifications and many more, including all the commands relate
 
 ## Commands
 
-| Command                                    | Description                                              |
-|--------------------------------------------|----------------------------------------------------------|
-| setgroup [source] [group]                  |
-| setjob [source] [job] [grade]              |
-| addaccount [source] [account] [amount]     |
-| removeaccount [source] [account] [amount]  |
-| revive [source]                            |
-| kill [source]                              |
-| heal [source]                                |
-| tpm                                        |
-| tpcoords [x] [y] [z]                       |
-| tpto [source]                              |
-| tphere [source]                            |
+| Command                                    | Description                                                           |
+|--------------------------------------------|-----------------------------------------------------------------------|
+| setgroup [source] [group]                  | Sets the selected player source group role (admin, mod, etc).         |
+| setjob [source] [job] [grade]              | Sets the selected player source job and grade.                        |
+| addaccount [source] [account] [amount]     | Adds an amount of money (account) to the selected player source.      |
+| removeaccount [source] [account] [amount]  | Removes an amount of money (account) from the selected player source. |
+| revive [source]                            | Revives an unconcious (dead) player source.                           |
+| kill [source]                              | Kills the selected player source.                                     |
+| heal [source]                              | Heals the selected player source (including tpz_metabolism values).   |
+| tpcoords [x] [y] [z]                       | Teleports your player to the specific coords (x,y,z).                 |
+| tpto [source]                              | Teleports your player to the selected player source.                  |
+| tphere [source]                            | Brings the selected player source to your player.                     |
+| tpm                                         | Teleports your player to the selected marked map point.              |
 
 
 ## Disclaimer and Credits
