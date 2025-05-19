@@ -37,7 +37,7 @@ such as webhooks, notifications and many more, including all the commands relate
 
 All the commands and their names, descriptions and permissions are fully configurable.
 
-## 
+## Support
 
 For more information and support related to our Framework you can contact us on our discord: https://discord.gg/Ms7TR9VsAB
 
