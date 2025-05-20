@@ -167,7 +167,8 @@ Config.OnPlayerDeath = {
     HealthOnRespawn         = 500, --Player's health when respawned. (MAX = 500)
     HealthOnResurrection    = 250, --Player's health when resurrected. (MAX = 500)
     RagdollOnResurrection   = true, -- Enable or disable Ragdoll and revive effects when revived including AnimpostfxPlay Title_Gen_FewHoursLater and PlayerWakeUpInterrogation.
-
+    RagdollKeepDown         = 10,   -- Time in seconds (How many seconds would you like the player to be on ragdoll after respawn).
+    
     PlayAnimPostFXPlay      = true, -- Playing when respawning AnimpostfxPlay Title_Gen_FewHoursLater and PlayerWakeUpInterrogation.
 
     -- RedM Keys List: https://github.com/mja00/redm-shit/blob/master/nuiweaponspawner/config.lua
