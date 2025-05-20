@@ -37,7 +37,7 @@ AddEventHandler("tpz_core:onPlayerDeathContents", function()
         local xPlayer     = PlayerData[_source]
         local configData  = Config.OnPlayerDeathRespawn
 
-        for index, account in pairs (_source.Accounts) do
+        for index, account in pairs (Config.OnPlayerDeathRespawn.Accounts) do
         
             if account then
     
