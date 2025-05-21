@@ -449,7 +449,7 @@ exports('getCoreAPI', function()
     -- returns a table with all online players who are NOT in a session (character select).
     -- @param data.players
     -- @param data.count
-    self.GetPlayers = function(job)
+    self.GetPlayers = function()
         local data       = { players = {}, count = 0 }
         local playerList = GetPlayers()
 
@@ -472,7 +472,7 @@ exports('getCoreAPI', function()
     -- returns a table with all online players who ARE in a session.
     -- @param data.players
     -- @param data.count
-    self.GetPlayersInSession = function(job)
+    self.GetPlayersInSession = function()
         local data       = { players = {}, count = 0 }
         local playerList = GetPlayers()
 
