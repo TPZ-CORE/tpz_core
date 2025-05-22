@@ -3,6 +3,36 @@ exports('getCoreAPI', function()
 
     self.addNewCallBack = function(name, cb) TriggerEvent("tpz_core:addNewCallBack", name, cb) end
 
+    self.StartsWith = function(inputString, findString)
+        return string.sub(inputString, 1, string.len(findString)) == findString
+    end
+
+    self.Round = function(num, numDecimalPlaces)
+        local mult = 10^(numDecimalPlaces or 0)
+        return math.floor(num * mult + 0.5) / mult
+    end
+
+    self.GetTableLength = function(T)
+        local count = 0
+        for _ in pairs(T) do count = count + 1 end
+        return count
+    end
+    
+    self.Split = function(inputstr, sep)
+        if sep == nil then
+            sep = "%s"
+        end
+
+        local t = {}
+
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+            table.insert(t, str)
+        end
+
+        return t
+
+    end
+
     -- Notifications
     self.NotifyLeft = function(source, firsttext, secondtext, dict, icon, duration, color)
         TriggerClientEvent('tpz_core:sendLeftNotification', source, firsttext, secondtext, dict, icon, duration, color)
@@ -725,10 +755,6 @@ exports('getCoreAPI', function()
     self.SendToDiscordWithPlayerParameters = function(webhook, title, source, steamName, username, identifier, charidentifier, description, color)
         local message = string.format("**Online Player ID:** `%s`\n**Steam Name:** `%s`\n**First & Last Name**: `%s`\n**Steam Identifier:** `%s`\n**Character Id:** `%s`\n\n**Description:**\n" .. description, source, steamName, username, identifier, charidentifier)
         SendToDiscordWebhook(webhook, title, message, color)
-    end
-    
-    self.StartsWith = function(inputString, findString)
-        return string.sub(inputString, 1, string.len(findString)) == findString
     end
 
     -- Required when player is joining for first time, those API Functions are used on inventory > tp-server_inventory.lua
