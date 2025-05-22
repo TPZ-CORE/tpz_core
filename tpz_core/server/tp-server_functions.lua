@@ -90,8 +90,6 @@ SendImageUrlToDiscordWebhook = function(webhook, name, description, url, color)
     })
 end
 
-```lua
-
 HasPermissionsByAce = function(ace, source)
 
     local all = 'tpzcore.all'
