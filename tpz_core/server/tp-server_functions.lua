@@ -92,7 +92,7 @@ end
 
 ```lua
 
-HasAdministratorPermissionsByAce = function(ace, source)
+HasPermissionsByAce = function(ace, source)
 
     local all = 'tpzcore.all'
     local aceAllowed = IsPlayerAceAllowed(source, all)
