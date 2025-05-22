@@ -32,11 +32,16 @@ end, false)
 
 --[[ Set Group Command ]] --
 RegisterCommand("setgroup", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
+   
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setgroup", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setgroup'].Groups, Config.Commands['setgroup'].DiscordRoles)
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setgroup'].Groups, Config.Commands['setgroup'].DiscordRoles)
+   end
 
-    if hasAdministratorPermissions then
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
