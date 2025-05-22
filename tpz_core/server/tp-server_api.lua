@@ -320,7 +320,7 @@ exports('getCoreAPI', function()
         end
     
         functions.hasPermissionsByAce = function(ace)
-            HasPermissionsByAce(ace, _source)
+            return HasPermissionsByAce(ace, _source)
         end
 
         functions.hasAdministratorPermissions = function(groups, discordRoles)
