@@ -174,6 +174,32 @@ exports('getCoreAPI', function()
     self.StartsWith = function(inputString, findString)
         return string.sub(inputString, 1, string.len(findString)) == findString
     end
+
+    self.Round = function(num, numDecimalPlaces)
+        local mult = 10^(numDecimalPlaces or 0)
+        return math.floor(num * mult + 0.5) / mult
+    end
+
+    self.GetTableLength = function(T)
+        local count = 0
+        for _ in pairs(T) do count = count + 1 end
+        return count
+    end
     
+    self.Split = function(inputstr, sep)
+        if sep == nil then
+            sep = "%s"
+        end
+
+        local t = {}
+
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+            table.insert(t, str)
+        end
+
+        return t
+
+    end
+
     return self
 end)
