@@ -319,6 +319,10 @@ exports('getCoreAPI', function()
         
         end
     
+        functions.hasPermissionsByAce = function(ace)
+            HasPermissionsByAce(ace, _source)
+        end
+
         functions.hasAdministratorPermissions = function(groups, discordRoles)
     
             if GetTableLength(groups) > 0 and PlayerData[_source] then
