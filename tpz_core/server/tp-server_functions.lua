@@ -90,6 +90,31 @@ SendImageUrlToDiscordWebhook = function(webhook, name, description, url, color)
     })
 end
 
+```lua
+
+HasAdministratorPermissionsByAce = function(ace, source)
+
+    local all = 'tpzcore.all'
+    local aceAllowed = IsPlayerAceAllowed(source, all)
+
+    if aceAllowed then
+        return true
+    end
+
+    if not ace then
+        print(string.format("Input ace permission is invalid: {%s}", ace))
+        return false
+    end
+
+    aceAllowed = IsPlayerAceAllowed(source, ace)
+
+    if aceAllowed then
+        return true
+    end
+
+    return false
+end
+
 HasAdministratorPermissions = function(source, groups, discordRoles)
 
     if GetTableLength(groups) > 0 and PlayerData[source] then
