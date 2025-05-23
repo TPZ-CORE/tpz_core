@@ -97,11 +97,16 @@ end, false)
 
 --[[ Set Job Command ]] --
 RegisterCommand("setjob", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
+   
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setjob", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setjob'].Groups, Config.Commands['setjob'].DiscordRoles)
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setjob'].Groups, Config.Commands['setjob'].DiscordRoles)
+   end
 
-    if hasAdministratorPermissions then
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -162,11 +167,16 @@ end, false)
 
 --[[ Add Account Money Command ]] --
 RegisterCommand("addaccount", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
+   
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.addaccount", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['addaccount'].Groups, Config.Commands['addaccount'].DiscordRoles)
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['addaccount'].Groups, Config.Commands['addaccount'].DiscordRoles)
+   end
 
-    if hasAdministratorPermissions then
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -231,11 +241,16 @@ end, false)
 
 --[[ Remove Account Money Command ]] --
 RegisterCommand("removeaccount", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
+   
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.removeaccount", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['removeaccount'].Groups, Config.Commands['removeaccount'].DiscordRoles)
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['removeaccount'].Groups, Config.Commands['removeaccount'].DiscordRoles)
+   end
 
-    if hasAdministratorPermissions then
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -307,11 +322,16 @@ end, false)
 
 --[[ Revive Player Command ]] --
 RegisterCommand("revive", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['revive'].Groups, Config.Commands['revive'].DiscordRoles)
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.revive", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    if hasAdministratorPermissions then
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['revive'].Groups, Config.Commands['revive'].DiscordRoles)
+   end
+
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -374,11 +394,16 @@ end, false)
 
 --[[ Kill Player Command ]] --
 RegisterCommand("kill", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['kill'].Groups, Config.Commands['kill'].DiscordRoles)
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.kill", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    if hasAdministratorPermissions then
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['kill'].Groups, Config.Commands['kill'].DiscordRoles)
+   end
+
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -434,11 +459,17 @@ end, false)
 
 --[[ TPM Command ]] --
 RegisterCommand("tpm", function(source)
-    local _source = source
+   local _source = source
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpm'].Groups, Config.Commands['tpm'].DiscordRoles)
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tpm", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    if hasAdministratorPermissions then
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpm'].Groups, Config.Commands['tpm'].DiscordRoles)
+   end
+
+   if hasAcePermissions or hasAdministratorPermissions then
+
 
         local xPlayer         = PlayerData[_source]
 
@@ -467,11 +498,16 @@ end, false)
 
 --[[ Teleport Coords Command ]] --
 RegisterCommand("tpcoords", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
+    
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tpcoords", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpcoords'].Groups, Config.Commands['tpcoords'].DiscordRoles)
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpcoords'].Groups, Config.Commands['tpcoords'].DiscordRoles)
+   end
 
-    if hasAdministratorPermissions then
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -510,11 +546,17 @@ end, false)
 
 --[[ Teleport To Player Command ]] --
 RegisterCommand("tpto", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpto'].Groups, Config.Commands['tpto'].DiscordRoles)
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tpto", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    if hasAdministratorPermissions then
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpto'].Groups, Config.Commands['tpto'].DiscordRoles)
+   end
+
+   if hasAcePermissions or hasAdministratorPermissions then
+
 
         local xPlayer = PlayerData[_source]
 
@@ -567,11 +609,16 @@ end, false)
 
 --[[ Teleport Player Here Command ]] --
 RegisterCommand("tphere", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tphere'].Groups, Config.Commands['tphere'].DiscordRoles)
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tphere", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    if hasAdministratorPermissions then
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tphere'].Groups, Config.Commands['tphere'].DiscordRoles)
+   end
+
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -629,11 +676,16 @@ end, false)
 
 --[[ Heal Player Command ]] --
 RegisterCommand("heal", function(source, args, rawCommand)
-    local _source = source
+   local _source = source
+    
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.heal", _source)
+   local hasAdministratorPermissions = hasAcePermissions
 
-    local hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['heal'].Groups, Config.Commands['heal'].DiscordRoles)
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['heal'].Groups, Config.Commands['heal'].DiscordRoles)
+   end
 
-    if hasAdministratorPermissions then
+   if hasAcePermissions or hasAdministratorPermissions then
 
         local xPlayer = PlayerData[_source]
 
