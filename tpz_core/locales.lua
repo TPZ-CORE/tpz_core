@@ -15,9 +15,13 @@ Locales = {
     ['BAN_REASON_DESCRIPTION']                = "You have been permanently banned for the following reason: %s\nDuration Left: Banned Permanently.",
     ['BAN_REASON_DURATION_DESCRIPTION']       = "You have been permanently banned for the following reason: %s\nDuration Left: %s",
 
-    ['MONTHS']                                = "month-s",
-    ['DAYS']                                  = "day-s",
-    ['HOURS']                                 = "hour-s",
-    ['MINUTES']                               = "minute-s",
+    ['MONTH']                                 = "month",
+    ['MONTHS']                                = "months",
+    ['DAY']                                   = "day",
+    ['DAYS']                                  = "days",
+    ['HOUR']                                  = "hour",
+    ['HOURS']                                 = "hours",
+    ['MINUTE']                                = "minute",
+    ['MINUTES']                               = "minutes",
     ['AND']                                   = "and",
 }
