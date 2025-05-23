@@ -14,19 +14,19 @@ local function convertMinutesToText(minutes)
     local parts = {}
 
     if months > 0 then
-        table.insert(parts, months .. " " .. Locales['MONTHS'])
+        table.insert(parts, months .. " " .. Locales['MONTH'] .. (months ~= 1 and Locales['MONTHS'] or ""))
     end
 
     if days > 0 then
-        table.insert(parts, days .. " " .. Locales['DAYS'])
+        table.insert(parts, days .. " " .. Locales['DAY'] .. (days ~= 1 and Locales['DAYS'] or ""))
     end
 
     if hours > 0 then
-        table.insert(parts, hours .. " " .. Locales['HOURS'])
+        table.insert(parts, hours .. " " .. Locales['HOUR'] .. (hours ~= 1 and Locales['HOURS'] or ""))
     end
 
     if mins > 0 or #parts == 0 then
-        table.insert(parts, mins .. " " .. Locales['MINUTES'])
+        table.insert(parts, mins .. " " .. Locales['MINUTE'] .. (mins ~= 1 and Locales['MINUTES'] or ""))
     end
 
     return table.concat(parts, " " .. Locales['AND'] .. " ")
