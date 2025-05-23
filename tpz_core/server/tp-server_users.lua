@@ -193,7 +193,9 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
 				local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], result[1].banned_reason) -- permanent
 
 				if result[1].banned_duration ~= -1 then
-					reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], result[1].banned_reason, result[1].banned_duration) -- permanent
+                    
+                    local durationDisplay = convertMinutesToText(result[1].banned_duration)
+					reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], result[1].banned_reason, durationDisplay) -- permanent
 				end
 
 				deferrals.done(reason)
