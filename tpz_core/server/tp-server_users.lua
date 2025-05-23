@@ -78,7 +78,7 @@ BanPlayerBySource = function(target, returnedValue, duration)
 		reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], returnedValue, duration) -- duration banned.
 	end
 
-	DropPlayer(target, duration)
+	DropPlayer(target, returnedValue)
 end
 
 BanPlayerBySteamIdentifier = function(steamIdentifier, returnedValue, duration)
