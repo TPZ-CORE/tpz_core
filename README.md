@@ -23,19 +23,19 @@ such as webhooks, notifications and many more, including all the commands relate
 
 - @param [source] : The online Player ID. 
 
-| Command                                    | Description                                                           |
-|--------------------------------------------|-----------------------------------------------------------------------|
-| setgroup [source] [group]                  | Sets the selected player source group role (admin, mod, etc).         |
-| setjob [source] [job] [grade]              | Sets the selected player source job and grade.                        |
-| addaccount [source] [account] [amount]     | Adds an amount of money (account) to the selected player source.      |
-| removeaccount [source] [account] [amount]  | Removes an amount of money (account) from the selected player source. |
-| revive [source]                            | Revives an unconcious (dead) player source.                           |
-| kill [source]                              | Kills the selected player source.                                     |
-| heal [source]                              | Heals the selected player source (including tpz_metabolism values).   |
-| tpcoords [x] [y] [z]                       | Teleports your player to the specific coords (x,y,z).                 |
-| tpto [source]                              | Teleports your player to the selected player source.                  |
-| tphere [source]                            | Brings the selected player source to your player.                     |
-| tpm                                         | Teleports your player to the selected marked map point.              |
+| Command                                    | Ace Permission        | Description                                                           |
+|--------------------------------------------|-----------------------|-----------------------------------------------------------------------|
+| setgroup [source] [group]                  | tpzcore.setgroup      | Sets the selected player source group role (admin, mod, etc).         |
+| setjob [source] [job] [grade]              | tpzcore.setjob        | Sets the selected player source job and grade.                        |
+| addaccount [source] [account] [amount]     | tpzcore.addaccount    | Adds an amount of money (account) to the selected player source.      |
+| removeaccount [source] [account] [amount]  | tpzcore.removeaccount | Removes an amount of money (account) from the selected player source. |
+| revive [source]                            | tpzcore.revive        | Revives an unconcious (dead) player source.                           |
+| kill [source]                              | tpzcore.kill          | Kills the selected player source.                                     |
+| heal [source]                              | tpzcore.heal          | Heals the selected player source (including tpz_metabolism values).   |
+| tpcoords [x] [y] [z]                       | tpzcore.tpcoords      | Teleports your player to the specific coords (x,y,z).                 |
+| tpto [source]                              | tpzcore.tpto          | Teleports your player to the selected player source.                  |
+| tphere [source]                            | tpzcore.tphere        | Brings the selected player source to your player.                     |
+| tpm                                         | tpzcore.tpm          | Teleports your player to the selected marked map point.              |
 
 All the commands and their names, descriptions and permissions are fully configurable.
 
