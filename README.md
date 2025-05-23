@@ -37,7 +37,7 @@ such as webhooks, notifications and many more, including all the commands relate
 | tphere [source]                            | tpzcore.tphere        | Brings the selected player source to your player.                     |
 | tpm                                         | tpzcore.tpm          | Teleports your player to the selected marked map point.              |
 
-All the commands and their names, descriptions and permissions are fully configurable.
+All the commands and descriptions and permissions are fully configurable.
 
 ## Support
 
