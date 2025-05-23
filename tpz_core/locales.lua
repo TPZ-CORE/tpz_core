@@ -11,4 +11,13 @@ Locales = {
     ['PLAYER_ID_COMMAND']                     = "Your Player ID: ~o~%s",
 
     ['INVALID_SYNTAX']                        = "~e~ERROR: Use Correct Syntax",
+
+    ['BAN_REASON_DESCRIPTION']                = "You have been permanently banned for the following reason: %s\nDuration Left: Banned Permanently.",
+    ['BAN_REASON_DURATION_DESCRIPTION']       = "You have been permanently banned for the following reason: %s\nDuration Left: %s",
+
+    ['MONTHS']                                = "month-s",
+    ['DAYS']                                  = "day-s",
+    ['HOURS']                                 = "hour-s",
+    ['MINUTES']                               = "minute-s",
+    ['AND']                                   = "and",
 }
