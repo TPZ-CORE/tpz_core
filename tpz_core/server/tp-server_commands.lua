@@ -802,9 +802,7 @@ AddEventHandler("tpz_core:registerChatSuggestions", function()
 
 
     -- TPM
-    if Config.Commands['tpm'].Groups[xPlayer.group] then
-        TriggerClientEvent("chat:addSuggestion", _source, "/tpm", Config.Commands['tpm'].Suggestion, {})
-    end
+   TriggerClientEvent("chat:addSuggestion", _source, "/tpm", Config.Commands['tpm'].Suggestion, {})
 
     -- TP COORDS
     TriggerClientEvent("chat:addSuggestion", _source, "/tpcoords", Config.Commands['tpcoords'].Suggestion, {
