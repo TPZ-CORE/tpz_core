@@ -375,6 +375,18 @@ exports('getCoreAPI', function()
         functions.disconnect = function(reason)
             DropPlayer(_source, reason)
         end
+			
+        functions.ban = function(reason, duration)
+            BanPlayerBySource(_source, reason, duration)
+        end
+
+        functions.addWarning = function()
+            return AddPlayerWarning(_source) -- returns a boolean, if true the player is banned for reaching the maximum warnings.
+        end
+
+        functions.clearPlayerWarnings = function()
+            ClearPlayerWarnings(_source)
+        end    
     
         functions.deleteCharacter = function(reason)
     
@@ -479,7 +491,15 @@ exports('getCoreAPI', function()
         return functions
 
     end
+		
+    self.banPlayerBySteamIdentifier = function(steamIdentifier, reason, duration)
+        BanPlayerBySteamIdentifier(steamIdentifier, reason, duration)
+    end
 
+    self.resetBanBySteamIdentifier = function(steamIdentifier)
+        ResetBanBySteamIdentifier(steamIdentifier)
+    end
+		
     -- returns a table with all online players who are NOT in a session (character select).
     -- @param data.players
     -- @param data.count
