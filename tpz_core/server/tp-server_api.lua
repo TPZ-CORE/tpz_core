@@ -500,7 +500,7 @@ exports('getCoreAPI', function()
         ResetBanBySteamIdentifier(steamIdentifier)
     end
 
-    self.getUserData(source)
+    self.getUserData = function(source)
         return GetUserData(source)
     end
 
