@@ -170,6 +170,7 @@ end
 
 AddEventHandler("playerConnecting", function (name, kick, deferrals)
     local _source = source
+    local steamName
     local steamIdentifier
 
     deferrals.defer()
@@ -177,6 +178,7 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
     -- mandatory wait!
     Wait(0)
     steamIdentifier = GetSteamID(_source)
+    steamName       = GetPlayerName(_source)
     -- mandatory wait!
     Wait(0)
 
@@ -206,6 +208,7 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
 					reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], result[1].banned_reason, durationDisplay) -- permanent
 				end
 
+                print(string.format("Joining the server has been declined for the player ( %s ). Reason: Banned for %s", steamName, result[1].banned_reason .. "."))
 				deferrals.done(reason)
                 return
             else
