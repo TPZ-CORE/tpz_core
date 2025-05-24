@@ -503,6 +503,14 @@ exports('getCoreAPI', function()
     self.getUserData(source)
         return GetUserData(source)
     end
+
+    self.setUserMaxCharacters = function(source, chars)
+        if (chars == nil or chars <= 1) then
+            chars = 1
+        end
+
+        SetUserMaxCharacters(source, chars)
+    end
 		
     -- returns a table with all online players who are NOT in a session (character select).
     -- @param data.players
