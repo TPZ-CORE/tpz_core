@@ -40,9 +40,8 @@ end
 
 GetUserData = function(source)
 	local _source     = source
-	local xPlayer     = PlayerData[_source]
+    local identifier  = GetSteamID(_source)
 
-	local identifier  = xPlayer.identifier
     local data, wait  = nil, true
     
 	exports["ghmattimysql"]:execute("SELECT * FROM `users` WHERE `identifier` = @identifier", { ["@identifier"] = identifier }, function(result)
