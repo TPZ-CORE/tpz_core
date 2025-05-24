@@ -5,11 +5,8 @@
 AddEventHandler('playerJoining', function()
     local _source = source
 
-    if Config.DevMode then
-        return
-    end
-
-    TriggerClientEvent('tpz_core:playerJoining', _source)
+    local UserData = GetUserData(_source)
+    TriggerClientEvent('tpz_core:playerJoining', _source, UserData)
 end)
 
 -----------------------------------------------------------
