@@ -499,6 +499,10 @@ exports('getCoreAPI', function()
     self.resetBanBySteamIdentifier = function(steamIdentifier)
         ResetBanBySteamIdentifier(steamIdentifier)
     end
+
+    self.getUserData(source)
+        return GetUserData(source)
+    end
 		
     -- returns a table with all online players who are NOT in a session (character select).
     -- @param data.players
