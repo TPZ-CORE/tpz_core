@@ -39,7 +39,7 @@ end
 -----------------------------------------------------------
 
 GetUserData = function(source)
-	local _source     = source
+	local _source    = source
     local identifier  = GetSteamID(_source)
 
     local data, wait  = nil, true
