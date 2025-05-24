@@ -213,13 +213,18 @@ end)
 -----------------------------------------------------------
 --[[ Threads ]]--
 -----------------------------------------------------------
-
 Citizen.CreateThread(function()
 
     while true do
 
         Wait(60000 * 5)
-        exports.ghmattimysql:execute("UPDATE `users` SET `banned_duration` = `banned_duration` - @banned_duration WHERE `banned_duration` > 0", { ['banned_duration'] = 5})
+
+        exports.ghmattimysql:execute([[
+        UPDATE `users`
+        SET `banned_duration` = GREATEST(`banned_duration` - @banned_duration, 0)
+        WHERE `banned_duration` > 0
+        ]], { ['banned_duration'] = 5 })
+        
     end
 
 end)
