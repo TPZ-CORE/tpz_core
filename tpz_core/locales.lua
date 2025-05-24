@@ -12,6 +12,8 @@ Locales = {
 
     ['INVALID_SYNTAX']                        = "~e~ERROR: Use Correct Syntax",
 
+    
+    ['BAN_REASON']                            = "You have been permanently banned for the following reason: %s.",
     ['BAN_REASON_DESCRIPTION']                = "You have been permanently banned for the following reason: %s\nDuration Left: Banned Permanently.",
     ['BAN_REASON_DURATION_DESCRIPTION']       = "You have been permanently banned for the following reason: %s\nDuration Left: %s",
 
