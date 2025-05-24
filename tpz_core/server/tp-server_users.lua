@@ -45,7 +45,7 @@ GetUserData = function(source)
     local data, wait  = nil, true
     
 	exports["ghmattimysql"]:execute("SELECT * FROM `users` WHERE `identifier` = @identifier", { ["@identifier"] = identifier }, function(result)
-        data = result
+        data = result[1]
         wait = false
     end)
 
