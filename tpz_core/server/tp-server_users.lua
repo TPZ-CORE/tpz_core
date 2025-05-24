@@ -190,31 +190,36 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
             if (not result) or (result and not result[1]) then
 				local Parameters = { ['identifier'] = steamIdentifier, ['steamname']  = GetPlayerName(_source) }
 				exports.ghmattimysql:execute("INSERT INTO `users` (`identifier`, `steamname`) VALUES (@identifier, @steamname)", Parameters)
-			end
 
-            if result[1].banned_until ~= -1 and result[1].banned_until <= os.time() then
-                exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = 0 WHERE `banned_until` = @identifier", { ['identifier'] = steamIdentifier } )
-            end
-
-            if result[1] and result[1].banned_until ~= 0 then
-                -- Still banned
-                local remaining = result[1].banned_until - os.time()
-
-                local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], result[1].banned_reason) -- permanent
-
-				if result[1].banned_until ~= -1 then
-                    
-                    local durationDisplay = convertSecondsToText(remaining)
-					reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], result[1].banned_reason, durationDisplay) -- permanent
-				end
-
-                print(string.format("^1Joining the server has been declined for the player ( %s ). Reason: Banned for %s^0", steamName, result[1].banned_reason .. "."))
-				deferrals.done(reason)
-                return
-            else
                 -- Not banned
 				deferrals.done()
+            else
+
+                if result[1].banned_until ~= -1 and result[1].banned_until <= os.time() then
+                    exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = 0 WHERE `banned_until` = @identifier", { ['identifier'] = steamIdentifier } )
+                end
+
+                if result[1] and result[1].banned_until ~= 0 then
+                    -- Still banned
+                    local remaining = result[1].banned_until - os.time()
+
+                    local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], result[1].banned_reason) -- permanent
+
+    				if result[1].banned_until ~= -1 then
+                    
+                        local durationDisplay = convertSecondsToText(remaining)
+    					reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], result[1].banned_reason, durationDisplay) -- permanent
+    				end
+
+                    print(string.format("^1Joining the server has been declined for the player ( %s ). Reason: Banned for %s^0", steamName, result[1].banned_reason .. "."))
+    				deferrals.done(reason)
+                    return
+                else
+                    -- Not banned
+    				deferrals.done()
+                end
             end
+
         end)
 
     end
