@@ -2,14 +2,16 @@
 --[[ Local Functions ]]--
 -----------------------------------------------------------
 
-local function convertMinutesToText(minutes)
-    local minutesInDay = 24 * 60
-    local minutesInMonth = 30 * minutesInDay
+local function convertSecondsToText(seconds)
+    local secondsInMinute = 60
+    local secondsInHour   = 60 * secondsInMinute
+    local secondsInDay    = 24 * secondsInHour
+    local secondsInMonth  = 30 * secondsInDay  -- Assuming 30-day months
 
-    local months = math.floor(minutes / minutesInMonth)
-    local days = math.floor((minutes % minutesInMonth) / minutesInDay)
-    local hours = math.floor((minutes % minutesInDay) / 60)
-    local mins = minutes % 60
+    local months          = math.floor(seconds / secondsInMonth)
+    local days            = math.floor((seconds % secondsInMonth) / secondsInDay)
+    local hours           = math.floor((seconds % secondsInDay) / secondsInHour)
+    local mins            = math.floor((seconds % secondsInHour) / secondsInMinute)
 
     local parts = {}
 
@@ -25,7 +27,7 @@ local function convertMinutesToText(minutes)
         table.insert(parts, hours .. " " .. (hours ~= 1 and Locales['HOURS'] or Locales['HOUR']))
     end
 
-    if mins > 0 or #parts == 0 then
+    if mins > 0 then
         table.insert(parts, mins .. " " .. (mins ~= 1 and Locales['MINUTES'] or Locales['MINUTE']))
     end
 
@@ -62,23 +64,20 @@ BanPlayerBySource = function(target, returnedValue, duration)
 
 	if duration == nil or tonumber(duration) == nil then
 		duration = -1
-	end
+    else
+        duration = os.time() + (duration)
+    end
 
 	local Parameters = {
 		['identifier']      = identifier,
-		['banned_duration'] = duration,
+		['banned_until']    = duration,
 		['banned_reason']   = returnedValue,
 	}
 
-	exports.ghmattimysql:execute("UPDATE `users` SET `banned_duration` = @banned_duration, `banned_reason` = @banned_reason WHERE `identifier` = @identifier", Parameters )
+	exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = @banned_until, `banned_reason` = @banned_reason WHERE `identifier` = @identifier", Parameters )
 
-	local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], returnedValue) -- permanent
-
-	if duration ~= -1 then
-		reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], returnedValue, duration) -- duration banned.
-	end
-
-	DropPlayer(target, returnedValue)
+	local reason = string.format(Locales['BAN_REASON'], returnedValue) -- permanent
+	DropPlayer(target, reason)
 end
 
 BanPlayerBySteamIdentifier = function(steamIdentifier, returnedValue, duration)
@@ -89,15 +88,17 @@ BanPlayerBySteamIdentifier = function(steamIdentifier, returnedValue, duration)
 
             if duration == nil or tonumber(duration) == nil then
                 duration = -1
+            else
+                duration = os.time() + (duration)
             end
         
             local Parameters = {
                 ['identifier']      = steamIdentifier,
-                ['banned_duration'] = duration,
+                ['banned_until']    = duration,
                 ['banned_reason']   = returnedValue,
             }
         
-            exports.ghmattimysql:execute("UPDATE `users` SET `banned_duration` = @banned_duration, `banned_reason` = @banned_reason WHERE `identifier` = @identifier", Parameters )
+            exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = @banned_until, `banned_reason` = @banned_reason WHERE `identifier` = @identifier", Parameters )
     
         else
             print(string.format('Attempt to ban an unknown steam hex identifier: %s', steamIdentifier))
@@ -115,12 +116,12 @@ ResetBanBySteamIdentifier = function(steamIdentifier)
             
             local Parameters = {
                 ['identifier']      = steamIdentifier,
-                ['banned_duration'] = 0,
+                ['banned_until']    = 0,
                 ['banned_reason']   = 'N/A',
                 ['warnings']        = 0,
             }
         
-            exports.ghmattimysql:execute("UPDATE `users` SET `banned_duration` = @banned_duration, `banned_reason` = @banned_reason, `warnings` = @warnings WHERE `identifier` = @identifier", Parameters )
+            exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = @banned_until, `banned_reason` = @banned_reason, `warnings` = @warnings WHERE `identifier` = @identifier", Parameters )
             
         else
             print(string.format('Attempt to un-ban an unknown steam hex identifier: %s', steamIdentifier))
@@ -181,50 +182,38 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
 
     if steamIdentifier then
 
-		exports["ghmattimysql"]:execute("SELECT * FROM `users` WHERE `identifier` = @identifier", { ["@identifier"] = steamIdentifier }, function(result)
-	
-			if (not result) or (result and not result[1]) then
+        exports.ghmattimysql:execute('SELECT `banned_until`, `banned_reason` FROM `users` WHERE `identifier` = @identifier', { ['@identifier'] = steamIdentifier
+        }, function(result)
+
+            if (not result) or (result and not result[1]) then
 				local Parameters = { ['identifier'] = steamIdentifier, ['steamname']  = GetPlayerName(_source) }
 				exports.ghmattimysql:execute("INSERT INTO `users` (`identifier`, `steamname`) VALUES (@identifier, @steamname)", Parameters)
 			end
 
-			if result[1] and result[1].banned_duration ~= 0 then
+            if result[1].banned_until ~= -1 and result[1].banned_until <= os.time() then
+                exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = 0 WHERE `banned_until` = @identifier", { ['identifier'] = steamIdentifier } )
+            end
 
-				local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], result[1].banned_reason) -- permanent
+            if result[1] and result[1].banned_until ~= 0 then
+                -- Still banned
+                local remaining = result[1].banned_until - os.time()
 
-				if result[1].banned_duration ~= -1 then
+                local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], result[1].banned_reason) -- permanent
+
+				if result[1].banned_until ~= -1 then
                     
-                    local durationDisplay = convertMinutesToText(result[1].banned_duration)
+                    local durationDisplay = convertSecondsToText(remaining)
 					reason = string.format(Locales['BAN_REASON_DURATION_DESCRIPTION'], result[1].banned_reason, durationDisplay) -- permanent
 				end
 
 				deferrals.done(reason)
-				return
-			else
+                return
+            else
+                -- Not banned
 				deferrals.done()
-			end
+            end
+        end)
 
-		end)
-
-    end
-
-end)
-
------------------------------------------------------------
---[[ Threads ]]--
------------------------------------------------------------
-Citizen.CreateThread(function()
-
-    while true do
-
-        Wait(60000 * 5)
-
-        exports.ghmattimysql:execute([[
-        UPDATE `users`
-        SET `banned_duration` = GREATEST(`banned_duration` - @banned_duration, 0)
-        WHERE `banned_duration` > 0
-        ]], { ['banned_duration'] = 5 })
-        
     end
 
 end)
