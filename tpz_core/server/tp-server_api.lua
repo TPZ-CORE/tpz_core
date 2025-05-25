@@ -503,6 +503,42 @@ exports('getCoreAPI', function()
         return functions
 
     end
+
+    self.GetPlayerByIdentifier = function(identifier)
+
+        local playerList   = GetPlayers()
+        
+        local playerObject = nil
+        local wait         = true
+
+		for index, player in pairs(playerList) do
+
+            player = tonumber(player)
+            
+            if PlayerData[player] then
+
+                if tostring(PlayerData[player].identifier) == tostring(identifier) then
+
+                    playerObject = exports.tpz_core:getCoreAPI().GetPlayer(player)
+                    wait = false
+                    break
+                end
+
+            end
+
+            if next(playerList, index) == nil then
+                wait = false
+            end
+
+        end
+
+        while wait do
+            Wait(25)
+        end
+
+        return playerObject
+        
+    end
 		
     self.banPlayerBySteamIdentifier = function(steamIdentifier, reason, duration)
         BanPlayerBySteamIdentifier(steamIdentifier, reason, duration)
