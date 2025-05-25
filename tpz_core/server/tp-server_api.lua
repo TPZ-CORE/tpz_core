@@ -124,6 +124,10 @@ exports('getCoreAPI', function()
         functions.setDob = function(day, month, year)
             PlayerData[_source].dob = tostring(day) .. '/' ..  tostring(month) .. '/' ..  tostring(year)
         end
+
+        functions.isDead = function()
+            return PlayerData[_source].isDead
+        end
     
         functions.getDefaultUsedWeaponId = function()
             return PlayerData[_source].default_weapon
