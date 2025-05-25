@@ -504,7 +504,7 @@ exports('getCoreAPI', function()
 
     end
 
-    self.GetPlayerByIdentifier = function(identifier)
+    self.getPlayerByIdentifier = function(identifier)
 
         local playerList   = GetPlayers()
         
