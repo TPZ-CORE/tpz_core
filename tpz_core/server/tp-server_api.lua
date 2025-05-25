@@ -411,6 +411,10 @@ exports('getCoreAPI', function()
         functions.removeItem = function(item, quantity, itemId)
             exports['tpz_inventory']:getInventoryAPI().removeItem(_source, item, quantity, itemId)
         end
+
+        functions.removeItemById = function(itemId)
+            exports['tpz_inventory']:getInventoryAPI().removeItemById(_source, itemId)
+        end
     
         functions.removeWeapon = function(weapon, weaponId)
             exports['tpz_inventory']:getInventoryAPI().removeWeapon(_source, weapon, weaponId)
