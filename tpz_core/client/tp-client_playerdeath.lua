@@ -261,7 +261,6 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
 
   end
 
-  TriggerServerEvent('tpz_core:onPlayerDeathContents')
   TriggerServerEvent('tpz_core:savePlayerDeathStatus', 0)
 
   DeathData.isDead = false
@@ -271,6 +270,8 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
   if currentHospital then -- set entitycoords with heading
     Citizen.InvokeNative(0x203BEFFDBE12E96A, player, currentHospital.x, currentHospital.y, currentHospital.z, currentHospital.heading, false, false, false)
   end
+
+  TriggerServerEvent('tpz_core:onPlayerDeathContents')
 
   Wait(2000)
 
