@@ -8,8 +8,12 @@ exports('getCoreAPI', function()
     self.instancePlayers = function(set)
         TriggerServerEvent("tpz_core:instanceplayers", set)
     end
+
+    self.GetConfig = function()
+        return Config
+    end
         
-    self.getLocale = function(string)
+    self.GetLocales = function(string)
         
         local str = Locales[string]
 
