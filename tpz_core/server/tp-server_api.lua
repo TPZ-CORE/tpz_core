@@ -3,6 +3,21 @@ exports('getCoreAPI', function()
 
     self.addNewCallBack = function(name, cb) TriggerEvent("tpz_core:addNewCallBack", name, cb) end
 
+    self.GetConfig = function()
+        return Config
+    end
+        
+    self.GetLocales = function(string)
+        
+        local str = Locales[string]
+
+        if Locales[string] == nil then 
+            str = "Locale `" .. string .. "` does not seem to exist." 
+        end
+
+        return str
+    end
+
     self.StartsWith = function(inputString, findString)
         return string.sub(inputString, 1, string.len(findString)) == findString
     end
