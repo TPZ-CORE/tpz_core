@@ -842,19 +842,19 @@ exports('getCoreAPI', function()
     end
 
     -- Required when player is joining for first time, those API Functions are used on inventory > tp-server_inventory.lua
-    self.hasStartItems = function() 
+    self.HasStartItems = function() 
         return Config.NewCharacter.StartItems.Enabled
     end
 
-    self.getStartItemsList = function()
+    self.GetStartItemsList = function()
         return Config.NewCharacter.StartItems.Items
     end
 
-    self.hasStartWeapons = function()
+    self.HasStartWeapons = function()
         return Config.NewCharacter.StartWeapons.Enabled
     end
 
-    self.getStartWeaponsList = function()
+    self.GetStartWeaponsList = function()
         return Config.NewCharacter.StartWeapons.Weapons
     end
 
