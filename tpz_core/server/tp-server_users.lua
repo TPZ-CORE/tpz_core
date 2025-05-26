@@ -130,30 +130,6 @@ ResetBanBySteamIdentifier = function(steamIdentifier)
 
 end
 
-SetUserMaxCharacters = function(target, chars)
-    target           = tonumber(target)
-    local identifier = GetSteamID(target)
-
-    exports["ghmattimysql"]:execute("SELECT * FROM `users` WHERE `identifier` = @identifier", { ["@identifier"] = identifier }, function(result)
-
-        if result and result[1] then 
-            
-            local Parameters = {
-                ['identifier']  = identifier,
-                ['max_chars']   = tonumber(chars),
-            }
-        
-            exports.ghmattimysql:execute("UPDATE `users` SET `max_chars` = @max_chars WHERE `identifier` = @identifier", Parameters )
-            
-        else
-            print(string.format('Attempt to set maximum characters on an unknown steam hex identifier: %s', identifier))
-        end
-
-    end)
-
-end
-
-
 AddPlayerWarning = function(target)
 
     target                = tonumber(target)
@@ -184,6 +160,29 @@ ClearPlayerWarnings = function(target)
     local identifier = GetSteamID(target)
 
 	exports.ghmattimysql:execute("UPDATE `users` SET `warnings` = 0 WHERE `identifier` = @identifier", { ['identifier'] = identifier } )
+end
+
+SetUserMaxCharacters = function(target, chars)
+    target           = tonumber(target)
+    local identifier = GetSteamID(target)
+
+    exports["ghmattimysql"]:execute("SELECT * FROM `users` WHERE `identifier` = @identifier", { ["@identifier"] = identifier }, function(result)
+
+        if result and result[1] then 
+            
+            local Parameters = {
+                ['identifier']  = identifier,
+                ['max_chars']   = tonumber(chars),
+            }
+        
+            exports.ghmattimysql:execute("UPDATE `users` SET `max_chars` = @max_chars WHERE `identifier` = @identifier", Parameters )
+            
+        else
+            print(string.format('Attempt to set maximum characters on an unknown steam hex identifier: %s', identifier))
+        end
+
+    end)
+
 end
 
 -----------------------------------------------------------
