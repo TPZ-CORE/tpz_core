@@ -555,11 +555,11 @@ exports('getCoreAPI', function()
         
     end
 		
-    self.banPlayerBySteamIdentifier = function(steamIdentifier, reason, duration)
+    self.BanPlayerBySteamIdentifier = function(steamIdentifier, reason, duration)
         BanPlayerBySteamIdentifier(steamIdentifier, reason, duration)
     end
 
-    self.resetBanBySteamIdentifier = function(steamIdentifier)
+    self.ResetBanBySteamIdentifier = function(steamIdentifier)
         ResetBanBySteamIdentifier(steamIdentifier)
     end
 
