@@ -414,18 +414,4 @@ Config.Commands = {
         DiscordRoles  = { 670899926783361024 },
     },
 
-    ['reloadtargetcharacter'] = { 
-
-        Suggestion = "Perform this command to re-load the character of the selected player id.",
-
-        Webhook = { 
-            Enabled = false, 
-            Url = "", 
-            Color = 10038562,
-        },
-        
-        Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
-    },
-
 }
