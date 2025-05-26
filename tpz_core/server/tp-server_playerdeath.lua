@@ -54,7 +54,7 @@ AddEventHandler("tpz_core:onPlayerDeathContents", function()
     
         Wait(2000)
     
-        xPlayer.saveCharacter() -- we save to prevent any kind of unexpected bugs.
+        SaveCharacter(_source, false) -- we save to prevent any kind of unexpected bugs.
     end
 
 
