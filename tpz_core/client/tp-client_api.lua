@@ -132,6 +132,26 @@ exports('getCoreAPI', function()
     
     end
 
+    self.getNearestVehicles = function(coords, radius)
+        local closestVehicles = {}
+    
+        local vehiclePool = GetGamePool('CVehicle') -- Get the list of vehicles (entities) from the pool
+        for i = 1, #vehiclePool do -- loop through each vehicle (entity)
+    
+            local targetCoords = GetEntityCoords(vehiclePool[i])
+            local coordsDist   = vector3(targetCoords.x, targetCoords.y, targetCoords.z)
+    
+            local distance     = #(coordsDist - coords)
+    
+            if distance < radius then
+                table.insert(closestVehicles, vehiclePool[i])
+            end
+    
+        end
+    
+        return closestVehicles
+    end
+
     self.getClosestPedsNearbyTargetPed = function(targetPedId, targetDistance)
 
         if targetPedId == nil then
