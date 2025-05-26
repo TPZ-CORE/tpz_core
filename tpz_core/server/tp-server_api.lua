@@ -504,7 +504,7 @@ exports('getCoreAPI', function()
 
     end
 
-    self.getPlayerByIdentifier = function(identifier)
+    self.GetPlayerByIdentifier = function(identifier)
 
         local playerList   = GetPlayers()
         
@@ -552,7 +552,7 @@ exports('getCoreAPI', function()
         return GetUserData(source)
     end
 
-    self.setUserMaxCharacters = function(source, chars)
+    self.SetUserMaxCharacters = function(source, chars)
         if (chars == nil or chars <= 1) then
             chars = 1
         end
