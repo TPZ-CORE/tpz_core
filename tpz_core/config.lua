@@ -33,6 +33,8 @@ Config.AdministratorGroups = { 'admin' }
 --[[ General Settings ]]--
 ---------------------------------------------------------------
 
+Config.MaxCharacters = 2 -- By Default! Change manually through users database table. 
+
 Config.SavePlayerLocationTime = 120000 -- in milliseconds, 120.000 = every 2 minutes.
 Config.SavePlayerHealthAndStaminaTime = 300000 -- in milliseconds, 300.000 = 5 minutes.
 Config.DisableAutoAim = true
