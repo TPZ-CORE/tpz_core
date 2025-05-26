@@ -209,8 +209,9 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
         }, function(result)
 
             if (not result) or (result and not result[1]) then
-				local Parameters = { ['identifier'] = steamIdentifier, ['steamname']  = GetPlayerName(_source) }
-				exports.ghmattimysql:execute("INSERT INTO `users` (`identifier`, `steamname`) VALUES (@identifier, @steamname)", Parameters)
+
+				local Parameters = { ['identifier'] = steamIdentifier, ['steamname']  = GetPlayerName(_source), ["max_chars"] = Config.MaxCharacters }
+				exports.ghmattimysql:execute("INSERT INTO `users` (`identifier`, `steamname`, `max_chars` ) VALUES (@identifier, @steamname, @max_chars)", Parameters)
 
                 -- Not banned
 				deferrals.done()
