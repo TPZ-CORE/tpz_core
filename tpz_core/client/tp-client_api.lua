@@ -97,11 +97,11 @@ exports('getCoreAPI', function()
         return CoreFunctions.LoadTexture(hash)
     end
 
-    self.teleportToCoords = function(x, y, z, heading)
+    self.TeleportToCoords = function(x, y, z, heading)
         CoreFunctions.TeleportToCoords(x, y, z, heading)
     end
 
-    self.teleportPedToCoords = function(ped, x, y, z, heading)
+    self.TeleportPedToCoords = function(ped, x, y, z, heading)
         CoreFunctions.TeleportPedToCoords(ped, x, y, z, heading)
     end
 
