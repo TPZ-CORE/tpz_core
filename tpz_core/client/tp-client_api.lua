@@ -157,7 +157,7 @@ exports('getCoreAPI', function()
         return closestPlayers
     end
 
-    self.getNearestVehicles = function(coords, radius)
+    self.GetNearestVehicles = function(coords, radius)
         local closestVehicles = {}
     
         local vehiclePool = GetGamePool('CVehicle') -- Get the list of vehicles (entities) from the pool
