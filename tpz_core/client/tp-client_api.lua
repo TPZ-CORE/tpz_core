@@ -89,14 +89,6 @@ exports('getCoreAPI', function()
         CoreNotifications.NotifyLeftRank(tostring(title), tostring(subtitle), tostring(dict), tostring(icon), tonumber(duration), (tostring(color))) 
     end -- End of notifications
 
-    self.loadModel = function(model)
-        CoreFunctions.LoadModel(model)
-    end
-
-    self.loadTexture = function(hash)
-        return CoreFunctions.LoadTexture(hash)
-    end
-
     self.TeleportToCoords = function(x, y, z, heading)
         CoreFunctions.TeleportToCoords(x, y, z, heading)
     end
