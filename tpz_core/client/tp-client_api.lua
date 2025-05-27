@@ -5,7 +5,7 @@ exports('getCoreAPI', function()
         ClientRPC.Callback.TriggerAsync(name, callback, ...) 
     end
 
-    self.instancePlayers = function(set)
+    self.InstancePlayers = function(set)
         TriggerServerEvent("tpz_core:instanceplayers", set)
     end
 
@@ -119,7 +119,7 @@ exports('getCoreAPI', function()
     -- @param job
     -- @param jobGrade
     -- @param identityId
-    self.getPlayerClientData = function()
+    self.GetPlayerClientData = function()
 
         local finished, foundData = false, nil
 
@@ -177,7 +177,7 @@ exports('getCoreAPI', function()
         return closestVehicles
     end
 
-    self.getClosestPedsNearbyTargetPed = function(targetPedId, targetDistance)
+    self.GetClosestPedsNearbyTargetPed = function(targetPedId, targetDistance)
 
         if targetPedId == nil then
             targetPedId = PlayerPedId()
