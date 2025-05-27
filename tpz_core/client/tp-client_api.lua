@@ -136,7 +136,7 @@ exports('getCoreAPI', function()
     
     end
 
-    self.getNearestPlayers = function(distance)
+    self.GetNearestPlayers = function(distance)
         local closestDistance = distance
         local playerPed = PlayerPedId()
         local coords = GetEntityCoords(playerPed, true, true)
