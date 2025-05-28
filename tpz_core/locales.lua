@@ -25,5 +25,7 @@ Locales = {
     ['HOURS']                                 = "hours",
     ['MINUTE']                                = "minute",
     ['MINUTES']                               = "minutes",
+    ['SECOND']                                = "second",
+    ['SECONDS']                               = "seconds",
     ['AND']                                   = "and",
 }
