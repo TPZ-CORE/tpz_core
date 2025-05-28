@@ -223,11 +223,11 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
 
                 local remaining = result[1].banned_until - os.time()
 
-                if (result[1].banned_until ~= -1) and (remaining < -2) or (os.time() >= result[1].banned_until) then
+                if (result[1].banned_until ~= -1) and (result[1].banned_until ~= 0) and (remaining <= -2) or (os.time() >= result[1].banned_until) then
                     exports.ghmattimysql:execute("UPDATE `users` SET `banned_until` = 0, `banned_reason` = @banned_reason WHERE `identifier` = @identifier", { ['identifier'] = steamIdentifier, ['banned_reason'] = "N/A" } )
                 end
 
-                if result[1] and result[1].banned_until ~= 0 then
+                if (result[1].banned_until == -1) or (remaining > 0 and result[1].banned_until > 0) then
                     -- Still banned
 
                     local reason = string.format(Locales['BAN_REASON_DESCRIPTION'], result[1].banned_reason) -- permanent
