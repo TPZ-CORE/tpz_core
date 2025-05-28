@@ -31,6 +31,10 @@ local function convertSecondsToText(seconds)
         table.insert(parts, mins .. " " .. (mins ~= 1 and Locales['MINUTES'] or Locales['MINUTE']))
     end
 
+	if seconds < 60 then
+		table.insert(parts, seconds .. " " .. (seconds ~= 1 and Locales['SECONDS'] or Locales['SECOND']))
+	end
+
     return table.concat(parts, " " .. Locales['AND'] .. " ")
 end
 
