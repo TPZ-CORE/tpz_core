@@ -79,12 +79,6 @@ AddEventHandler('playerDropped', function (reason)
     SaveCharacter(_source, true)
 end)
 
-
-RegisterServerEvent("tpz_core:server:d:t")
-AddEventHandler("tpz_core:server:d:t", function()
-    print('used devtools')
-end)
-
 -----------------------------------------------------------
 --[[ Server Restart  ]]--
 -----------------------------------------------------------
