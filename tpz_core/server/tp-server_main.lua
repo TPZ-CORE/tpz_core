@@ -62,10 +62,10 @@ AddEventHandler('onResourceStart', function(resourceName)
 
     local webhookData = Config.DiscordWebhooking.URL['SERVER_STARTUP']
 
-    if webhookData.enabled then
+    if webhookData.Enabled then
         local title   = webhookData.title
         local message = webhookData.message
-        SendToDiscordWebhook(webhookData.url, title, message, webhookData.color)
+        SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
     end
 
 end)
