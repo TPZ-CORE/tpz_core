@@ -168,6 +168,7 @@ end
 
 SetUserMaxCharacters = function(target, chars)
     target           = tonumber(target)
+    chars            = tonumber(chars)
     local identifier = GetSteamID(target)
 
     if chars < 1 then -- We prevent lower then (1) in case someone attempts it. 
