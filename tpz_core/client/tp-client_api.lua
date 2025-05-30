@@ -28,6 +28,26 @@ exports('getCoreAPI', function()
         DisplayProgressBar(time, desciption, cb)
     end
 
+    self.LoadModel = function(inputModel)
+        local model = GetHashKey(inputModel)
+ 
+        RequestModel(model)
+ 
+        while not HasModelLoaded(model) do RequestModel(model)
+            Citizen.Wait(10)
+        end
+    end
+
+    self.RemoveEntityProperly = function(entity, objectHash)
+        DeleteEntity(entity)
+        DeletePed(entity)
+        SetEntityAsNoLongerNeeded(entity)
+
+        if objectHash then
+            SetModelAsNoLongerNeeded(objectHash)
+        end
+    end
+
     -- Notifications
     self.NotifyLeft = function(firsttext, secondtext, dict, icon, duration, color)
         CoreNotifications.NotifyLeft(tostring(firsttext), tostring(secondtext), tostring(dict), tostring(icon), tonumber(duration), (tostring(color) or "COLOR_WHITE"))
