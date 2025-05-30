@@ -37,6 +37,8 @@ such as webhooks, notifications and many more, including all the commands relate
 | tpto [source]                              | tpzcore.tpto          | Teleports your player to the selected player source.                  |
 | tphere [source]                            | tpzcore.tphere        | Brings the selected player source to your player.                     |
 | tpm                                         | tpzcore.tpm          | Teleports your player to the selected marked map point.              |
+| id                                         | n/a                   | Displays your player character online source ID through a notification.             |
+| job                                         | n/a          | Displays your player character job and job grade through a notification.         |
 
 - The ace permission: `tpzcore.all` Gives permissioms to all commands and actions (FOR ALL OFFICIAL PUBLISHED FREE SCRIPTS).
 
