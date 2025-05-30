@@ -25,7 +25,8 @@ such as webhooks, notifications and many more, including all the commands relate
 
 | Command                                    | Ace Permission        | Description                                                           |
 |--------------------------------------------|-----------------------|-----------------------------------------------------------------------|
-| setgroup [source] [group]                  | tpzcore.setgroup      | Sets the selected player source group role (admin, mod, etc).         |
+| setmaxchars [source] [chars]               | tpzcore.setmaxchars   | Sets the selected player source the total maximum characters to create.  |
+| setgroup [source] [group]                   | tpzcore.setgroup        | Sets the selected player source group role (admin, mod, etc).         |
 | setjob [source] [job] [grade]              | tpzcore.setjob        | Sets the selected player source job and grade.                        |
 | addaccount [source] [account] [amount]     | tpzcore.addaccount    | Adds an amount of money (account) to the selected player source.      |
 | removeaccount [source] [account] [amount]  | tpzcore.removeaccount | Removes an amount of money (account) from the selected player source. |
