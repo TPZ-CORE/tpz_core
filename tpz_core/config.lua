@@ -259,6 +259,20 @@ Config.Commands = {
         Suggestion = "Perform this command to clear the ped tasks.",
     },
 
+    ['setmaxchars'] = { 
+
+        Suggestion = "Perform this command to set the max characters of the selected user.",
+
+        Webhook = { 
+            Enabled = false, 
+            Url = "", 
+            Color = 10038562,
+        },
+        
+        Groups  = { 'admin', 'mod' },
+        DiscordRoles  = { 670899926783361024 },
+    },
+
     ['setgroup'] = { 
 
         Suggestion = "Perform this command to set the group of the selected user.",
