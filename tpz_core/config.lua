@@ -242,9 +242,8 @@ Config.DiscordWebhooking = {
     Footer = "© Titans Productions",
 
     URL = {
-        ['SERVER_STARTUP']       = { enabled = false, url = "", title = "[Server Name]", message = "📣 The server has been succesffully started. Join us now!", color = 10038562},
-
-        ['CREATE_NEW_CHARACTER'] = { Enabled = false,  url = "", color = 10038562},
+        ['SERVER_STARTUP']       = { Enabled = false, Url = "", Title = "[Server Name]", Description = "📣 The server has been succesffully started. Join us now!", color = 10038562},
+        ['CREATE_NEW_CHARACTER'] = { Enabled = false, Url = "", Color = 10038562},
     },
 
 }
