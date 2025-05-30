@@ -84,20 +84,15 @@ AddEventHandler('tpz_core:requestCharacters', function(refresh)
     local _source = source
     local sid     = GetSteamID(_source)
 
-    local isPlayedBefore     = false
-    local isFinishedChecking = false
+    local isPlayedBefore = false
 
     exports["ghmattimysql"]:execute("SELECT * FROM characters WHERE identifier = @identifier", { ["@identifier"] = sid }, function(result)
 
-        isPlayedBefore     = result[1]
-        isFinishedChecking = true
+        isPlayedBefore = result[1]
 
-        while not isFinishedChecking do
-            Wait(250)
-        end
+        Wait(250)
     
         if sid and not isPlayedBefore then
-        
             print("(!) The following player ( " .. GetPlayerName(_source) .. " ) does not have any characters, we open the character creator.")
             TriggerClientEvent("tpz_characters:loadCharacterSelection", _source, 1, {} )
         end
@@ -135,19 +130,15 @@ AddEventHandler('tpz_core:onPlayerJoined', function()
     local _source = source
     local sid     = GetSteamID(_source)
 
-    local isPlayedBefore     = false
-    local isFinishedChecking = false
+    local isPlayedBefore = false
 
     print("The following player ( " .. GetPlayerName(_source) .. " ) is joining the game.")
 
     exports["ghmattimysql"]:execute("SELECT * FROM characters WHERE identifier = @identifier", { ["@identifier"] = sid }, function(result)
 
-        isPlayedBefore     = result[1]
-        isFinishedChecking = true
-
-        while not isFinishedChecking do
-            Wait(250)
-        end
+        isPlayedBefore = result[1]
+        
+        Wait(250)
     
         if sid and not isPlayedBefore then
         
