@@ -170,6 +170,10 @@ SetUserMaxCharacters = function(target, chars)
     target           = tonumber(target)
     local identifier = GetSteamID(target)
 
+    if chars < 1 then -- We prevent lower then (1) in case someone attempts it. 
+        chars = 1
+    end
+
     exports["ghmattimysql"]:execute("SELECT * FROM `users` WHERE `identifier` = @identifier", { ["@identifier"] = identifier }, function(result)
 
         if result and result[1] then 
