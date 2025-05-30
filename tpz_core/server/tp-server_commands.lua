@@ -126,7 +126,7 @@ RegisterCommand("setmaxchars", function(source, args, rawCommand)
             return
         end
 
-        local webhookData = Config.Commands['setjob'].Webhook
+        local webhookData = Config.Commands['setmaxchars'].Webhook
 
         if webhookData.Enabled then
             local title   = "📋` /setmaxchars ".. target .. " " .. chars .. "`"
