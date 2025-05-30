@@ -65,8 +65,7 @@ AddEventHandler('onResourceStart', function(resourceName)
     if webhookData.enabled then
         local title   = webhookData.title
         local message = webhookData.message
-
-        TriggerEvent("tpz_core:sendToDiscord", webhookData.url, title, message, webhookData.color)
+        SendToDiscordWebhook(webhookData.url, title, message, webhookData.color)
     end
 
 end)
