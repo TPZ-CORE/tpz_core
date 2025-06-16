@@ -333,6 +333,8 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
     TriggerEvent('tpz_core:isPlayerRespawned')
   end
 
+  TriggerServerEvent("tpz_core:requestCharacterSkin") -- requests skin reload.
+
 end
 
 StartDeathCam = function()
