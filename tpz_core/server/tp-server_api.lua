@@ -120,6 +120,29 @@ exports('getCoreAPI', function()
             return PlayerData[_source] ~= nil
         end
     
+        functions.getTotalCharactersNum = function()
+
+            local await = true
+            local currentChars = 0
+
+            exports["ghmattimysql"]:execute("SELECT * FROM characters WHERE identifier = @identifier", { ["@identifier"] = PlayerData[_source].identifier }, function(result)
+
+                for index, results in pairs (result) do
+                    currentChars = currentChars + 1
+                end
+
+                await = false
+
+            end
+
+            while await do 
+                Wait(50)
+            end
+
+            return currentChars
+
+        end
+
         functions.getIdentifier = function()
             return PlayerData[_source].identifier
         end
