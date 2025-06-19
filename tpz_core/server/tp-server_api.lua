@@ -403,6 +403,10 @@ exports('getCoreAPI', function()
             return AddPlayerWarning(_source) -- returns a boolean, if true the player is banned for reaching the maximum warnings.
         end
 
+        functions.setWarnings = function(warnings)
+            return SetPlayerWarnings(_source, warnings) -- returns a boolean, if true the player is banned for reaching the maximum warnings.
+        end
+
         functions.clearPlayerWarnings = function()
             ClearPlayerWarnings(_source)
         end    
