@@ -159,6 +159,28 @@ AddPlayerWarning = function(target)
 
 end
 
+SetPlayerWarnings = function(target, warnings)
+
+    target                = tonumber(target)
+    local identifier      = GetSteamID(target)
+	local targetSteamName = GetPlayerName(target)
+
+	exports.ghmattimysql:execute("UPDATE `users` SET `warnings` = @warnings WHERE `identifier` = @identifier", { ['identifier'] = identifier, ["warnings"] = warnings } )
+
+    local isBanned = false
+
+	if warnings >= Config.MaxPlayerWarnings then
+	  
+	  print("The following player: " .. targetSteamName .. " with the identifier: " .. identifier .. " has been permanently banned by reaching the maximum warnings.")
+	  BanPlayerBySource(target, Locales['BAN_REASON_REACHED_MAXIMUM_WARNINGS_DESCRIPTION'])
+
+	  isBanned = true
+	end
+
+	return isBanned
+
+end
+
 ClearPlayerWarnings = function(target)
     target = tonumber(target)
     local identifier = GetSteamID(target)
