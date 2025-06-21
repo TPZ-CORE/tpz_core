@@ -64,7 +64,7 @@ RegisterCommand("setinventoryweight", function(source, args, rawCommand)
             return
         end
 
-        local webhookData = Config.Commands['setgroup'].Webhook
+        local webhookData = Config.Commands['setinventoryweight'].Webhook
 
         if webhookData.Enabled then
             local title   = "📋` /setinventoryweight ".. target .. " " .. weight .. "`"
