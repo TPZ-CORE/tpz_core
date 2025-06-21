@@ -33,7 +33,9 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData, 
             black_money = Config.NewCharacter.Accounts[2] 
     })
 
-    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, skinData['model'], SkinData, job, 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0") 
+    local defaultInventoryCapacity = exports["tpz_inventory"].getInventoryAPI().getConfig().InventoryDefaultWeight
+
+    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, skinData['model'], SkinData, job, 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity)
 
     local Parameters = {
         ['identifier']          = tostring(sid),
@@ -57,11 +59,12 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData, 
         ['staminaInner']        = 100,
         ['coords']              = json.encode(newCoords),
         ['isdead']              = 0,
+        ['inventory_capacity']  = defaultInventoryCapacity,
     }
 
     Citizen.CreateThread(function()
     
-        exports.ghmattimysql:execute("INSERT INTO characters (`identifier`, `steamname`, `group`, `firstname`, `lastname`, `gender`, `dob`, `skin`, `skinComp`, `job`, `jobGrade`,`accounts`, `identity_id`, `healthOuter`, `healthInner`, `staminaOuter`, `staminaInner`, `coords`, `isdead`) VALUES (@identifier, @steamname, @group, @firstname, @lastname, @gender, @dob, @skin, @skinComp, @job, @jobGrade, @accounts, @identity_id, @healthOuter, @healthInner, @staminaOuter, @staminaInner, @coords, @isdead)", Parameters)
+        exports.ghmattimysql:execute("INSERT INTO characters (`identifier`, `steamname`, `group`, `firstname`, `lastname`, `gender`, `dob`, `skin`, `skinComp`, `job`, `jobGrade`,`accounts`, `identity_id`, `healthOuter`, `healthInner`, `staminaOuter`, `staminaInner`, `coords`, `isdead`, `inventory_capacity` ) VALUES (@identifier, @steamname, @group, @firstname, @lastname, @gender, @dob, @skin, @skinComp, @job, @jobGrade, @accounts, @identity_id, @healthOuter, @healthInner, @staminaOuter, @staminaInner, @coords, @isdead, @inventory_capacity)", Parameters)
         
         Wait(2000)
 
@@ -81,7 +84,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData, 
 
 end
 
-function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skin, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapon)
+function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skin, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapon, inventoryCapacity)
 
     PlayerData[source]            = {}
 
@@ -125,6 +128,7 @@ function Character(source, identifier, charIdentifier, group, firstname, lastnam
     data.isdead                   = tonumber(isdead)
 
     data.default_weapon           = default_weapon
+    data.inventory_capacity       = inventoryCapacity
 end
 
 function SaveCharacter(_source, cb)
@@ -150,10 +154,11 @@ function SaveCharacter(_source, cb)
 
             ['identity_id']        = data.identity_id,
             ['default_weapon']     = data.default_weapon,
+            ['inventort_capacity'] = data.inventory_capacity,
         }
     
         Citizen.CreateThread(function()
-            exports.ghmattimysql:execute("UPDATE `characters` SET `firstname` = @firstname, `lastname` = @lastname, `dob` = @dob, `group` = @group, `job` = @job, `jobGrade` = @jobGrade, `accounts` = @accounts, `coords` = @coords, `identity_id` = @identity_id, `default_weapon` = @default_weapon WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
+            exports.ghmattimysql:execute("UPDATE `characters` SET `firstname` = @firstname, `lastname` = @lastname, `dob` = @dob, `group` = @group, `job` = @job, `jobGrade` = @jobGrade, `accounts` = @accounts, `coords` = @coords, `identity_id` = @identity_id, `default_weapon` = @default_weapon, `inventory_capacity` = @inventory_capacity WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
         end)
 
         if cb then
