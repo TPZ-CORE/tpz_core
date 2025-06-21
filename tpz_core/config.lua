@@ -277,6 +277,7 @@ Config.Commands = {
     ['setinventoryweight'] = { 
 
         Suggestion = "Perform this command to set the maximum inventory weight capacity of the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Weight", help = 'Weight' } },
 
         Webhook = { 
             Enabled = false, 
@@ -291,6 +292,7 @@ Config.Commands = {
     ['addinventoryweight'] = { 
 
         Suggestion = "Perform this command to add am extra inventory weight capacity on the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Weight", help = 'Weight' } },
 
         Webhook = { 
             Enabled = false, 
@@ -305,6 +307,7 @@ Config.Commands = {
     ['setgroup'] = { 
 
         Suggestion = "Perform this command to set the group of the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Group", help = 'Group' } },
 
         Webhook = { 
             Enabled = false, 
@@ -319,6 +322,7 @@ Config.Commands = {
     ['setjob'] = { 
 
         Suggestion = "Perform this command to set the job of the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Job", help = 'Job Name' } },
 
         Webhook = { 
             Enabled = false, 
@@ -333,6 +337,7 @@ Config.Commands = {
     ['addaccount'] = { 
 
         Suggestion = "Perform this command to add account money on the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Account Type", help = "Types : ( [0]: Cash | [1]: Gold | [2]: Black Money )" }, { name = "Amount", help = 'Amount' } },
 
         Webhook = { 
             Enabled = false, 
@@ -347,6 +352,7 @@ Config.Commands = {
     ['removeaccount'] = { 
 
         Suggestion = "Perform this command to remove account money from the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Account Type", help = "Types : ( [0]: Cash | [1]: Gold | [2]: Black Money )" }, { name = "Amount", help = 'Amount' } },
 
         Webhook = { 
             Enabled = false, 
@@ -361,6 +367,7 @@ Config.Commands = {
     ['revive'] = { 
 
         Suggestion = "Perform this command to revive a player.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' } },
 
         Webhook = { 
             Enabled = false, 
@@ -375,6 +382,7 @@ Config.Commands = {
     ['kill'] = { 
 
         Suggestion = "Perform this command to kill a player.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' } },
 
         Webhook = { 
             Enabled = false, 
@@ -389,6 +397,7 @@ Config.Commands = {
     ['tpm'] = { 
 
         Suggestion = "Perform this command to teleport on the marked coords.",
+        CommandHelpTips = false,
 
         Webhook = { 
             Enabled = false, 
@@ -403,6 +412,7 @@ Config.Commands = {
     ['tpcoords'] = { 
 
         Suggestion = "Perform this command to teleport on the selected coords.",
+        CommandHelpTips = { { name = "X", help = '(X) Coords' }, { name = "Y", help = '(Y) Coords' }, { name = "Z", help = '(Z) Coords' } },
 
         Webhook = { 
             Enabled = false, 
@@ -417,6 +427,7 @@ Config.Commands = {
     ['tpto'] = { 
 
         Suggestion = "Perform this command to teleport on the selected player coords.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' } },
 
         Webhook = { 
             Enabled = false, 
@@ -432,6 +443,7 @@ Config.Commands = {
     ['tphere'] = { 
 
         Suggestion = "Perform this command to teleport a player on your coords.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' } },
 
         Webhook = { 
             Enabled = false, 
@@ -446,6 +458,7 @@ Config.Commands = {
     ['heal'] = { 
 
         Suggestion = "Perform this command to heal the selected player id.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' } },
 
         Webhook = { 
             Enabled = false, 
