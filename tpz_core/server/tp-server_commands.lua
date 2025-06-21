@@ -30,6 +30,73 @@ RegisterCommand("job", function(source, args, rawCommand)
 
 end, false)
 
+
+-- setinventoryweight, add
+
+--[[ Set Inventory Weight Command ]] --
+RegisterCommand("setinventoryweight", function(source, args, rawCommand)
+   local _source = source
+   
+   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setinventoryweight", _source)
+   local hasAdministratorPermissions = hasAcePermissions
+
+   if not hasAcePermissions then
+      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setinventoryweight'].Groups, Config.Commands['setinventoryweight'].DiscordRoles)
+   end
+
+   if hasAcePermissions or hasAdministratorPermissions then
+
+        local xPlayer = PlayerData[_source]
+
+        local target, weight = args[1], args[2]
+
+        local identifier      = xPlayer.identifier
+        local ip              = GetPlayerEndpoint(_source)
+
+        local discordIdentity = GetIdentity(_source, "discord")
+        local discordId       = string.sub(discordIdentity, 9)
+
+        local steamName       = GetPlayerName(_source)
+        local targetSteamName = GetPlayerName(tonumber(target))
+
+        if weight == nil or weight == '' or tonumber(weight) == nil then
+            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+            return
+        end
+
+        local webhookData = Config.Commands['setgroup'].Webhook
+
+        if webhookData.Enabled then
+            local title   = "📋` /setinventoryweight ".. target .. " " .. weight .. "`"
+            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Inventory Weight Command`"
+            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+        end
+
+        if targetSteamName then
+            local tPlayer    = PlayerData[tonumber(target)]
+
+            if tPlayer then
+                tPlayer.inventory_capacity = weight
+                SaveCharacter(tonumber(target))
+
+                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, inventory weight set to: %s", target, weight), 3000)
+                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("Your inventory weight has been set to: %s", weight), 3000)
+            else
+                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            end
+
+        else
+            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+        end
+
+    else
+        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+    end
+
+end, false)
+
+
+
 --[[ Set Group Command ]] --
 RegisterCommand("setgroup", function(source, args, rawCommand)
    local _source = source
