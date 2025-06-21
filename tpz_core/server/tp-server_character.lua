@@ -154,7 +154,7 @@ function SaveCharacter(_source, cb)
 
             ['identity_id']        = data.identity_id,
             ['default_weapon']     = data.default_weapon,
-            ['inventort_capacity'] = data.inventory_capacity,
+            ['inventory_capacity'] = data.inventory_capacity,
         }
     
         Citizen.CreateThread(function()
