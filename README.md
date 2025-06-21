@@ -27,7 +27,7 @@ such as webhooks, notifications and many more, including all the commands relate
 |--------------------------------------------|-----------------------|-----------------------------------------------------------------------|
 | setmaxchars [source] [chars]               | tpzcore.setmaxchars   | Sets the selected player source the total maximum characters to create.  |
 | setinventoryweight [source] [weight]        | tpzcore.setinventoryweight | Sets the maximum inventory weight capacity of the selected user.
-| addinventoryweight [source] [weight].       | tpzcore.addinventoryweight | Adds extra inventory weight capacity on the selected user. |
+| addinventoryweight [source] [weight]        | tpzcore.addinventoryweight | Adds extra inventory weight capacity on the selected user. |
 | setgroup [source] [group]                   | tpzcore.setgroup        | Sets the selected player source group role (admin, mod, etc).         |
 | setjob [source] [job] [grade]              | tpzcore.setjob        | Sets the selected player source job and grade.                        |
 | addaccount [source] [account] [amount]     | tpzcore.addaccount    | Adds an amount of money (account) to the selected player source.      |
