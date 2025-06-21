@@ -938,9 +938,19 @@ end, false)
 
 RegisterServerEvent("tpz_core:registerChatSuggestions")
 AddEventHandler("tpz_core:registerChatSuggestions", function()
-    local _source = source
+   local _source = source
 
-    local xPlayer    = PlayerData[_source]
+   for name, command in pairs (Config.Commands) do
+      local displayTip = command.CommandHelpTips 
+
+      if not displayTip then
+         displayTip = {}
+      end
+
+      TriggerClientEvent("chat:addSuggestion", _source, "/" .. name, command.Suggestion, command.CommandHelpTips )
+
+  end
+
 
     -- Clear Tasks
     TriggerEvent("chat:addSuggestion", "/cleartasks", "Use this command to clear all the player tasks (Including Animations).")
