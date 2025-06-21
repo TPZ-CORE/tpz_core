@@ -186,7 +186,7 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
             jobGrade        = xPlayer.jobGrade,
             identityId      = xPlayer.identity_id,
             defaultWeapon   = xPlayer.default_weapon,
-            inventoryWeight = xPlayer.inventory_capacity,
+            inventoryMaxWeight = xPlayer.inventory_capacity,
         } 
     ) 
 end)    
