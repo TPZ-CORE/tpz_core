@@ -272,6 +272,34 @@ Config.Commands = {
         DiscordRoles  = { 670899926783361024 },
     },
 
+    ['setinventoryweight'] = { 
+
+        Suggestion = "Perform this command to set the maximum inventory weight capacity of the selected user.",
+
+        Webhook = { 
+            Enabled = false, 
+            Url = "", 
+            Color = 10038562,
+        },
+        
+        Groups  = { 'admin', 'mod' },
+        DiscordRoles  = { 670899926783361024 },
+    },
+
+    ['addinventoryweight'] = { 
+
+        Suggestion = "Perform this command to add am extra inventory weight capacity on the selected user.",
+
+        Webhook = { 
+            Enabled = false, 
+            Url = "", 
+            Color = 10038562,
+        },
+        
+        Groups  = { 'admin', 'mod' },
+        DiscordRoles  = { 670899926783361024 },
+    },
+
     ['setgroup'] = { 
 
         Suggestion = "Perform this command to set the group of the selected user.",
