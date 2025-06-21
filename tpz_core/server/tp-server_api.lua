@@ -143,6 +143,18 @@ exports('getCoreAPI', function()
 
         end
 
+        functions.getInventoryWeightCapacity = function()
+            return PlayerData[_source].inventory_capacity
+        end
+
+        functions.setInventoryWeightCapacity = function(weight)
+            PlayerData[_source].inventory_capacity = weight
+        end
+
+        functions.addInventoryWeightCapacity = function(weight)
+            PlayerData[_source].inventory_capacity = PlayerData[_source].inventory_capacity + weight
+        end
+
         functions.getIdentifier = function()
             return PlayerData[_source].identifier
         end
