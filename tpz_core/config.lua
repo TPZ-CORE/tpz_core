@@ -256,11 +256,13 @@ Config.Commands = {
 
     ['cleartasks'] = { 
         Suggestion = "Perform this command to clear the ped tasks.",
+        CommandHelpTips = false,
     },
 
     ['setmaxchars'] = { 
 
         Suggestion = "Perform this command to set the max characters of the selected user.",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Chars", help = 'Max Chars (>= 1)' } },
 
         Webhook = { 
             Enabled = false, 
