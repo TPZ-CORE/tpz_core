@@ -35,7 +35,7 @@ onSelectedCharacter = function(tSource, charId, newChar, firstname, lastname, do
 
             local decodedCoords = json.decode(res.coords)
 
-            Character(_source, sid, charId, res.group, res.firstname,res.lastname,res.gender,res.dob,res.skin,res.skinComp,res.job,res.jobGrade, res.accounts, res.identity_id, res.healthOuter,res.healthInner,res.staminaOuter,res.staminaInner,decodedCoords, tonumber(res.isdead), tostring(res.default_weapon)) 
+            Character(_source, sid, charId, res.group, res.firstname,res.lastname,res.gender,res.dob,res.skin,res.skinComp,res.job,res.jobGrade, res.accounts, res.identity_id, res.healthOuter,res.healthInner,res.staminaOuter,res.staminaInner,decodedCoords, tonumber(res.isdead), tostring(res.default_weapon), res.inventory_capacity) 
             Wait(1000)
 
             local data         = PlayerData[_source]
