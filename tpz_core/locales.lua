@@ -12,7 +12,9 @@ Locales = {
 
     ['INVALID_SYNTAX']                        = "~e~ERROR: Use Correct Syntax",
 
-    
+    ['ACCOUNT_TYPE_DOES_NOT_EXIST']           = "~e~Error: The specified account type (%s) does not exist.",
+    ['COMMAND_NOT_PERMITTED_ON_CONSOLE']      = '^1This command is not permitted to be used on console.^0',
+
     ['BAN_REASON']                            = "You have been permanently banned for the following reason: %s.",
     ['BAN_REASON_DESCRIPTION']                = "You have been permanently banned for the following reason: %s\nDuration Left: Banned Permanently.",
     ['BAN_REASON_DURATION_DESCRIPTION']       = "You have been permanently banned for the following reason: %s\nDuration Left: %s",
@@ -25,7 +27,5 @@ Locales = {
     ['HOURS']                                 = "hours",
     ['MINUTE']                                = "minute",
     ['MINUTES']                               = "minutes",
-    ['SECOND']                                = "second",
-    ['SECONDS']                               = "seconds",
     ['AND']                                   = "and",
 }
