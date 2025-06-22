@@ -493,7 +493,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
         TriggerEvent('tpz_core:sendBottomTipNotification', message, duration)
 
     elseif source == 0 then -- CONSOLE - NO DURATION SUPPORT OR TYPE.
-        print(message .. '^0')
+        print(message:gsub("~e~", '^1') .. '^0')
 
     elseif source and source ~= 0 then -- PLAYER OBJECT
         TriggerClientEvent('tpz_core:sendBottomTipNotification', source, message, duration)
