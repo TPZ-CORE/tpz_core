@@ -7,9 +7,15 @@
 --[[ Player ID Command ]] --
 RegisterCommand("id", function(source, args, rawCommand)
     local _source = source
+
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
+
     local xPlayer = PlayerData[_source]
     
-    if xPlayer == nil or _source == 0 then
+    if xPlayer == nil then
         return
     end
 
@@ -20,9 +26,15 @@ end, false)
 --[[ Player Job Command ]] --
 RegisterCommand("job", function(source, args, rawCommand)
     local _source = source
+
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
+
     local xPlayer = PlayerData[_source]
 
-    if xPlayer == nil or _source == 0 then
+    if xPlayer == nil then
         return
     end
 
