@@ -9,11 +9,11 @@ RegisterCommand("id", function(source, args, rawCommand)
     local _source = source
     local xPlayer = PlayerData[_source]
     
-    if xPlayer == nil then
+    if xPlayer == nil or _source == 0 then
         return
     end
 
-    TriggerClientEvent('tpz_core:sendBottomTipNotification', _source, string.format(Locales['PLAYER_ID_COMMAND'], xPlayer.source), 3000)
+    SendCommandNotification(_source, string.format(Locales['PLAYER_ID_COMMAND'], xPlayer.source), 'info', 3000)
 
 end, false)
 
@@ -22,50 +22,69 @@ RegisterCommand("job", function(source, args, rawCommand)
     local _source = source
     local xPlayer = PlayerData[_source]
 
-    if xPlayer == nil then
+    if xPlayer == nil or _source == 0 then
         return
     end
 
-    TriggerClientEvent('tpz_core:sendBottomTipNotification', _source, string.format(Locales['PLAYER_JOB_COMMAND'], xPlayer.job, xPlayer.jobGrade), 3000)
-
+    SendCommandNotification(_source, string.format(Locales['PLAYER_JOB_COMMAND'], xPlayer.job, xPlayer.jobGrade), 'info', 3000)
+   
 end, false)
 
 --[[ Add Inventory Weight Command ]] --
 RegisterCommand("addinventoryweight", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
+    local hasPermissions, await = false, true
    
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.addinventoryweight", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    if _source ~= 0 then
+        hasPermissions = HasPermissionsByAce("tpzcore.addinventoryweight", _source)
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['addinventoryweight'].Groups, Config.Commands['addinventoryweight'].DiscordRoles)
-   end
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['addinventoryweight'].Groups, Config.Commands['addinventoryweight'].DiscordRoles)
+        end
+    
+        await = false
 
-   if hasAcePermissions or hasAdministratorPermissions then
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
 
-        local xPlayer = PlayerData[_source]
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target, weight = args[1], args[2]
 
-        local identifier      = xPlayer.identifier
-        local ip              = GetPlayerEndpoint(_source)
-
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if weight == nil or weight == '' or tonumber(weight) == nil then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil or weight == nil or weight == '' or tonumber(weight) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['addinventoryweight'].Webhook
 
         if webhookData.Enabled then
             local title   = "📋` /addinventoryweight ".. target .. " " .. weight .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Add Inventory Weight Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Add Inventory Weight Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -76,58 +95,81 @@ RegisterCommand("addinventoryweight", function(source, args, rawCommand)
                 tPlayer.inventory_capacity = tPlayer.inventory_capacity + weight
                 SaveCharacter(tonumber(target))
 
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, has now extra inventory weight.", target), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), "An extra weight added on your inventory", 3000)
+                SendCommandNotification(_source, string.format("The following ID: %s, has now extra inventory weight.", target), 'success', 3000)
+                SendCommandNotification(tonumber(target), "An extra weight added on your inventory", 'info', 3000)
+
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
 --[[ Set Inventory Weight Command ]] --
 RegisterCommand("setinventoryweight", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
    
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setinventoryweight", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    local hasPermissions, await = false, true
+   
+    if _source ~= 0 then
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setinventoryweight'].Groups, Config.Commands['setinventoryweight'].DiscordRoles)
-   end
+        hasPermissions = HasPermissionsByAce("tpzcore.setinventoryweight", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['setinventoryweight'].Groups, Config.Commands['setinventoryweight'].DiscordRoles)
+        end
 
-        local xPlayer = PlayerData[_source]
+        await = false
+
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target, weight = args[1], args[2]
 
-        local identifier      = xPlayer.identifier
-        local ip              = GetPlayerEndpoint(_source)
-
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if weight == nil or weight == '' or tonumber(weight) == nil then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil or weight == nil or weight == '' or tonumber(weight) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['setinventoryweight'].Webhook
 
         if webhookData.Enabled then
+            
             local title   = "📋` /setinventoryweight ".. target .. " " .. weight .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Inventory Weight Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Inventory Weight Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -138,58 +180,165 @@ RegisterCommand("setinventoryweight", function(source, args, rawCommand)
                 tPlayer.inventory_capacity = weight
                 SaveCharacter(tonumber(target))
 
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, inventory weight set to: %s", target, weight), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("Your inventory weight has been set to: %s", weight), 3000)
+                SendCommandNotification(_source, string.format("The following ID: %s, inventory weight set to: %s", target, weight), 'success', 3000)
+                SendCommandNotification(tonumber(target), string.format("Your inventory weight has been set to: %s", weight), 'info', 3000)
+
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
+
+--[[ Set Max Chars Command ]] --
+RegisterCommand("setmaxchars", function(source, args, rawCommand)
+    local _source = source
+   
+    local hasPermissions, await = false, true
+    
+    if _source ~= 0 then
+    
+        hasPermissions  = HasPermissionsByAce("tpzcore.setmaxchars", _source)
+
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['setmaxchars'].Groups, Config.Commands['setmaxchars'].DiscordRoles)
+        end
+
+        await = false
+
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+    
+    if hasPermissions then
+
+        local target, chars = args[1], args[2]
+
+        if target == nil or target == '' or tonumber(target) == nil or chars == nil or chars == '' or tonumber(chars) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
+            return
+        end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
+
+        local webhookData = Config.Commands['setmaxchars'].Webhook
+
+        if webhookData.Enabled then
+            local title   = "📋` /setmaxchars ".. target .. " " .. chars .. "`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+    
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+            
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Max Characters Command`"
+           
+            end
+
+            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+        end
+
+        if targetSteamName then
+            local tPlayer = PlayerData[tonumber(target)]
+
+            if tPlayer then
+                
+                SetUserMaxCharacters(tonumber(target), chars)
+
+                SendCommandNotification(_source, string.format("The following ID: %s, max characters set to: %s", target, chars), 'success', 3000)
+                SendCommandNotification(tonumber(target), string.format("Your max characters has been set to: %s", chars), 'info', 3000)
+
+            else
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
+            end
+
+        else
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
+        end
+    else
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
+    end
+    
+end, false)
+
 --[[ Set Group Command ]] --
 RegisterCommand("setgroup", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
    
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setgroup", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    local hasPermissions, await = false, true
+    
+    if _source ~= 0 then
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setgroup'].Groups, Config.Commands['setgroup'].DiscordRoles)
-   end
+        hasPermissions = HasPermissionsByAce("tpzcore.setgroup", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['setgroup'].Groups, Config.Commands['setgroup'].DiscordRoles)
+        end
 
-        local xPlayer = PlayerData[_source]
+        await = false
+
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+    
+    if hasPermissions then
 
         local target, newgroup = args[1], args[2]
 
-        local identifier      = xPlayer.identifier
-        local ip              = GetPlayerEndpoint(_source)
-
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if newgroup == nil or newgroup == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil or newgroup == nil or newgroup == '' then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['setgroup'].Webhook
 
         if webhookData.Enabled then
             local title   = "📋` /setgroup ".. target .. " " .. newgroup .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Group Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+    
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Group Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -203,120 +352,79 @@ RegisterCommand("setgroup", function(source, args, rawCommand)
 
                 TriggerClientEvent("tpz_core:getPlayerGroup", tonumber(target), tPlayer.group )
 
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, group set to: %s", target, newgroup), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("Your group has been set to: %s", newgroup), 3000)
+                SendCommandNotification(_source, string.format("The following ID: %s, group set to: %s", target, newgroup), 'success', 3000)
+                SendCommandNotification(tonumber(target), string.format("Your group has been set to: %s", newgroup), 'info', 3000)
+
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
-end, false)
-
---[[ Set Max Chars Command ]] --
-RegisterCommand("setmaxchars", function(source, args, rawCommand)
-   local _source = source
-   
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setmaxchars", _source)
-   local hasAdministratorPermissions = hasAcePermissions
-
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setmaxchars'].Groups, Config.Commands['setmaxchars'].DiscordRoles)
-   end
-
-   if hasAcePermissions or hasAdministratorPermissions then
-
-        local xPlayer = PlayerData[_source]
-
-        local target, chars = args[1], args[2]
-
-        local identifier      = xPlayer.identifier
-        local ip              = GetPlayerEndpoint(_source)
-
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if chars == nil or chars == '' or tonumber(chars) == nil then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
-            return
-        end
-
-        local webhookData = Config.Commands['setmaxchars'].Webhook
-
-        if webhookData.Enabled then
-            local title   = "📋` /setmaxchars ".. target .. " " .. chars .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Max Characters Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
-        end
-
-        if targetSteamName then
-            local tPlayer    = PlayerData[tonumber(target)]
-
-            if tPlayer then
-                
-                SetUserMaxCharacters(tonumber(target), chars)
-
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, max characters set to: %s", target, chars), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("Your max characters has been set to: %s", chars), 3000)
-
-            else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
-            end
-
-        else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
-        end
-    else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
-    end
-    
 end, false)
 
 --[[ Set Job Command ]] --
 RegisterCommand("setjob", function(source, args, rawCommand)
-   local _source = source
-   
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.setjob", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    local _source = source
+    local hasPermissions, await = false, true
+     
+    if _source ~= 0 then
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['setjob'].Groups, Config.Commands['setjob'].DiscordRoles)
-   end
+        hasPermissions = HasPermissionsByAce("tpzcore.setjob", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['setjob'].Groups, Config.Commands['setjob'].DiscordRoles)
+        end
 
-        local xPlayer = PlayerData[_source]
+        await = false
+
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target, newjob, newGrade = args[1], args[2], args[3]
 
-        local identifier      = xPlayer.identifier
-        local ip              = GetPlayerEndpoint(_source)
-
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if newjob == nil or newjob == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil or newjob == nil or newjob == '' or newGrade == nil or newGrade == '' or tonumber(newGrade) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['setjob'].Webhook
 
         if webhookData.Enabled then
             local title   = "📋` /setjob ".. target .. " " .. newjob .. " " .. newGrade .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Job Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+    
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+            
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Job Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -333,61 +441,80 @@ RegisterCommand("setjob", function(source, args, rawCommand)
                 end
 
                 --SaveCharacter(tonumber(target))
-
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, job set to: %s (grade: %s)", target, newjob, newGrade), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("Your job has been set to: %s (grade: %s)", newjob, newGrade), 3000)
-
                 TriggerClientEvent("tpz_core:getPlayerJob", tonumber(target), { job = tPlayer.job, jobGrade = tPlayer.jobGrade })
+
+                SendCommandNotification(_source, string.format("The following ID: %s, job set to: %s (grade: %s)", target, newjob, newGrade), 'success', 3000)
+                SendCommandNotification(tonumber(target), string.format("Your job has been set to: %s (grade: %s)", newjob, newGrade), 'info', 3000)
+
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
     
 end, false)
 
 --[[ Add Account Money Command ]] --
 RegisterCommand("addaccount", function(source, args, rawCommand)
-   local _source = source
-   
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.addaccount", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    local _source = source
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['addaccount'].Groups, Config.Commands['addaccount'].DiscordRoles)
-   end
+    local hasPermissions, await = false, true
 
-   if hasAcePermissions or hasAdministratorPermissions then
+    if _source ~= 0 then
 
-        local xPlayer = PlayerData[_source]
+        hasPermissions = HasPermissionsByAce("tpzcore.addaccount", _source)
+
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['addaccount'].Groups, Config.Commands['addaccount'].DiscordRoles)
+        end
+    
+        await = false
+
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+    
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target, moneytype, quantity = args[1], args[2], args[3]
 
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' or moneytype == nil or moneytype == '' or quantity == nil or quantity == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil or moneytype == nil or moneytype == '' or tonumber(moneytype) == nil or quantity == nil or quantity == '' or tonumber(quantity) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['addaccount'].Webhook
     
         if webhookData.Enabled then
             local title   = "📋` /addaccount ".. target .. " " .. moneytype .. " " .. quantity .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Add Account Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Add Account Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -400,68 +527,83 @@ RegisterCommand("addaccount", function(source, args, rawCommand)
                     tPlayer.account[tonumber(moneytype)] = tPlayer.account[tonumber(moneytype)] + tonumber(quantity)
                 
                     --SaveCharacter(tonumber(target))
-    
-                    TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("The following ID: %s, successfully received: %s (account-type: %s)", target, quantity, moneytype), 3000)
-                    TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("You just received %s (account-type: %s)", quantity, moneytype), 3000)
+
+                    SendCommandNotification(_source, string.format("The following ID: %s, successfully received: %s (account-type: %s)", target, quantity, moneytype), 'success', 3000)
+                    SendCommandNotification(tonumber(target), string.format("You just received %s (account-type: %s)", quantity, moneytype), 'info', 3000)
 
                 else
-
-                    TriggerClientEvent('tpz_core:sendRightTipNotification', _source, "~e~Error: This currency type (" .. moneytype .. ") does not exist.", 3000)
-
+                    SendCommandNotification(_source, string.format(Locales['ACCOUNT_TYPE_DOES_NOT_EXIST'], moneytype), 'error', 3000)
                 end
 
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
-
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
         
 end, false)
 
 --[[ Remove Account Money Command ]] --
 RegisterCommand("removeaccount", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
    
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.removeaccount", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    local hasPermissions, await = false, true
+ 
+    if _source ~= 0 then
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['removeaccount'].Groups, Config.Commands['removeaccount'].DiscordRoles)
-   end
+        hasPermissions = HasPermissionsByAce("tpzcore.removeaccount", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['removeaccount'].Groups, Config.Commands['removeaccount'].DiscordRoles)
+        end
 
-        local xPlayer = PlayerData[_source]
+        await = false
+
+    else 
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target, moneytype, quantity = args[1], args[2], args[3]
 
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' or moneytype == nil or moneytype == '' or quantity == nil or quantity == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil or moneytype == nil or moneytype == '' or tonumber(moneytype) == nil or quantity == nil or quantity == '' or tonumber(quantity) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+        
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['removeaccount'].Webhook
     
         if webhookData.Enabled then
             local title   = "📋` /removeaccount ".. target .. " " .. moneytype .. " " .. quantity .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Remove Account Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Remove Account Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -485,64 +627,174 @@ RegisterCommand("removeaccount", function(source, args, rawCommand)
 
                     --SaveCharacter(tonumber(target))
 
-                    TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("Successfully removed from the following ID: %s, %s (account-type: %s)", target, quantity, moneytype), 3000)
-                    TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), string.format("%s (account-type: %s) removed from your account.", quantity, moneytype), 3000)
-        
+                    SendCommandNotification(_source, string.format("Successfully removed from the following ID: %s, %s (account-type: %s)", target, quantity, moneytype), 'success', 3000)
+                    SendCommandNotification(tonumber(target), string.format("%s (account-type: %s) removed from your account.", quantity, moneytype), 'info', 3000)
+
                 else
-                    TriggerClientEvent('tpz_core:sendRightTipNotification', _source, "~e~Error: This currency type (" .. moneytype .. ") does not exist.", 3000)
+                    SendCommandNotification(_source, string.format(Locales['ACCOUNT_TYPE_DOES_NOT_EXIST'], moneytype), 'error', 3000)
                 end
+
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
     
 end, false)
 
+--[[ Heal Player Command ]] --
+RegisterCommand("heal", function(source, args, rawCommand)
+    local _source = source
+
+    local hasPermissions, await = false, true
+ 
+    if _source ~= 0 then
+
+        hasPermissions = HasPermissionsByAce("tpzcore.heal", _source)
+
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['heal'].Groups, Config.Commands['heal'].DiscordRoles)
+        end
+ 
+        await = false
+
+    else 
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
+ 
+        local target = args[1]
+
+        if target == nil or target == '' or tonumber(target) == nil then
+           SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
+           return
+        end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
+
+        local webhookData = Config.Commands['heal'].Webhook
+     
+        if webhookData.Enabled then
+            local title   = "📋` /heal " .. target .. "`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Heal Command`"
+            
+            end
+
+            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+        end
+
+        if targetSteamName then
+            local tPlayer = PlayerData[tonumber(target)]
+
+            if tPlayer then
+
+                TriggerClientEvent('tpz_core:healPlayer', tonumber(target))
+
+                -- tpz_metabolism.
+                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "HUNGER", "add", 100)
+                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "THIRST", "add", 100)
+
+                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
+                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
+                
+                SendCommandNotification(_source, string.format("You successfully healed a player with the following ID: %s.", target), 'success', 3000)
+                SendCommandNotification(tonumber(target), "You have been healed.", 'info', 3000)
+
+            else
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
+            end
+
+        else
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
+        end
+ 
+    else
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
+    end
+ 
+ end, false)
 
 --[[ Revive Player Command ]] --
 RegisterCommand("revive", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
+   
+    local hasPermissions, await = false, true
+ 
+    if _source ~= 0 then
 
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.revive", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+        hasPermissions = HasPermissionsByAce("tpzcore.revive", _source)
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['revive'].Groups, Config.Commands['revive'].DiscordRoles)
-   end
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['revive'].Groups, Config.Commands['revive'].DiscordRoles)
+        end
 
-   if hasAcePermissions or hasAdministratorPermissions then
+        await = false
 
-        local xPlayer = PlayerData[_source]
+    else 
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target = args[1]
 
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['revive'].Webhook
     
         if webhookData.Enabled then
             local title   = "📋` /revive ".. target .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Clear Inventory Command`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Revive Command`"
+
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -560,61 +812,81 @@ RegisterCommand("revive", function(source, args, rawCommand)
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
 
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("You successfully revived a player with the following ID: %s.", target), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), "You have been revived.", 3000)
+                SendCommandNotification(_source, string.format("You successfully revived a player with the following ID: %s.", target), 'success', 3000)
+                SendCommandNotification(tonumber(target), "You have been revived.", 'info', 3000)
 
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
-
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
 --[[ Kill Player Command ]] --
 RegisterCommand("kill", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
 
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.kill", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    local hasPermissions, await = false, true
+  
+    if _source ~= 0 then
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['kill'].Groups, Config.Commands['kill'].DiscordRoles)
-   end
+        hasPermissions = HasPermissionsByAce("tpzcore.kill", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['kill'].Groups, Config.Commands['kill'].DiscordRoles)
+         end
 
-        local xPlayer = PlayerData[_source]
+        await = false
+
+    else 
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+
+    if hasPermissions then
 
         local target = args[1]
-
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+ 
+        if target == nil or target == '' or tonumber(target) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['kill'].Webhook
     
         if webhookData.Enabled then
             local title   = "📋` /kill " .. target .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Clear Inventory Command`"
+
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Kill Command`"
+            end
+
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -625,37 +897,39 @@ RegisterCommand("kill", function(source, args, rawCommand)
 
                 TriggerClientEvent('tpz_core:applyLethalDamage', tonumber(target), true)
 
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("You successfully killed a player with the following ID: %s.", target), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), "You have been killed.", 3000)
+                SendCommandNotification(_source, string.format("You successfully killed a player with the following ID: %s.", target), 'success', 3000)
+                SendCommandNotification(tonumber(target), "You have been killed by an administrator.", 'info', 3000)
 
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
-
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
 --[[ TPM Command ]] --
 RegisterCommand("tpm", function(source)
-   local _source = source
+    local _source = source
 
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tpm", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpm'].Groups, Config.Commands['tpm'].DiscordRoles)
-   end
+    local hasPermissions = HasPermissionsByAce("tpzcore.tpm", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
-
+    if not hasPermissions then
+        hasPermissions = HasAdministratorPermissions(_source, Config.Commands['tpm'].Groups, Config.Commands['tpm'].DiscordRoles)
+    end
+ 
+    if hasPermissions then
 
         local xPlayer         = PlayerData[_source]
 
@@ -677,23 +951,27 @@ RegisterCommand("tpm", function(source)
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
 --[[ Teleport Coords Command ]] --
 RegisterCommand("tpcoords", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
     
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tpcoords", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
+    
+    local hasPermissions = HasPermissionsByAce("tpzcore.tpcoords", _source)
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpcoords'].Groups, Config.Commands['tpcoords'].DiscordRoles)
-   end
-
-   if hasAcePermissions or hasAdministratorPermissions then
+    if not hasPermissions then
+        hasPermissions = HasAdministratorPermissions(_source, Config.Commands['tpcoords'].Groups, Config.Commands['tpcoords'].DiscordRoles)
+    end
+ 
+    if hasPermissions then
 
         local xPlayer = PlayerData[_source]
 
@@ -709,7 +987,7 @@ RegisterCommand("tpcoords", function(source, args, rawCommand)
         local steamName       = GetPlayerName(_source)
 
         if coordsX == nil or coordsX == '' or tonumber(coordsX) == nil or coordsY == nil or coordsY == '' or tonumber(coordsY) == nil or coordsZ == nil or coordsZ == '' or tonumber(coordsZ) == nil then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
 
@@ -720,54 +998,58 @@ RegisterCommand("tpcoords", function(source, args, rawCommand)
         if webhookData.Enabled then
             local title   = "📋` /tpcoords { x = " .. coordsX .. ", y = " .. coordsY .. ", z = " .. coordsZ .. " }" .. "`"
 
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Clear Inventory Command`"
+            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Teleport To Coords Command`"
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
 --[[ Teleport To Player Command ]] --
 RegisterCommand("tpto", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
 
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tpto", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
+   
+    local hasPermissions = HasPermissionsByAce("tpzcore.tpto", _source)
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tpto'].Groups, Config.Commands['tpto'].DiscordRoles)
-   end
+    if not hasPermissions then
+        hasPermissions = HasAdministratorPermissions(_source, Config.Commands['tpto'].Groups, Config.Commands['tpto'].DiscordRoles)
+    end
 
-   if hasAcePermissions or hasAdministratorPermissions then
-
-
-        local xPlayer = PlayerData[_source]
+    if hasPermissions then
 
         local target = args[1]
 
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['tpto'].Webhook
     
         if webhookData.Enabled then
+            local xPlayer         = PlayerData[_source]
+
+            local identifier      = xPlayer.identifier
+
+            local ip              = GetPlayerEndpoint(_source)
+        
+            local discordIdentity = GetIdentity(_source, "discord")
+            local discordId       = string.sub(discordIdentity, 9)
+    
+            local steamName       = GetPlayerName(_source)
+
             local title   = "📋` /tpto " .. target .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Clear Inventory Command`"
+            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Teleport To Command`"
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -779,57 +1061,62 @@ RegisterCommand("tpto", function(source, args, rawCommand)
                 local toCoords = GetEntityCoords(GetPlayerPed( tonumber(target) ))
                -- SetEntityCoords(GetPlayerPed(_source), toCoords)
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
 
-
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     end
 
 end, false)
 
 --[[ Teleport Player Here Command ]] --
 RegisterCommand("tphere", function(source, args, rawCommand)
-   local _source = source
+    local _source = source
 
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.tphere", _source)
-   local hasAdministratorPermissions = hasAcePermissions
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
 
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['tphere'].Groups, Config.Commands['tphere'].DiscordRoles)
-   end
+    local hasPermissions = HasPermissionsByAce("tpzcore.tphere", _source)
 
-   if hasAcePermissions or hasAdministratorPermissions then
+    if not hasPermissions then
+        hasPermissions = HasAdministratorPermissions(_source, Config.Commands['tphere'].Groups, Config.Commands['tphere'].DiscordRoles)
+    end
 
-        local xPlayer = PlayerData[_source]
+    if hasPermissions then
 
         local target = args[1]
 
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
+        if target == nil or target == '' or tonumber(target) == nil then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['tphere'].Webhook
     
         if webhookData.Enabled then
+
+            local xPlayer = PlayerData[_source]
+
+            local identifier      = xPlayer.identifier
+
+            local ip              = GetPlayerEndpoint(_source)
+        
+            local discordIdentity = GetIdentity(_source, "discord")
+            local discordId       = string.sub(discordIdentity, 9)
+    
+            local steamName       = GetPlayerName(_source)
+
             local title   = "📋` /tphere " .. target .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Clear Inventory Command`"
+            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Bring Command`"
             SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
@@ -845,89 +1132,16 @@ RegisterCommand("tphere", function(source, args, rawCommand)
                 SetEntityCoords(GetPlayerPed( tonumber(target) ), toCoords)
 
             else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
             end
 
         else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
         end
-
 
     else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
-    end
-
-end, false)
-
-
---[[ Heal Player Command ]] --
-RegisterCommand("heal", function(source, args, rawCommand)
-   local _source = source
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
     
-   local hasAcePermissions           = HasPermissionsByAce("tpzcore.heal", _source)
-   local hasAdministratorPermissions = hasAcePermissions
-
-   if not hasAcePermissions then
-      hasAdministratorPermissions = HasAdministratorPermissions(_source, Config.Commands['heal'].Groups, Config.Commands['heal'].DiscordRoles)
-   end
-
-   if hasAcePermissions or hasAdministratorPermissions then
-
-        local xPlayer = PlayerData[_source]
-
-        local target = args[1]
-
-        local identifier      = xPlayer.identifier
-
-        local ip              = GetPlayerEndpoint(_source)
-    
-        local discordIdentity = GetIdentity(_source, "discord")
-        local discordId       = string.sub(discordIdentity, 9)
-
-        local steamName       = GetPlayerName(_source)
-        local targetSteamName = GetPlayerName(tonumber(target))
-
-        if target == nil or target == '' then
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['INVALID_SYNTAX'], 3000)
-            return
-        end
-
-        local webhookData = Config.Commands['heal'].Webhook
-    
-        if webhookData.Enabled then
-            local title   = "📋` /heal " .. target .. "`"
-            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Clear Inventory Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
-        end
-
-        if targetSteamName then
-            local tPlayer = PlayerData[tonumber(target)]
-
-            if tPlayer then
-
-                TriggerClientEvent('tpz_core:healPlayer', tonumber(target))
-
-                -- tpz_metabolism.
-                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "HUNGER", "add", 100)
-                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "THIRST", "add", 100)
-
-                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
-                TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
-                
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, string.format("You successfully healed a player with the following ID: %s.", target), 3000)
-                TriggerClientEvent('tpz_core:sendRightTipNotification', tonumber(target), "You have been healed.", 3000)
-
-            else
-                TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
-            end
-
-        else
-            TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['PLAYER_NOT_ONLINE'], 3000)
-        end
-
-
-    else
-        TriggerClientEvent('tpz_core:sendRightTipNotification', _source, Locales['NO_PERMISSIONS'], 3000)
     end
 
 end, false)
