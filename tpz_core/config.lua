@@ -322,7 +322,7 @@ Config.Commands = {
     ['setjob'] = { 
 
         Suggestion = "Perform this command to set the job of the selected user.",
-        CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Job", help = 'Job Name' } },
+                CommandHelpTips = { { name = "Id", help = 'Player ID' }, { name = "Job", help = 'Job Name' }, { name = "Grade", help = 'Job Grade' } },
 
         Webhook = { 
             Enabled = false, 
