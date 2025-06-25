@@ -271,6 +271,8 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
     Citizen.InvokeNative(0x203BEFFDBE12E96A, player, currentHospital.x, currentHospital.y, currentHospital.z, currentHospital.heading, false, false, false)
   end
 
+    TriggerServerEvent("tpz_core:requestCharacterSkin") -- requests skin reload.
+  
   Wait(2000)
 
   if Config.OnPlayerDeath.RagdollOnResurrection and not hasBeenRevived then
@@ -332,8 +334,6 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
   if not hasBeenRevived then
     TriggerEvent('tpz_core:isPlayerRespawned')
   end
-
-  TriggerServerEvent("tpz_core:requestCharacterSkin") -- requests skin reload.
 
 end
 
