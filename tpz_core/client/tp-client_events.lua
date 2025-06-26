@@ -11,7 +11,7 @@ AddEventHandler("tpz_core:isPlayerReady", function(newChar)
         while true do
             Wait(60000 * Config.SavePlayerData)
 
-            if PlayerPedId() == nil or PlayerId() == nil then
+            if PlayerPedId() == nil or PlayerPedId() and not DoesEntityExist(PlayerPedId()) then
                 break
             end
 
