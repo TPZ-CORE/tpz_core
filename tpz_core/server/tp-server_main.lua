@@ -153,6 +153,28 @@ if Config.RestartManagement.Enabled then
 
 end
 
+Citizen.CreateThread(function()
+
+    while true do
+        Wait(60000 * 10)
+
+        local playerList = GetPlayers()
+
+		for index, player in pairs(playerList) do
+
+            player = tonumber(player)
+            
+            if PlayerData[player] then
+
+                SaveCharacter(_source, true)
+            end
+
+        end
+
+    end
+
+end)
+
 -----------------------------------------------------------
 --[[ Player Data Callback  ]]--
 -----------------------------------------------------------
