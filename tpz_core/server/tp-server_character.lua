@@ -210,6 +210,12 @@ AddEventHandler('tpz_core:savePlayerCurrentLocation', function(coords)
     SavePlayerLocationInDatabase(_source, coords)
 end)
 
+RegisterServerEvent('tpz_core:saveCharacter')
+AddEventHandler('tpz_core:saveCharacter', function()
+    local _source = source
+    SaveCharacter(_source, false)
+end)
+
 RegisterServerEvent('tpz_core:savePlayerDeathStatus')
 AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
     local _source = source
