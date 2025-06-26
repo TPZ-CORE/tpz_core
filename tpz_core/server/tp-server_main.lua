@@ -153,31 +153,6 @@ if Config.RestartManagement.Enabled then
 
 end
 
-Citizen.CreateThread(function()
-
-    while true do
-        Wait(60000 * Config.SavePlayerData)
-
-        local playerList = GetPlayers()
-
-		for index, player in pairs(playerList) do
-
-            player = tonumber(player)
-            
-            if PlayerData[player] then
-                SaveCharacter(_source, false)
-
-                -- adding wait so it does not update instantly, 
-                -- it will take 1 minute on 100 players to update
-                Wait(500) 
-            end
-
-        end
-
-    end
-
-end)
-
 -----------------------------------------------------------
 --[[ Player Data Callback  ]]--
 -----------------------------------------------------------
