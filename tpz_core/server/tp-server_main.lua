@@ -166,6 +166,10 @@ Citizen.CreateThread(function()
             
             if PlayerData[player] then
                 SaveCharacter(_source, false)
+
+                -- adding wait so it does not update instantly, 
+                -- it will take 1 minute on 100 players to update
+                Wait(500) 
             end
 
         end
