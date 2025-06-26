@@ -156,7 +156,7 @@ end
 Citizen.CreateThread(function()
 
     while true do
-        Wait(60000 * 10)
+        Wait(60000 * Config.SavePlayerData)
 
         local playerList = GetPlayers()
 
@@ -165,8 +165,7 @@ Citizen.CreateThread(function()
             player = tonumber(player)
             
             if PlayerData[player] then
-
-                SaveCharacter(_source, true)
+                SaveCharacter(_source, false)
             end
 
         end
