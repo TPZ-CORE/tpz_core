@@ -7,6 +7,19 @@ AddEventHandler("tpz_core:isPlayerReady", function(newChar)
         AnimpostfxPlay("Title_Gen_FewHoursLater")
     end
 
+    CreateThread(function()
+        while true do
+            Wait(60000 * Config.SavePlayerData)
+
+            if PlayerPedId() == nil or PlayerId() == nil then
+                break
+            end
+
+            TriggerServerEvent("tpz_core:tpz_core:saveCharacter")
+        end
+
+    end)
+
 end)
 
 
