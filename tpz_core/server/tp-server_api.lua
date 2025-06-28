@@ -421,6 +421,10 @@ exports('getCoreAPI', function()
         functions.saveCharacter = function()
             SaveCharacter(_source)
         end
+
+        functions.reloadCharacterSkin = function()
+            TriggerEvent("tpz_core:requestCharacterSkin", _source)
+        end
     
         functions.suicide = function()
             TriggerClientEvent('tpz_core:applyLethalDamage', _source)
