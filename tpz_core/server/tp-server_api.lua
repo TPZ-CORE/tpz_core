@@ -423,7 +423,7 @@ exports('getCoreAPI', function()
         end
 
         functions.reloadCharacterSkin = function()
-            TriggerEvent("tpz_core:requestCharacterSkin", _source)
+            TriggerEvent("tpz_characters:requestCharacterSkin", _source)
         end
     
         functions.suicide = function()
