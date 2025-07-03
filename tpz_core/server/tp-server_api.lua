@@ -48,6 +48,10 @@ exports('getCoreAPI', function()
 
     end
 
+    self.GetWebhookUrl = function(webhook)
+        return GetWebhookUrlByName(webhook)
+    end
+
     -- Notifications
     self.NotifyLeft = function(source, firsttext, secondtext, dict, icon, duration, color)
         TriggerClientEvent('tpz_core:sendLeftNotification', source, firsttext, secondtext, dict, icon, duration, color)
