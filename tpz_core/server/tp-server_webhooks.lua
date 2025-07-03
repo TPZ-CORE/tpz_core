@@ -3,7 +3,7 @@
 ----------------------------------------------
 
 local WEBHOOKS = {
-    ["TPZ_MINING"] = "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    ["TPZ_MINING"] = "xxxxxxxxxxxxxxxxxxxxxxxxxxx", -- this is an example.
 }
 
 ----------------------------------------------
