@@ -176,7 +176,8 @@ Config.OnPlayerDeath = {
 
     -- RedM Keys List: https://github.com/mja00/redm-shit/blob/master/nuiweaponspawner/config.lua
     PromptKeys = {
-        ['RESPAWN']  = {enabled = true,  label = "Respawn",  key = 0xC7B5340A,  holdMode = 5000,  cooldown = 600 }, -- Cooldown: To display (Enable) the Respawn Button (in seconds).
+        ['RESPAWN']  = {enabled = true,  label = "Respawn",  key = 0xC7B5340A,  holdMode = 5000, cooldown = 600 }, -- Cooldown: To display (Enable) the Respawn Button (in seconds).
+        ['ALERT']    = {enabled = true,  label = "Alert",    key = 0xE30CD707,  holdMode = 5000, cooldown = 180, Jobs = { "medic" } }, -- Cooldown: To be able to alert the medics again (in seconds).
     },
 
     BottomPromptLabelDisplays = {
