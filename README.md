@@ -46,6 +46,9 @@ such as webhooks, notifications and many more, including all the commands relate
 
 - All the commands and descriptions and permissions are fully configurable.
 
+## Webhooks
+
+You want your webhooks to be fully-protected by DevTools or Injections? You better checkout `server\tp-server_webhooks.lua` file which allows you to add webhooks and get them through the API for using them to other scripts. 
 ## Support
 
 For more information and support related to our Framework you can contact us on our discord: https://discord.gg/Ms7TR9VsAB
