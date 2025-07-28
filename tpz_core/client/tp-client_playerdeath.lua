@@ -1,5 +1,5 @@
 
-local DeathData = { cooldown = 0, isDead = false, cameraHandler = nil, cameraAngleY = 0.0, cameraAngleZ = 0.0}
+local DeathData = { cooldown = 0, cooldown_alert = 0, isDead = false, cameraHandler = nil, cameraAngleY = 0.0, cameraAngleZ = 0.0}
 
 local Prompts       = GetRandomIntInRange(0, 0xffffff)
 local PromptsList   = {}
@@ -73,8 +73,9 @@ AddEventHandler('tpz_core:resurrectPlayer', function(cb)
 
   ResurrectPlayer(nil, cb)
 
-  DeathData.cooldown      = 0
-  DeathData.isDead        = false
+  DeathData.cooldown       = 0
+  DeathData.cooldown_alert = 0
+  DeathData.isDead         = false
 end)
 
 RegisterNetEvent('tpz_core:applyLethalDamage')
@@ -84,7 +85,8 @@ end)
 
 RegisterNetEvent('tpz_core:onPlayerRespawn')
 AddEventHandler('tpz_core:onPlayerRespawn', function()
-  DeathData.cooldown = 0
+  DeathData.cooldown       = 0
+  DeathData.cooldown_alert = 0
 end)
 
 
@@ -150,14 +152,13 @@ Citizen.CreateThread(function()
         for index, prompt in pairs(PromptsList) do
 
           if prompt.action == "RESPAWN" then
+            local state = DeathData.cooldown <= 0 and 1 or 0
+            PromptSetEnabled(prompt.prompt, state)
+          end
 
-            if DeathData.cooldown <= 0 then
-              PromptSetEnabled(prompt.prompt, 1)
-            else
-
-              PromptSetEnabled(prompt.prompt, 0)
-            end
-
+          if prompt.action == "ALERT" then
+            local state = DeathData.cooldown_alert <= 0 and 1 or 0
+            PromptSetEnabled(prompt.prompt, state)
           end
 
           if PromptHasHoldModeCompleted(prompt.prompt) then
@@ -169,6 +170,10 @@ Citizen.CreateThread(function()
               Wait(3000)
               OnPlayerRespawn()
 
+            elseif prompt.action == "ALERT" then
+              TriggerServerEvent("tpz_core:alert_death")
+
+              DeathData.cooldown_alert = 10
             end
 
             Wait(2000)
@@ -201,6 +206,16 @@ Citizen.CreateThread(function ()
 
       if DeathData.cooldown <= 0 then
         DeathData.cooldown = 0
+      end
+
+    end
+
+    if DeathData.cooldown_alert > 0 then
+
+      DeathData.cooldown_alert = DeathData.cooldown_alert - 1
+
+      if DeathData.cooldown_alert <= 0 then
+        DeathData.cooldown_alert = 0
       end
 
     end
