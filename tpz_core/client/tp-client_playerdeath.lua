@@ -171,7 +171,7 @@ Citizen.CreateThread(function()
               OnPlayerRespawn()
 
             elseif prompt.action == "ALERT" then
-              TriggerServerEvent("tpz_core:alert_death")
+              TriggerServerEvent("tpz_medics:server:alert")
               DeathData.cooldown_alert = Config.OnPlayerDeath.PromptKeys["ALERT"].cooldown
             end
 
