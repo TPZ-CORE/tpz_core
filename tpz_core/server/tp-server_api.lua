@@ -890,6 +890,34 @@ exports('getCoreAPI', function()
 
     end
 
+    self.TriggerClientEventByJobs = function(eventName, data, jobs) 
+
+        local players = GetPlayers()
+
+        for _, playerId in ipairs(players) do
+
+            playerId = tonumber(playerId)
+
+            if PlayerData[playerId] then
+
+                local playerJob = PlayerData[playerId].job
+
+                for index, job in pairs (jobs) do 
+
+                    if job == playerJob then
+                        TriggerClientEvent(eventName, playerId, data)
+                    end
+
+                end
+
+            end
+
+        end
+
+
+    end
+
+
     self.SendToDiscord = function(webhook, title, description, color)
         SendToDiscordWebhook(webhook, title, description, color)
     end
