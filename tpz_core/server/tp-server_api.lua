@@ -942,22 +942,5 @@ exports('getCoreAPI', function()
         SendToDiscordWebhook(webhook, title, message, color)
     end
 
-    -- Required when player is joining for first time, those API Functions are used on inventory > tp-server_inventory.lua
-    self.HasStartItems = function() 
-        return Config.NewCharacter.StartItems.Enabled
-    end
-
-    self.GetStartItemsList = function()
-        return Config.NewCharacter.StartItems.Items
-    end
-
-    self.HasStartWeapons = function()
-        return Config.NewCharacter.StartWeapons.Enabled
-    end
-
-    self.GetStartWeaponsList = function()
-        return Config.NewCharacter.StartWeapons.Weapons
-    end
-
     return self
 end)
