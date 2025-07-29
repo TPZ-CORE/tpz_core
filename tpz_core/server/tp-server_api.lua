@@ -863,6 +863,7 @@ exports('getCoreAPI', function()
 
         -- Update nearby players immediately
         for _, playerId in ipairs(nearbyPlayers) do
+            playerId = tonumber(playerId)
             TriggerClientEvent(eventName, playerId, data)
         end
 
@@ -881,6 +882,7 @@ exports('getCoreAPI', function()
     
             -- Send the event to each player in the batch
             for _, playerId in ipairs(farPlayers) do
+                playerId = tonumber(playerId)
                 TriggerClientEvent(eventName, playerId, data)
                 -- Wait for the specified delay before the next update loop.
                 Citizen.Wait(delay)
@@ -896,6 +898,7 @@ exports('getCoreAPI', function()
 
         -- Update nearby players immediately
         for _, playerId in ipairs(nearbyPlayers) do
+            playerId = tonumber(playerId)
             TriggerClientEvent(eventName, playerId, data)
         end
 
