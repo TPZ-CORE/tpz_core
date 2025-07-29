@@ -5,7 +5,7 @@
 local WEBHOOKS = {
     ["TPZ_MINING"]     = "xxxxxxxxxxxxxxxxxxxxxxxxxxx", -- this is an example.
     ["TPZ_LUMBERJACK"] = "xxxxxxxxxxxxxxxxxxxxxxxxxxx", -- this is an example.
-    ["DEVTOOLS"]        = "xxxxxxxxxxxxxxxxxxxxxxxxxxx",  -- this is an example.
+    ["DEVTOOLS"]       = "xxxxxxxxxxxxxxxxxxxxxxxxxxx",  -- this is an example.
 }
 
 ----------------------------------------------
