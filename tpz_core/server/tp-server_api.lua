@@ -890,6 +890,17 @@ exports('getCoreAPI', function()
 
     end
 
+    self.TriggerClientEventToCoordsOnly = function(eventName, data, coords, radius)
+        -- Separate players into nearby and far based on the radius
+        local nearbyPlayers, farPlayers = self.GetSeparatedPlayersByDistance(coords, radius)
+
+        -- Update nearby players immediately
+        for _, playerId in ipairs(nearbyPlayers) do
+            TriggerClientEvent(eventName, playerId, data)
+        end
+
+    end
+
     self.TriggerClientEventByJobs = function(eventName, data, jobs) 
 
         local players = GetPlayers()
