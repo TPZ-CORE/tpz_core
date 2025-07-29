@@ -118,7 +118,7 @@ Config.NewCharacter = {
 
     -- The given items when player spawned for first time.
     StartItems = {
-        Enabled = false, -- Set to false if you don't want to give any items.
+        Enabled = true, -- Set to false if you don't want to give any items.
  
         -- @Parameters : Item Name, Item Quantity
         Items = {
@@ -129,7 +129,7 @@ Config.NewCharacter = {
 
     -- The given weapons when player spawned for first time.
     StartWeapons = {
-        Enabled = false, -- Set to false if you don't want to give any weapons.
+        Enabled = true, -- Set to false if you don't want to give any weapons.
             
         -- @Parameters : Weapon Name
         Weapons = {
