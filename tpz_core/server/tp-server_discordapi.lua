@@ -69,7 +69,7 @@ function GetUserDiscordRoles(user, guild --[[optional]])
           end
           return roles
       else
-          print("ERROR: Discord was not connected to user's RedM account...")
+          print("WARNING: Discord was not connected to user's RedM account...")
           return false
       end
       return false
