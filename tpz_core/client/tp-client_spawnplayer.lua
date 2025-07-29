@@ -176,10 +176,6 @@ CreateThread(function()
             local staminaData = { outer = ocs, inner = innerStamina }
 
             TriggerServerEvent("tpz_core:savePlayerStatus", healthData, staminaData)
-
-           -- TriggerServerEvent("vorp:SaveHealth", health, innerHealth)
-           -- Wait(5)
-           -- TriggerServerEvent("vorp:SaveStamina", ocs, innerStamina)
         end
     end
 end)
