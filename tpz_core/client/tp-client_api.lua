@@ -110,11 +110,11 @@ exports('getCoreAPI', function()
     end -- End of notifications
 
     self.TeleportToCoords = function(x, y, z, heading)
-        CoreFunctions.TeleportToCoords(x, y, z, heading)
+        GetFunctions().TeleportToCoords(x, y, z, heading)
     end
 
     self.TeleportPedToCoords = function(ped, x, y, z, heading)
-        CoreFunctions.TeleportPedToCoords(ped, x, y, z, heading)
+        GetFunctions().TeleportPedToCoords(ped, x, y, z, heading)
     end
 
     -- @param source
