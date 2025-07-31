@@ -1,4 +1,4 @@
-Keys = {
+local Keys = {
     -- Letters
     ["A"] = 0x7065027D,
     ["B"] = 0x4CC0E2FE,
@@ -807,3 +807,7 @@ Keys = {
     ["ScriptedFlyZdown"] = 0x9C5E030C,
     ["Count"] = 0x8EDFFB30
 }
+
+function GetKeys()
+    return Keys
+end
