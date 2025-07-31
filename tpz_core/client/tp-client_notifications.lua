@@ -1,6 +1,18 @@
-CoreNotifications = {}
+local Notifications = {}
 
-CoreNotifications.NotifyLeft = function(title, subtitle, dict, icon, duration, color)
+-----------------------------------------------------------
+--[[ Functions  ]]--
+-----------------------------------------------------------
+
+function GetNotifications()
+  return Notifications
+end
+
+-----------------------------------------------------------
+--[[ Utility Functions  ]]--
+-----------------------------------------------------------
+
+Notifications.NotifyLeft = function(title, subtitle, dict, icon, duration, color)
     CoreFunctions.LoadTexture(dict)
   
     local structConfig = DataView.ArrayBuffer(8 * 7)
@@ -18,7 +30,7 @@ CoreNotifications.NotifyLeft = function(title, subtitle, dict, icon, duration, c
     Citizen.InvokeNative(0x4ACA10A91F66F1E2, dict)
 end
   
-CoreNotifications.NotifyTip = function(tipMessage, duration)
+Notifications.NotifyTip = function(tipMessage, duration)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
     structConfig:SetInt32(8 * 1, 0)
@@ -31,7 +43,7 @@ CoreNotifications.NotifyTip = function(tipMessage, duration)
     Citizen.InvokeNative(0x049D5C615BD38BAD, structConfig:Buffer(), structData:Buffer(), 1)
 end
   
-CoreNotifications.NotifyTop = function(message, location, duration)
+Notifications.NotifyTop = function(message, location, duration)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
   
@@ -42,7 +54,7 @@ CoreNotifications.NotifyTop = function(message, location, duration)
     Citizen.InvokeNative(0xD05590C1AB38F068, structConfig:Buffer(), structData:Buffer(), 0, 1)
 end
   
-CoreNotifications.NotifyRightTip = function(tipMessage, duration)
+Notifications.NotifyRightTip = function(tipMessage, duration)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
   
@@ -52,7 +64,7 @@ CoreNotifications.NotifyRightTip = function(tipMessage, duration)
     Citizen.InvokeNative(0xB2920B9760F0F36B, structConfig:Buffer(), structData:Buffer(), 1)
 end
   
-CoreNotifications.NotifyObjective = function(message, duration)
+Notifications.NotifyObjective = function(message, duration)
     Citizen.InvokeNative("0xDD1232B332CBB9E7", 3, 1, 0)
   
     local structConfig = DataView.ArrayBuffer(8 * 7)
@@ -66,7 +78,7 @@ CoreNotifications.NotifyObjective = function(message, duration)
 end
   
 
-CoreNotifications.NotifySimpleTop = function(title, subtitle, duration)
+Notifications.NotifySimpleTop = function(title, subtitle, duration)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
   
@@ -77,7 +89,7 @@ CoreNotifications.NotifySimpleTop = function(title, subtitle, duration)
     Citizen.InvokeNative(0xA6F4216AB10EB08E, structConfig:Buffer(), structData:Buffer(), 1, 1)
 end
   
-CoreNotifications.NotifyAvanced = function(text, dict, icon, text_color, duration, quality, showquality)
+Notifications.NotifyAvanced = function(text, dict, icon, text_color, duration, quality, showquality)
     CoreFunctions.LoadTexture(dict)
   
     local structConfig = DataView.ArrayBuffer(8 * 7)
@@ -99,7 +111,7 @@ CoreNotifications.NotifyAvanced = function(text, dict, icon, text_color, duratio
     Citizen.InvokeNative(0x4ACA10A91F66F1E2, dict)
 end
 
-CoreNotifications.NotifyBasicTop = function(text, duration)
+Notifications.NotifyBasicTop = function(text, duration)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
   
@@ -109,7 +121,7 @@ CoreNotifications.NotifyBasicTop = function(text, duration)
     Citizen.InvokeNative(0x7AE0589093A2E088, structConfig:Buffer(), structData:Buffer(), 1)
 end
   
-CoreNotifications.NotifyCenter = function(text, duration, text_color)
+Notifications.NotifyCenter = function(text, duration, text_color)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
   
@@ -120,7 +132,7 @@ CoreNotifications.NotifyCenter = function(text, duration, text_color)
     Citizen.InvokeNative(0x893128CDB4B81FBB, structConfig:Buffer(), structData:Buffer(), 1)
 end
   
-CoreNotifications.NotifyBottomRight = function(text, duration)
+Notifications.NotifyBottomRight = function(text, duration)
     local structConfig = DataView.ArrayBuffer(8 * 7)
     structConfig:SetInt32(8 * 0, tonumber(duration or 3000))
   
@@ -130,7 +142,7 @@ CoreNotifications.NotifyBottomRight = function(text, duration)
     Citizen.InvokeNative(0x2024F4F333095FB1, structConfig:Buffer(), structData:Buffer(), 1)
 end
   
-CoreNotifications.NotifyFail = function(title, subtitle, duration)
+Notifications.NotifyFail = function(title, subtitle, duration)
     local structConfig = DataView.ArrayBuffer(8 * 5)
   
     local structData = DataView.ArrayBuffer(8 * 9)
@@ -142,7 +154,7 @@ CoreNotifications.NotifyFail = function(title, subtitle, duration)
     Citizen.InvokeNative(0x00A15B94CBA4F76F, result)
 end
   
-CoreNotifications.NotifyDead = function(title, audioRef, audioName, duration)
+Notifications.NotifyDead = function(title, audioRef, audioName, duration)
     local structConfig = DataView.ArrayBuffer(8 * 5)
   
     local structData = DataView.ArrayBuffer(8 * 9)
@@ -155,7 +167,7 @@ CoreNotifications.NotifyDead = function(title, audioRef, audioName, duration)
     Citizen.InvokeNative(0x00A15B94CBA4F76F, result)
 end
   
-CoreNotifications.NotifyUpdate = function(title, message, duration)
+Notifications.NotifyUpdate = function(title, message, duration)
     local structConfig = DataView.ArrayBuffer(8 * 5)
   
     local structData = DataView.ArrayBuffer(8 * 9)
@@ -168,7 +180,7 @@ CoreNotifications.NotifyUpdate = function(title, message, duration)
 end
   
 
-CoreNotifications.NotifyWarning = function(title, message, audioRef, audioName, duration)
+Notifications.NotifyWarning = function(title, message, audioRef, audioName, duration)
     local structConfig = DataView.ArrayBuffer(8 * 5)
   
     local structData = DataView.ArrayBuffer(8 * 9)
@@ -182,7 +194,7 @@ CoreNotifications.NotifyWarning = function(title, message, audioRef, audioName, 
     Citizen.InvokeNative(0x00A15B94CBA4F76F, result)
 end
   
-CoreNotifications.NotifyLeftRank = function(title, subtitle, dict1, texture, duration, color)
+Notifications.NotifyLeftRank = function(title, subtitle, dict1, texture, duration, color)
     CoreFunctions.LoadTexture(dict1)
     duration = duration or 5000
     local dict = GetHashKey(dict1 or "TOASTS_MP_GENERIC")
