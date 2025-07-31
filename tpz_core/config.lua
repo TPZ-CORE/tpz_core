@@ -236,7 +236,7 @@ Config.PreventPlayersJoiningDelay = { Enabled = false, Delay = 60, DeferNotify =
 Config.DiscordWebhooking = {
     Label = "TPZ-CORE",
     ImageUrl = "https://i.imgur.com/XK16oK4.png",
-    Footer = "© Titans Productions",
+    Footer = "© TPZ-CORE",
 
     URL = {
         ['SERVER_STARTUP']       = { Enabled = false, Url = "", Title = "[Server Name]", Description = "📣 The server has been succesffully started. Join us now!", color = 10038562},
