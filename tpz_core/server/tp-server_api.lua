@@ -257,6 +257,10 @@ exports('getCoreAPI', function()
         functions.getOutfitComponents = function()
             return PlayerData[_source].skinComp
         end
+
+        functions.setOutfitComponents = function(comps)
+            PlayerData[_source].skinComp = comps
+        end
     
         functions.getAccount = function(currency_type)
     
