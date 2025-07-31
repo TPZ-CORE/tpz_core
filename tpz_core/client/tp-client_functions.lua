@@ -1,6 +1,19 @@
 local Functions = {}
 
 -----------------------------------------------------------
+--[[ Base Events  ]]--
+-----------------------------------------------------------
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+
+    Functions = nil
+
+end)
+
+-------------------------------------------------------------
 --[[ Functions  ]]--
 -----------------------------------------------------------
 
