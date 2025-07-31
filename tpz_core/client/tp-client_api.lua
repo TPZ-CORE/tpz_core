@@ -132,20 +132,7 @@ exports('getCoreAPI', function()
     -- @param jobGrade
     -- @param identityId
     self.GetPlayerClientData = function()
-
-        local finished, foundData = false, nil
-
-        TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_core:getPlayerData", function(data)
-            finished  = true
-            foundData = data
-        end)
-
-        while not finished do
-            Wait(50)
-        end
-
-        return foundData
-    
+        return GetFunctions().GetPlayerData()
     end
 
     self.GetNearestPlayers = function(distance)
