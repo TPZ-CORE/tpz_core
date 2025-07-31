@@ -12,6 +12,10 @@ exports('getCoreAPI', function()
     self.GetConfig = function()
         return Config
     end
+
+    self.GetKeys = function()
+        return GetKeys()
+    end
         
     self.GetLocales = function(string)
         
