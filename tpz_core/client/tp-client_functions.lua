@@ -117,9 +117,19 @@ end
 
 Functions.GetPlayerData = function()
 
+    local wait = true
+    local data_result
+
     TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_core:getPlayerData", function(cb)
-        return cb
+        data_result = cb
+        wait = false
     end)
+
+    while wait do
+        Wait(25)
+    end
+
+    return data_result
 
 end
 
