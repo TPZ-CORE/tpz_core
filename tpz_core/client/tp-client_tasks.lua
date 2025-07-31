@@ -120,7 +120,7 @@ if Config.MapObject then
 
                 ClearPedSecondaryTask(playerPed)
 
-                CoreFunctions.RemoveEntityProperly(prop, joaat("s_twofoldmap01x_us"))
+                GetFunctions().RemoveEntityProperly(prop, joaat("s_twofoldmap01x_us"))
 
                 ClearPedTasks(playerPed)
                 FreezeEntityPosition(playerPed, false)
