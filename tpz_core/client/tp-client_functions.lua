@@ -1,6 +1,18 @@
-CoreFunctions = {}
+local Functions = {}
 
-CoreFunctions.LoadModel = function(model)
+-----------------------------------------------------------
+--[[ Functions  ]]--
+-----------------------------------------------------------
+
+function GetFunctions()
+    return Functions
+end
+
+-----------------------------------------------------------
+--[[ Utility Functions  ]]--
+-----------------------------------------------------------
+
+Functions.LoadModel = function(model)
     local model = GetHashKey(model)
 
     if IsModelValid(model) then
@@ -14,7 +26,7 @@ CoreFunctions.LoadModel = function(model)
     end
 end
 
-CoreFunctions.LoadTexture = function(hash)
+Functions.LoadTexture = function(hash)
     if not HasStreamedTextureDictLoaded(hash) then
         RequestStreamedTextureDict(hash, true)
         while not HasStreamedTextureDictLoaded(hash) do
@@ -26,13 +38,13 @@ CoreFunctions.LoadTexture = function(hash)
 end
 
 
-CoreFunctions.BigInt  = function(text)
+Functions.BigInt  = function(text)
     local string1 = DataView.ArrayBuffer(16)
     string1:SetInt64(0, text)
     return string1:GetInt64(0)
 end
 
-CoreFunctions.DrawText  = function(text, font, x, y, fontscale, fontsize, r, g, b, alpha, textcentred, shadow)
+Functions.DrawText  = function(text, font, x, y, fontscale, fontsize, r, g, b, alpha, textcentred, shadow)
     local str = CreateVarString(10, "LITERAL_STRING", text)
     SetTextScale(fontscale, fontsize)
     SetTextColor(r, g, b, alpha)
@@ -42,7 +54,7 @@ CoreFunctions.DrawText  = function(text, font, x, y, fontscale, fontsize, r, g, 
     DisplayText(str, x, y)
 end
 
-CoreFunctions.TeleportToCoords = function(x, y, z, heading)
+Functions.TeleportToCoords = function(x, y, z, heading)
     local playerPedId = PlayerPedId()
     SetEntityCoords(playerPedId, x, y, z, true, true, true, false)
 
@@ -56,7 +68,7 @@ CoreFunctions.TeleportToCoords = function(x, y, z, heading)
 
 end
 
-CoreFunctions.TeleportPedToCoords = function(ped, x, y, z, heading)
+Functions.TeleportPedToCoords = function(ped, x, y, z, heading)
     local playerPedId = ped
     SetEntityCoords(playerPedId, x, y, z, true, true, true, false)
 
@@ -70,7 +82,7 @@ CoreFunctions.TeleportPedToCoords = function(ped, x, y, z, heading)
 
 end
 
-CoreFunctions.TeleportToWaypoint = function()
+Functions.TeleportToWaypoint = function()
 
     local ped = PlayerPedId()
     local GetGroundZAndNormalFor_3dCoord = GetGroundZAndNormalFor_3dCoord
@@ -103,7 +115,7 @@ CoreFunctions.TeleportToWaypoint = function()
     end
 end
 
-CoreFunctions.GetPlayerData = function()
+Functions.GetPlayerData = function()
 
     TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_core:getPlayerData", function(cb)
         return cb
@@ -111,7 +123,7 @@ CoreFunctions.GetPlayerData = function()
 
 end
 
-CoreFunctions.HealPlayer = function()
+Functions.HealPlayer = function()
     local ped = PlayerPedId()
 
     Citizen.InvokeNative(0xC6258F41D86676E0, ped, 0, 100) -- inner first
@@ -121,7 +133,7 @@ CoreFunctions.HealPlayer = function()
 end
 
 
-CoreFunctions.RemoveEntityProperly = function(entity, objectHash)
+Functions.RemoveEntityProperly = function(entity, objectHash)
 	DeleteEntity(entity)
 	DeletePed(entity)
 	SetEntityAsNoLongerNeeded( entity )
@@ -131,7 +143,7 @@ CoreFunctions.RemoveEntityProperly = function(entity, objectHash)
 	end
 end
 
-CoreFunctions.GetTableLength = function(T)
+Functions.GetTableLength = function(T)
     local count = 0
     for _ in pairs(T) do count = count + 1 end
     return count
