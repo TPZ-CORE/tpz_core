@@ -51,7 +51,7 @@ AddEventHandler("tpz_core:onPlayerFirstSpawn", function(coords, status, isdead, 
 
     Wait(3000)
 
-    CoreFunctions.TeleportToCoords(coords.x, coords.y, coords.z, coords.heading)
+    GetFunctions().TeleportToCoords(coords.x, coords.y, coords.z, coords.heading)
 
     Wait(2000)
 
