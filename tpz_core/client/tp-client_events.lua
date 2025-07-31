@@ -45,7 +45,7 @@ end)
 
 RegisterNetEvent("tpz_core:teleportToCoords")
 AddEventHandler("tpz_core:teleportToCoords", function(x, y, z, heading)
-    CoreFunctions.TeleportToCoords(x, y, z, heading)
+    GetFunctions().TeleportToCoords(x, y, z, heading)
 
     -- send log if used this event?
 end)
@@ -56,12 +56,12 @@ end)
 
 RegisterNetEvent('tpz_core:teleportToWayPoint')
 AddEventHandler('tpz_core:teleportToWayPoint', function()
-    CoreFunctions.TeleportToWaypoint()
+    GetFunctions().TeleportToWaypoint()
 end)
 
 RegisterNetEvent('tpz_core:healPlayer')
 AddEventHandler('tpz_core:healPlayer', function()
-    CoreFunctions.HealPlayer()
+    GetFunctions().HealPlayer()
 end)
 
 -----------------------------------------------------------
