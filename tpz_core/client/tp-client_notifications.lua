@@ -1,6 +1,20 @@
 local Notifications = {}
 
 -----------------------------------------------------------
+--[[ Base Events  ]]--
+-----------------------------------------------------------
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+
+    Notifications = nil
+
+end)
+
+
+-----------------------------------------------------------
 --[[ Functions  ]]--
 -----------------------------------------------------------
 
