@@ -2,12 +2,7 @@ Config = {}
 
 -- (!) Do not use this on live servers with players, this is only for testing purposes.
 Config.DevMode = false
-
 Config.Debug   = false
-
--- OneSync is suggested for servers, it should NOT be set to false if you don't
--- know what you doing.
-Config.OneSync = true
 
 ---------------------------------------------------------------
 --[[ Discord API Configurations ]]--
