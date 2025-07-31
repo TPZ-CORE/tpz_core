@@ -7,7 +7,7 @@ local TextureDicts = {
 DisplayProgressBar = function(time, desciption, cb)
 
     for k, v in pairs(TextureDicts) do
-        CoreFunctions.LoadTexture(v)
+        GetFunctions().LoadTexture(v)
     end
 
     local timer         = (time / 100)
