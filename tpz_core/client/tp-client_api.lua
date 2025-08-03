@@ -113,6 +113,10 @@ exports('getCoreAPI', function()
         GetNotifications().NotifyLeftRank(tostring(title), tostring(subtitle), tostring(dict), tostring(icon), tonumber(duration), (tostring(color))) 
     end -- End of notifications
 
+    self.SendAnnouncement = function(title, description, title_rgba, description_rgba)
+        SendAnnouncement(title, description, title_rgba, description_rgba)
+    end
+
     self.TeleportToCoords = function(x, y, z, heading)
         GetFunctions().TeleportToCoords(x, y, z, heading)
     end
@@ -231,3 +235,4 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
