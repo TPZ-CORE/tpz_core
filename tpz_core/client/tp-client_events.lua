@@ -64,6 +64,11 @@ AddEventHandler('tpz_core:healPlayer', function()
     GetFunctions().HealPlayer()
 end)
 
+RegisterNetEvent('tpz_core:sendAnnouncement')
+AddEventHandler('tpz_core:sendAnnouncement', function(title, description, title_rgba, description_rgba)
+    SendAnnouncement(title, description, title_rgba, description_rgba)
+end)
+
 -----------------------------------------------------------
 --[[ Notifications  ]]--
 -----------------------------------------------------------
@@ -142,3 +147,4 @@ RegisterNetEvent('tpz_core:sendLeftRankNotification')
 AddEventHandler('tpz_core:sendLeftRankNotification', function(title, subtitle, dict, icon, duration, color)
     GetNotifications().NotifyLeftRank(tostring(title), tostring(subtitle), tostring(dict), tostring(icon) , tonumber(duration), (tostring(color))) 
 end)
+
