@@ -1,0 +1,77 @@
+@import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+
+body {
+	width: 100%;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+
+  display: none;
+  
+  text-align: center;
+	justify-content: center;
+	align-items: center;
+
+  margin-left: -33.5%;
+  margin-top: -26%;
+
+}
+
+#main{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+
+  margin-top: 105vh;
+
+  overflow: hidden;
+  width: 30%;
+  height: 32vh;
+  
+  justify-content: center;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently */
+}
+
+/* ANNOUNCEMENT */
+
+#announcement-title, #announcement-title-description {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centering trick */
+
+  font-family: 'Chinese Rocks Rg', sans-serif;
+  color: rgba(247, 247, 247, 0.911);
+  padding-top: 0.5vw;
+  text-align: center;
+  font-size: 2vw;
+  width: fit-content;
+  height: fit-content;
+
+  width: calc(fit-content + 2vw); /* if you previously had 100%, or adjust accordingly */
+  padding-left: 1vw;
+  padding-right: 1vw;
+
+  background-image: url(../img/default.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  opacity: 0.8;
+}
+
+#announcement-title-description { 
+  font-size: 1.2vw;
+  top: 9%;
+
+  max-width: 30vw;
+
+  color: rgba(171, 170, 170, 0.91);
+}
