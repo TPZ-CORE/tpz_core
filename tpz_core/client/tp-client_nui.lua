@@ -12,7 +12,7 @@ end
 --[[ Public Functions ]]--
 -----------------------------------------------------------
 
-function SendAnnouncement(title, description, title_rgba, description_rgba)
+function SendAnnouncement(title, description, duration, title_rgba, description_rgba)
 
     SendNUIMessage({ 
         action                 = 'sendAnnouncement',
@@ -24,6 +24,8 @@ function SendAnnouncement(title, description, title_rgba, description_rgba)
 
     ToggleUI(true)
 
+    Wait(duration)
+    CloseNUI()
 end
 
 function CloseNUI()
