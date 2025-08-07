@@ -1,6 +1,7 @@
 
 function ResetAll() {
   $("#announcement").hide();
+  $("#death").hide();
 }
 
 document.addEventListener('DOMContentLoaded', function() { 
@@ -41,6 +42,19 @@ $(function() {
       var audio = new Audio('./audio/chime.mp3');
       audio.volume = 0.7;
       audio.play();
+
+    } else if (item.action == "displayDeathCountdown") {
+
+      $("#death-title").text(item.title);
+      $("#death-title-description").text(item.title_description);
+      $("#death-countdown").text(item.countdown);
+
+      $("#death").show();
+      $("#main").fadeIn(1000);
+
+    } else if (item.action == "updateDeathCountdown") {
+
+      $("#death-countdown").text(item.countdown);
 
     } else if (item.action == "close") {
       CloseNUI();
