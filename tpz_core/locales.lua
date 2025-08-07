@@ -18,7 +18,11 @@ Locales = {
     ['BAN_REASON']                            = "You have been permanently banned for the following reason: %s.",
     ['BAN_REASON_DESCRIPTION']                = "You have been permanently banned for the following reason: %s\nDuration Left: Banned Permanently.",
     ['BAN_REASON_DURATION_DESCRIPTION']       = "You have been permanently banned for the following reason: %s\nDuration Left: %s",
-
+   
+    ['DEATH_NUI_TITLE']                       = "YOU ARE HEAVILY INJURED",
+    ['DEATH_NUI_DESCRIPTION']                 = "Wait for help or respawn at nearest hospital.",
+    ['DEATH_NUI_RESPAWN_NOW']                 = "Respawn Now",
+    
     ['MONTH']                                 = "month",
     ['MONTHS']                                = "months",
     ['DAY']                                   = "day",
@@ -29,3 +33,4 @@ Locales = {
     ['MINUTES']                               = "minutes",
     ['AND']                                   = "and",
 }
+
