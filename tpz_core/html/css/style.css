@@ -75,3 +75,48 @@ body {
 
   color: rgba(171, 170, 170, 0.91);
 }
+
+#death-title, #death-title-description, #death-countdown {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centering trick */
+
+  font-family: 'Chinese Rocks Rg', sans-serif;
+  color: rgba(144, 39, 27, 0.911);
+  padding-top: 0.5vw;
+  text-align: center;
+  font-size: 2vw;
+  width: fit-content;
+  height: fit-content;
+
+  width: calc(fit-content + 2vw); /* if you previously had 100%, or adjust accordingly */
+  padding-left: 1vw;
+  padding-right: 1vw;
+
+  background-image: url(../img/default.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  opacity: 0.8;
+}
+
+#death-title-description { 
+  font-size: 1.2vw;
+  top: 9%;
+
+  max-width: 30vw;
+
+  color: rgba(171, 170, 170, 0.91);
+}
+
+#death-countdown { 
+  font-size: 4vw;
+  top: 70%;
+
+  max-width: 30vw;
+
+  color: rgb(255, 255, 255);
+
+  background-image: none;
+}
