@@ -273,11 +273,14 @@ local keepdown = false
 
 ResurrectPlayer = function(currentHospital, hasBeenRevived)
 
+  local player = PlayerPedId()
+
+  TriggerServerEvent('tpz_core:savePlayerDeathStatus', 0)
+  DeathData.isDead = false
+
   if Config.OnPlayerDeath.DisplayDeathNUI then
     CloseNUI()
   end
-
-  local player = PlayerPedId()
 
   ResurrectPed(player)
 
@@ -294,12 +297,6 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
     end
 
   end
-
-  TriggerServerEvent('tpz_core:savePlayerDeathStatus', 0)
-
-  DeathData.isDead = false
-
-  --setPVP()
 
   if currentHospital then -- set entitycoords with heading
     Citizen.InvokeNative(0x203BEFFDBE12E96A, player, currentHospital.x, currentHospital.y, currentHospital.z, currentHospital.heading, false, false, false)
