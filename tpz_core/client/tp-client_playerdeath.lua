@@ -77,8 +77,6 @@ AddEventHandler('tpz_core:resurrectPlayer', function(cb)
   DeathData.cooldown_alert = 0
   DeathData.isDead         = false
 
-  CloseNUI()
-
 end)
 
 RegisterNetEvent('tpz_core:applyLethalDamage')
@@ -156,7 +154,7 @@ Citizen.CreateThread(function()
         if Config.OnPlayerDeath.DisplayDeathNUI then 
           notifyText = ''
         end
-        
+
         local label = CreateVarString(10, 'LITERAL_STRING', notifyText)
         PromptSetActiveGroupThisFrame(Prompts, label)
 
@@ -274,6 +272,11 @@ end
 local keepdown = false
 
 ResurrectPlayer = function(currentHospital, hasBeenRevived)
+
+  if Config.OnPlayerDeath.DisplayDeathNUI then
+    CloseNUI()
+  end
+
   local player = PlayerPedId()
 
   ResurrectPed(player)
