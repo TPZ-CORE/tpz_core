@@ -276,7 +276,8 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
   local player = PlayerPedId()
 
   TriggerServerEvent('tpz_core:savePlayerDeathStatus', 0)
-  DeathData.isDead = false
+  DeathData.isDead   = false
+  DeathData.cooldown = 0
 
   if Config.OnPlayerDeath.DisplayDeathNUI then
     CloseNUI()
