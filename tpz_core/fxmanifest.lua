@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 
 author 'Nosmakos'
 description 'TPZ-CORE Base'
-version '1.0.4'
+version '1.0.5'
 
 ui_page 'html/index.html'
 
@@ -15,4 +15,5 @@ server_scripts { 'server/*.lua' }
 files { 'html/**/*' }
 
 lua54 'yes'
+
 
