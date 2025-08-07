@@ -141,7 +141,8 @@ Config.NewCharacter = {
 ---------------------------------------------------------------
 
 Config.OnPlayerDeath = {
-
+	
+    DisplayDeathNUI         = true,
     DeathCamera             = true, 
     UseControlsCamera       = true,
 
@@ -497,3 +498,4 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
