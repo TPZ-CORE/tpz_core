@@ -76,6 +76,9 @@ AddEventHandler('tpz_core:resurrectPlayer', function(cb)
   DeathData.cooldown       = 0
   DeathData.cooldown_alert = 0
   DeathData.isDead         = false
+
+  CloseNUI()
+
 end)
 
 RegisterNetEvent('tpz_core:applyLethalDamage')
@@ -122,6 +125,10 @@ Citizen.CreateThread(function()
 
         DeathData.cooldown = Config.OnPlayerDeath.PromptKeys['RESPAWN'].cooldown
 
+        if Config.OnPlayerDeath.DisplayDeathNUI then
+          DisplayDeathCountdown(DeathData.cooldown)
+        end
+
         if Config.OnPlayerDeath.DeathCamera then
           StartDeathCam()
         end
@@ -146,6 +153,10 @@ Citizen.CreateThread(function()
           notifyText = Config.OnPlayerDeath.BottomPromptLabelDisplays['WHILE_NO_RESPAWN_COOLDOWN']
         end
 
+        if Config.OnPlayerDeath.DisplayDeathNUI then 
+          notifyText = ''
+        end
+        
         local label = CreateVarString(10, 'LITERAL_STRING', notifyText)
         PromptSetActiveGroupThisFrame(Prompts, label)
 
@@ -164,6 +175,8 @@ Citizen.CreateThread(function()
           if PromptHasHoldModeCompleted(prompt.prompt) then
 
             if prompt.action == "RESPAWN" then
+              
+              CloseNUI()
 
               DoScreenFadeOut(3000)
 
@@ -205,6 +218,10 @@ Citizen.CreateThread(function ()
 
       if DeathData.cooldown <= 0 then
         DeathData.cooldown = 0
+      end
+
+      if Config.OnPlayerDeath.DisplayDeathNUI then
+        DisplayDeathCountdown(DeathData.cooldown)
       end
 
     end
