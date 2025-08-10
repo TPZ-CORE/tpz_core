@@ -42,7 +42,7 @@ such as webhooks, notifications and many more, including all the commands relate
 | id                                         | n/a                   | Displays your player character online source ID through a notification.  | No |
 | job                                         | n/a          | Displays your player character job and job grade through a notification.         | No |
 
-- The ace permission: `tpzcore.all` Gives permissioms to all commands and actions (FOR ALL OFFICIAL PUBLISHED FREE SCRIPTS).
+- The ace permission: `tpzcore.all` Gives permissions to all commands and actions (FOR ALL OFFICIAL PUBLISHED FREE SCRIPTS).
 
 - All the commands and descriptions and permissions are fully configurable.
 
