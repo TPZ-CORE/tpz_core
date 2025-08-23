@@ -36,10 +36,23 @@ exports('getCoreAPI', function()
         local model = GetHashKey(inputModel)
  
         RequestModel(model)
- 
-        while not HasModelLoaded(model) do RequestModel(model)
+
+        local await = 10000
+        local loaded = true
+
+        while not HasModelLoaded(model) do 
+            RequestModel(model)
+
+            await = await - 10
+
+            if await <= 0 then
+                loaded = false
+            end
+
             Citizen.Wait(10)
         end
+
+        return loaded
     end
 
     self.RemoveEntityProperly = function(entity, objectHash)
