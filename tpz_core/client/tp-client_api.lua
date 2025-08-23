@@ -47,6 +47,7 @@ exports('getCoreAPI', function()
 
             if await <= 0 then
                 loaded = false
+                break
             end
 
             Citizen.Wait(10)
