@@ -28,6 +28,10 @@ exports('getCoreAPI', function()
         return str
     end
 
+    self.GetWebhookUrl = function(webhook)
+        --return GetFunctions().GetWebhookUrl(webhook)
+    end
+
     self.DisplayProgressBar = function(time, desciption, cb)
         DisplayProgressBar(time, desciption, cb)
     end
