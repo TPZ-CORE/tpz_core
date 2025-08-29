@@ -8,7 +8,11 @@ end
 -- Convert back from hex
 local fromHex = function(hex)
     return (hex:gsub('..', function(cc)
-        return string.char(tonumber(cc, 16))
+        local n = tonumber(cc, 16)
+        if not n then
+            error("Invalid hex sequence: '" .. cc .. "' in [" .. hex .. "]")
+        end
+        return string.char(n)
     end))
 end
 
@@ -24,6 +28,9 @@ EncodeHexString = function(str, key)
 end
 
 DecodeHexString = function(hexStr, key)
+
+    hexStr = hexStr:gsub("^0x0x0%-", "")  -- remove prefix only at the start
+    
     local str = fromHex(hexStr)
     local res = {}
     for i = 1, #str do
@@ -71,9 +78,7 @@ SendToDiscordWebhook = function(webhook, name, description, color)
     local data = Config.DiscordWebhooking
 
     if string.sub(webhook, 1, 6) == "0x0x0-" then
-        webhook = string.gsub(webhook, "0x0x0-", "")
-
-        webhook = DecodeHexString(webhook)
+        webhook = DecodeHexString(webhook, "0x0x0-")
     end
 
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
@@ -104,9 +109,7 @@ SendImageUrlToDiscordWebhook = function(webhook, name, description, url, color)
     local data = Config.DiscordWebhooking
 
     if string.sub(webhook, 1, 6) == "0x0x0-" then
-        webhook = string.gsub(webhook, "0x0x0-", "")
-
-        webhook = DecodeHexString(webhook)
+        webhook = DecodeHexString(webhook, "0x0x0-")
     end
 
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
