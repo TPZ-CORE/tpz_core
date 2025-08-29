@@ -1,3 +1,39 @@
+-- Convert to hex
+local toHex = function(str)
+    return (str:gsub('.', function(c)
+        return string.format('%02X', string.byte(c))
+    end))
+end
+
+-- Convert back from hex
+local fromHex = function(hex)
+    return (hex:gsub('..', function(cc)
+        return string.char(tonumber(cc, 16))
+    end))
+end
+
+-- Encode/Decode wrapper
+EncodeHexString = function(str, key)
+    local res = {}
+    for i = 1, #str do
+        local c = str:byte(i)
+        local k = key:byte((i - 1) % #key + 1)
+        res[#res+1] = string.char((c ~ k) & 0xFF)
+    end
+    return toHex(table.concat(res))
+end
+
+DecodeHexString = function(hexStr, key)
+    local str = fromHex(hexStr)
+    local res = {}
+    for i = 1, #str do
+        local c = str:byte(i)
+        local k = key:byte((i - 1) % #key + 1)
+        res[#res+1] = string.char((c ~ k) & 0xFF)
+    end
+    return table.concat(res)
+end
+
 GetSteamID = function(source)
     local sid = GetPlayerIdentifiers(source)[1] or false
 
