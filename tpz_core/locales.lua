@@ -11,6 +11,7 @@ Locales = {
     ['PLAYER_ID_COMMAND']                     = "Your Player ID: ~o~%s",
 
     ['INVALID_SYNTAX']                        = "~e~ERROR: Use Correct Syntax",
+    ['NO_BACK_LOCATION']                      = "~e~There is no location to return to.",
 
     ['ACCOUNT_TYPE_DOES_NOT_EXIST']           = "~e~Error: The specified account type (%s) does not exist.",
     ['COMMAND_NOT_PERMITTED_ON_CONSOLE']      = '^1This command is not permitted to be used on console.^0',
