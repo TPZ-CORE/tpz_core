@@ -157,6 +157,12 @@ end
 --[[ Player Data Callback  ]]--
 -----------------------------------------------------------
 
+addNewCallback("tpz_core:getWebhookUrl", function(source, cb, data)
+    local webhook = GetWebhookUrlByName(data.webhook)
+    local converted_webhook = encodeHex(webhook)
+    return cb(converted_webhook)
+end)
+
 addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
     local _source = source
 
