@@ -176,7 +176,7 @@ CreateThread(function()
                 local sourceId = GetPlayerServerId(PlayerId())
 
                 if #parts > 0 then
-                    table.insert(parts, " - ID: " .. sourceId)
+                    table.insert(parts, "- ID: " .. sourceId)
                 else
                     table.insert(parts, "ID: " .. sourceId)
                 end
@@ -187,7 +187,7 @@ CreateThread(function()
                 local steamName = GetPlayerName(PlayerId())
 
                 if #parts > 0 then
-                    table.insert(parts, " | " .. steamName)
+                    table.insert(parts, "| " .. steamName)
                 else
                     table.insert(parts, steamName)
                 end
@@ -203,4 +203,5 @@ CreateThread(function()
     end
 
 end)
+
 
