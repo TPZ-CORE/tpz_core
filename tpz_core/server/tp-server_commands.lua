@@ -1,4 +1,4 @@
-
+local PreviousLocation = nil -- for /back command. 
 
 --[[ ------------------------------------------------
    Commands Registration
@@ -926,6 +926,53 @@ RegisterCommand("kill", function(source, args, rawCommand)
 
 end, false)
 
+--[[ BACK Command ]] --
+RegisterCommand("back", function(source)
+    local _source = source
+
+    if _source == 0 then
+        print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
+        return
+    end
+
+    local hasPermissions = HasPermissionsByAce("tpzcore.back", _source)
+
+    if not hasPermissions then
+        hasPermissions = HasAdministratorPermissions(_source, Config.Commands['back'].Groups, Config.Commands['back'].DiscordRoles)
+    end
+ 
+    if hasPermissions then
+
+        local xPlayer = PlayerData[_source]
+
+         if previousLocation == nil then
+            SendCommandNotification(_source, Locales['NO_BACK_LOCATION'], 'error', 3000)
+            return
+         end
+
+        local identifier      = xPlayer.identifier
+        local steamName       = GetPlayerName(_source)
+    
+        local ip              = GetPlayerEndpoint(_source)
+    
+        local discordIdentity = GetIdentity(_source, "discord")
+        local discordId       = string.sub(discordIdentity, 9)
+
+        TriggerClientEvent('tpz_core:teleportToCoords', _source, previousLocation.x, previousLocation.y, previousLocation.z)
+
+        local webhookData = Config.Commands['back'].Webhook
+
+        if webhookData.Enabled then  
+            local title   = "📋` /back " .. "`"
+            local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used TPM Command`"
+            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+        end
+    else
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
+    end
+
+end, false)
+
 --[[ TPM Command ]] --
 RegisterCommand("tpm", function(source)
     local _source = source
@@ -952,7 +999,9 @@ RegisterCommand("tpm", function(source)
     
         local discordIdentity = GetIdentity(_source, "discord")
         local discordId       = string.sub(discordIdentity, 9)
-    
+
+         previousLocation = GetEntityCoords(GetPlayerPed(_source))
+
         TriggerClientEvent('tpz_core:teleportToWayPoint', _source)
 
         local webhookData = Config.Commands['tpm'].Webhook
@@ -1002,6 +1051,8 @@ RegisterCommand("tpcoords", function(source, args, rawCommand)
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+
+         previousLocation = GetEntityCoords(GetPlayerPed(_source))
 
         TriggerClientEvent('tpz_core:teleportToCoords', _source, tonumber(coordsX), tonumber(coordsY), tonumber(coordsZ))
 
@@ -1070,7 +1121,10 @@ RegisterCommand("tpto", function(source, args, rawCommand)
 
             if tPlayer then
 
-                local toCoords = GetEntityCoords(GetPlayerPed( tonumber(target) ))
+               previousLocation = GetEntityCoords(GetPlayerPed(_source))
+
+                local targetCoords = GetEntityCoords(GetPlayerPed( tonumber(target) ))
+               TriggerClientEvent('tpz_core:teleportToCoords', _source, targetCoords.x, targetCoords.y, targetCoords.z)
                -- SetEntityCoords(GetPlayerPed(_source), toCoords)
             else
                 SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
