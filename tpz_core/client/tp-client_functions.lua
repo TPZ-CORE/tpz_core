@@ -128,6 +128,22 @@ Functions.TeleportToWaypoint = function()
     end
 end
 
+Functions.GetWebhookUrl = function(webhook)
+    local wait = true
+    local data_result
+
+    TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_core:getWebhookUrl", function(cb)
+        data_result = cb
+        wait = false
+    end, { webhook = webhook } )
+
+    while wait do
+        Wait(10)
+    end
+
+    return data_result
+end
+
 Functions.GetPlayerData = function()
 
     local wait = true
