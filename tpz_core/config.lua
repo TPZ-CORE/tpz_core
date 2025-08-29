@@ -247,6 +247,46 @@ Config.DiscordWebhooking = {
 }
 
 ---------------------------------------------------------------
+--[[ DISCORD RICH PRESENCE INTEGRATION ]]--
+---------------------------------------------------------------
+
+Config.DiscordRichPresence = {
+
+    -- The Discord Application ID which can be found on: https://discord.com/developers (general information section of the created app).
+    ApplicationId = nil,
+
+    -- The name of the image asset to use for the large icon on the discord rich presence.
+    BigLogo = "server_logo",
+
+    -- The description to be displayed when hovering over the big image icon.
+    BigLogoDescription = "",
+
+    -- The name of the image asset for the small icon to be displayed on the rich presence (optional).
+    SmallLogo = "",
+
+    -- The description to be displayed when hovering over the small image icon.
+    SmallLogoDescription  = "",
+
+    -- The displayed text on the discord rich presence button.
+    RitchPresenceDescription = "Join Discord",
+
+    DisplayPlayerInfo = { Id = true, SteamName = true, OnlinePlayers = true },
+
+    -- The buttons to be displayed on the discord rich presence.
+    -- Set Buttons = false to disable.
+    Buttons = {
+        {
+            Text = 'Join Discord!', -- The text to be displayed on the button.
+            Url = 'https://discord.com/invite/Scpg9WE'
+        },
+
+        -- .. more buttons below
+
+    },
+}
+
+
+---------------------------------------------------------------
 --[[ Commands ]]--
 ---------------------------------------------------------------
 
@@ -513,4 +553,5 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
