@@ -39,6 +39,7 @@ such as webhooks, notifications and many more, including all the commands relate
 | tpto [source]                              | tpzcore.tpto          | Teleports your player to the selected player source.                     | No |
 | tphere [source]                            | tpzcore.tphere        | Brings the selected player source to your player.                        | No |
 | tpm                                         | tpzcore.tpm          | Teleports your player to the selected marked map point.                  | No |
+| back                                         | tpzcore.back          | Teleports your player to the previous teleported location.                  | No |
 | id                                         | n/a                   | Displays your player character online source ID through a notification.  | No |
 | job                                         | n/a          | Displays your player character job and job grade through a notification.         | No |
 
