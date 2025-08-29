@@ -140,3 +140,66 @@ Citizen.CreateThread(function()
     end
 
 end)
+
+CreateThread(function()
+    local maxplayers = GetConvarInt('sv_maxClients', Config.sv_maxClients)
+    local players    = 0
+
+    local DiscordData = Config.DiscordRichPresence
+
+    SetDiscordAppId(DiscordData.ApplicationId)
+    SetDiscordRichPresenceAsset(DiscordData.BigLogo)
+    SetDiscordRichPresenceAssetText(DiscordData.BigLogoDescription)
+    SetDiscordRichPresenceAssetSmall(DiscordData.SmallLogo)
+    SetDiscordRichPresenceAssetSmallText(DiscordData.SmallLogoDescription)
+
+    if Config.Buttons and Config.Buttons ~= false and type(Config.Buttons) == "table" then
+        for k, v in pairs(Config.Buttons) do
+            SetDiscordRichPresenceAction(k - 1, v.Text, v.Url)
+        end
+    end
+
+    if Info.OnlinePlayers or Info.SteamName or Info.Id then
+
+        while true do
+
+            local Info = DiscordData.DisplayPlayerInfo
+
+            local parts = {}
+    
+            if Info.OnlinePlayers then
+                players = ClientRPC.Callback.TriggerAwait("tpz_core:callback:getOnlinePlayers", {})
+                table.insert(parts, players .. "/" .. maxplayers)
+            end
+
+            if Info.Id then
+                local sourceId = GetPlayerServerId(PlayerId())
+
+                if #parts > 0 then
+                    table.insert(parts, " - ID: " .. sourceId)
+                else
+                    table.insert(parts, "ID: " .. sourceId)
+                end
+
+            end
+
+            if Info.SteamName then
+                local steamName = GetPlayerName(PlayerId())
+
+                if #parts > 0 then
+                    table.insert(parts, " | " .. steamName)
+                else
+                    table.insert(parts, steamName)
+                end
+
+            end
+            
+            local finalString = table.concat(parts, " ")
+            SetRichPresence(finalString)
+    
+            Wait(60000) -- 1 min update
+        end
+    
+    end
+
+end)
