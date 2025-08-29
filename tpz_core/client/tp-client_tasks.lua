@@ -159,11 +159,11 @@ CreateThread(function()
         end
     end
 
+    local Info = DiscordData.DisplayPlayerInfo
+
     if Info.OnlinePlayers or Info.SteamName or Info.Id then
 
         while true do
-
-            local Info = DiscordData.DisplayPlayerInfo
 
             local parts = {}
     
@@ -171,7 +171,7 @@ CreateThread(function()
                 players = ClientRPC.Callback.TriggerAwait("tpz_core:callback:getOnlinePlayers", {})
                 table.insert(parts, players .. "/" .. maxplayers)
             end
-
+            
             if Info.Id then
                 local sourceId = GetPlayerServerId(PlayerId())
 
@@ -203,3 +203,4 @@ CreateThread(function()
     end
 
 end)
+
