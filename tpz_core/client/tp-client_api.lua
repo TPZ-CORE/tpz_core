@@ -29,7 +29,7 @@ exports('getCoreAPI', function()
     end
 
     self.GetWebhookUrl = function(webhook)
-        --return GetFunctions().GetWebhookUrl(webhook)
+        return GetFunctions().GetWebhookUrl(webhook)
     end
 
     self.DisplayProgressBar = function(time, desciption, cb)
