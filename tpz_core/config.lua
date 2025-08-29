@@ -392,6 +392,21 @@ Config.Commands = {
         DiscordRoles  = { 670899926783361024 },
     },
 
+    ['back'] = { 
+
+        Suggestion = "Perform this command to teleport back on the previous teleport position.",
+        CommandHelpTips = false,
+
+        Webhook = { 
+            Enabled = false, 
+            Url = "", 
+            Color = 10038562,
+        },
+        
+        Groups  = { 'admin', 'mod'},
+        DiscordRoles  = { 670899926783361024 },
+    },
+
     ['tpm'] = { 
 
         Suggestion = "Perform this command to teleport on the marked coords.",
