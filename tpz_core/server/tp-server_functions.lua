@@ -20,7 +20,7 @@ EncodeHexString = function(str, key)
         local k = key:byte((i - 1) % #key + 1)
         res[#res+1] = string.char((c ~ k) & 0xFF)
     end
-    return toHex(table.concat(res))
+    return "0x0x0-" .. toHex(table.concat(res))
 end
 
 DecodeHexString = function(hexStr, key)
@@ -70,6 +70,12 @@ end
 SendToDiscordWebhook = function(webhook, name, description, color)
     local data = Config.DiscordWebhooking
 
+    if string.sub(webhook, 1, 6) == "0x0x0-" then
+        webhook = string.gsub(webhook, "0x0x0-", "")
+
+        webhook = DecodeHexString(webhook)
+    end
+
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
         embeds = {
             {
@@ -96,6 +102,12 @@ end
 
 SendImageUrlToDiscordWebhook = function(webhook, name, description, url, color)
     local data = Config.DiscordWebhooking
+
+    if string.sub(webhook, 1, 6) == "0x0x0-" then
+        webhook = string.gsub(webhook, "0x0x0-", "")
+
+        webhook = DecodeHexString(webhook)
+    end
 
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
         embeds = {
