@@ -1,6 +1,10 @@
 exports('getCoreAPI', function()
     local self = {}
 
+    self.CloseMapUI = function()
+        GetFunctions().CloseMapUI()
+    end
+
     self.RpcCall = function(name, callback, ...) 
         ClientRPC.Callback.TriggerAsync(name, callback, ...) 
     end
