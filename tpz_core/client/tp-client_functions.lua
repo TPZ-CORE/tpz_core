@@ -168,6 +168,9 @@ Functions.HealPlayer = function()
     Citizen.InvokeNative(0x675680D089BFA21F, ped, 1065330373) -- fills outter.
 end
 
+Functions.CloseMapUI = function()
+    Citizen.InvokeNative(0x2FF10C9C3F92277E,GetHashKey('MAP'))
+end
 
 Functions.RemoveEntityProperly = function(entity, objectHash)
 	DeleteEntity(entity)
