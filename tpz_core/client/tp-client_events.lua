@@ -46,8 +46,7 @@ end)
 RegisterNetEvent("tpz_core:teleportToCoords")
 AddEventHandler("tpz_core:teleportToCoords", function(x, y, z, heading)
     GetFunctions().TeleportToCoords(x, y, z, heading)
-
-    -- send log if used this event?
+    Citizen.InvokeNative(0x2FF10C9C3F92277E,GetHashKey('MAP'))
 end)
 
 -----------------------------------------------------------
@@ -57,6 +56,7 @@ end)
 RegisterNetEvent('tpz_core:teleportToWayPoint')
 AddEventHandler('tpz_core:teleportToWayPoint', function()
     GetFunctions().TeleportToWaypoint()
+    Citizen.InvokeNative(0x2FF10C9C3F92277E,GetHashKey('MAP'))
 end)
 
 RegisterNetEvent('tpz_core:healPlayer')
