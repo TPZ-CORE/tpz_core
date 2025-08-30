@@ -135,7 +135,7 @@ Functions.GetWebhookUrl = function(webhook)
     TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_core:getWebhookUrl", function(cb) data_result = cb wait = false end, { webhook = webhook } )
 
     while wait do
-        Wait(10)
+        Wait(1)
     end
 
     return data_result
