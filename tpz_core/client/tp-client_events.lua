@@ -45,8 +45,8 @@ end)
 
 RegisterNetEvent("tpz_core:teleportToCoords")
 AddEventHandler("tpz_core:teleportToCoords", function(x, y, z, heading)
-    GetFunctions().TeleportToCoords(x, y, z, heading)
     GetFunctions().CloseMapUI()
+    GetFunctions().TeleportToCoords(x, y, z, heading)
 end)
 
 -----------------------------------------------------------
@@ -55,8 +55,8 @@ end)
 
 RegisterNetEvent('tpz_core:teleportToWayPoint')
 AddEventHandler('tpz_core:teleportToWayPoint', function()
-    GetFunctions().TeleportToWaypoint()
     GetFunctions().CloseMapUI()
+    GetFunctions().TeleportToWaypoint()
 end)
 
 RegisterNetEvent('tpz_core:healPlayer')
@@ -147,5 +147,6 @@ RegisterNetEvent('tpz_core:sendLeftRankNotification')
 AddEventHandler('tpz_core:sendLeftRankNotification', function(title, subtitle, dict, icon, duration, color)
     GetNotifications().NotifyLeftRank(tostring(title), tostring(subtitle), tostring(dict), tostring(icon) , tonumber(duration), (tostring(color))) 
 end)
+
 
 
