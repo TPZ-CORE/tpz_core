@@ -40,7 +40,7 @@ exports('getCoreAPI', function()
         DisplayProgressBar(time, desciption, cb)
     end
 
-    self.PlayAnimation(ped, anim)
+    self.PlayAnimation = function(ped, anim)
 
         if not DoesAnimDictExist(anim.dict) then
             return false
@@ -288,6 +288,7 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
 
 
 
