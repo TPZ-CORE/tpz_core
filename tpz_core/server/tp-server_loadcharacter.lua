@@ -132,7 +132,7 @@ AddEventHandler('tpz_core:onPlayerJoined', function()
 
     local isPlayedBefore = false
 
-    print("The following player ( " .. GetPlayerName(_source) .. " ) is joining the game.")
+    print(string.format(Locales['PLAYER_CONNECTED_TO_THE_GAME'], GetPlayerName(_source)))
 
     exports["ghmattimysql"]:execute("SELECT * FROM characters WHERE identifier = @identifier", { ["@identifier"] = sid }, function(result)
 
@@ -171,3 +171,4 @@ RegisterServerEvent('tpz_core:onSelectedCharacter')
 AddEventHandler('tpz_core:onSelectedCharacter', function(tSource, charId, newChar, firstname, lastname, dob)
     onSelectedCharacter(tSource, charId, newChar, firstname, lastname, dob)
 end)
+
