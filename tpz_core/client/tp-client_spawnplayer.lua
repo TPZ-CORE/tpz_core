@@ -36,6 +36,8 @@ end
 
 RegisterNetEvent('tpz_core:onPlayerFirstSpawn')
 AddEventHandler("tpz_core:onPlayerFirstSpawn", function(coords, status, isdead, newChar)
+    local isNewCharacter = newChar
+
     SpawnPlayerData.FirstSpawn   = false
 
     SpawnPlayerData.CanBeDamaged = true
@@ -102,9 +104,7 @@ AddEventHandler("tpz_core:onPlayerFirstSpawn", function(coords, status, isdead, 
     end
     
     DoScreenFadeIn(6000)
-    
-    local newCharCb = newChar == true and 1 or 0
-    TriggerEvent('tpz_core:isPlayerReady', newCharCb)
+    TriggerEvent('tpz_core:isPlayerReady', tonumber(isNewCharacter))
 
     Wait(20000)
     TriggerServerEvent("tpz_core:registerChatSuggestions")
