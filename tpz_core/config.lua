@@ -92,6 +92,9 @@ Config.NegativeValueOnAccounts = false
 -- Example: GRC-XXXXXXX
 Config.IdentityIdGeneratedData = { first_letters = 'GRC-', numbers = 3 }
 
+-- Set to false if you don't want to be notified on the server console when a player left from the server.
+Config.NotifyWhenPlayerDropped = { Enabled = true, Message = '^3A player with the steam name as (^6%s^3) has left from the server.^0'}
+
 ---------------------------------------------------------------
 --[[ New Character Settings ]]--
 ---------------------------------------------------------------
@@ -553,5 +556,6 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
