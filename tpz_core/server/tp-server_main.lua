@@ -74,8 +74,15 @@ AddEventHandler("playerConnecting", OnPlayerConnecting)
 
 -- Saving player data when dropped.
 AddEventHandler('playerDropped', function (reason)
-    local _source = source
+    local _source   = source
+    local steamName = GetPlayerName(_source)
+
     SaveCharacter(_source, true)
+
+    if Config.NotifyWhenPlayerDropped.Enabled then
+        print(string.format(Config.NotifyWhenPlayerDropped.Message, steamName))
+    end
+
 end)
 
 -----------------------------------------------------------
@@ -200,6 +207,7 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
         } 
     ) 
 end)    
+
 
 
 
