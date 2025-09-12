@@ -95,6 +95,28 @@ Config.IdentityIdGeneratedData = { first_letters = 'GRC-', numbers = 3 }
 -- Set to false if you don't want to be notified on the server console when a player left from the server.
 Config.NotifyWhenPlayerDropped = { Enabled = true, Message = '^3A player with the steam name as (^6%s^3) has left from the server.^0'}
 
+
+/* Disable RDR Prompt Actions
+1 | eat almonds | R
+1 | pour coffee | R
+1 | take stew bowl | R
+2 | close drawer\clipboard\cabinet\etc | R
+2 | open drawer\clipboard\cabinet\etc | E
+3 | loot stranger | R
+5 | pickup stranger\animal | R
+5 | drop stranger\animal | R
+5 | swap hat | R
+5 | pickup hat | R
+7 | all lock on actions (aim weapon + emote wheel + melee + calm + flee + show info) | MOUSE RIGHT CLICK
+8 | sit | E
+12 | mount horse | E
+*/
+
+Config.DisableRDRPrompts = {
+    Enabled = true,
+    Prompts = { 1, 2, 3 },
+}
+
 ---------------------------------------------------------------
 --[[ New Character Settings ]]--
 ---------------------------------------------------------------
