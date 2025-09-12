@@ -204,17 +204,19 @@ CreateThread(function()
 
 end)
 
--- code below found from bcc discord, credits to bcc and contributors. 
-Citizen.CreateThread(function()
-   while true do
-      Citizen.Wait(0)
+if Config.DisableRDRPrompts.Enabled then
+   -- code below found from bcc discord, credits to bcc and contributors. 
+   Citizen.CreateThread(function()
+      while true do
+         Citizen.Wait(0)
 
-      for _, promptIndex in pairs (Config.DisableRDRPrompts) do
-         Citizen.InvokeNative(0xFC094EF26DD153FA, promptIndex)   -- _UIPROMPT_DISABLE_PROMPT_TYPE_THIS_FRAME, disable "open\close drawer\clipboard\cabinet\etc" prompt types.
+         for _, promptIndex in pairs (Config.DisableRDRPrompts.Prompts) do
+            Citizen.InvokeNative(0xFC094EF26DD153FA, promptIndex)   -- _UIPROMPT_DISABLE_PROMPT_TYPE_THIS_FRAME, disable "open\close drawer\clipboard\cabinet\etc" prompt types.
+         end
+
       end
 
-   end
-
-end)
+   end)
+end
 
 
