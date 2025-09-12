@@ -110,6 +110,8 @@ Config.NotifyWhenPlayerDropped = { Enabled = true, Message = '^3A player with th
 7 | all lock on actions (aim weapon + emote wheel + melee + calm + flee + show info) | MOUSE RIGHT CLICK
 8 | sit | E
 12 | mount horse | E
+
+ Code below found from bcc discord, credits to bcc and contributors. 
 */
 
 Config.DisableRDRPrompts = {
