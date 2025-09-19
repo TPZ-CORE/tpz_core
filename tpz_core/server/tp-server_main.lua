@@ -204,9 +204,11 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
             identityId      = xPlayer.identity_id,
             defaultWeapon   = xPlayer.default_weapon,
             inventoryMaxWeight = xPlayer.inventory_capacity,
+            skinComp        = xPlayer.skinComp,
         } 
     ) 
 end)    
+
 
 
 
