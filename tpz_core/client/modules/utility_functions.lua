@@ -1,7 +1,7 @@
 core.functions = {}
 core.functions.loaded = false
 
-core.OnResourceStop = function()
+core.stop = function()
     core.functions = nil
 end
 
