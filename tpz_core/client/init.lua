@@ -13,7 +13,7 @@ end
 function core.IsModuleLoaded(module, callback)
     Citizen.CreateThread(function()
         while module == nil do
-            Citizen.Wait(0)
+            Citizen.Wait(100)
         end
         callback(module)
     end)
