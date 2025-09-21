@@ -14,7 +14,7 @@ local Text = function(x, y, scale, text, colour, align, force, w)
     DisplayText(str, x, y)
 end
 
-IsModuleLoaded(core.functions, function(functions)
+IsModuleLoaded("functions", function(functions)
 
     core.functions.DisplayProgressBar = function(time, desciption, cb)
 
