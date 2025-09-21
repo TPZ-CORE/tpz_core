@@ -1,6 +1,11 @@
 -- @credits to KadDarem for the shared code that was found on @jo libs. 
 
 core.waiter = {}
+
+core.OnResourceStop() = function() 
+  core.waiter = nil 
+end
+
 local context = IsDuplicityVersion() and "server" or "client"
 
 local function getTime()
