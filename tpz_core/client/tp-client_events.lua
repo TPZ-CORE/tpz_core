@@ -1,4 +1,6 @@
 
+core.RequestModuleAwait("core.functions")
+
 -- The following event is triggered when the player selected a character and successfully spawned (teleported) to the last saved location.
 RegisterNetEvent('tpz_core:isPlayerReady')
 AddEventHandler("tpz_core:isPlayerReady", function(newChar)
@@ -45,8 +47,8 @@ end)
 
 RegisterNetEvent("tpz_core:teleportToCoords")
 AddEventHandler("tpz_core:teleportToCoords", function(x, y, z, heading)
-    GetFunctions().CloseMapUI()
-    GetFunctions().TeleportToCoords(x, y, z, heading)
+    core.functions.CloseMapUI()
+    core.functions.TeleportToCoords(x, y, z, heading)
 end)
 
 -----------------------------------------------------------
@@ -55,13 +57,13 @@ end)
 
 RegisterNetEvent('tpz_core:teleportToWayPoint')
 AddEventHandler('tpz_core:teleportToWayPoint', function()
-    GetFunctions().CloseMapUI()
-    GetFunctions().TeleportToWaypoint()
+    core.functions.CloseMapUI()
+    core.functions.TeleportToWaypoint()
 end)
 
 RegisterNetEvent('tpz_core:healPlayer')
 AddEventHandler('tpz_core:healPlayer', function()
-    GetFunctions().HealPlayer()
+    core.functions.HealPlayer()
 end)
 
 RegisterNetEvent('tpz_core:sendAnnouncement')
