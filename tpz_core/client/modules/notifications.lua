@@ -1,17 +1,7 @@
 core.notifications = {}
 
------------------------------------------------------------
---[[ Base Events  ]]--
------------------------------------------------------------
 
-AddEventHandler('onResourceStop', function(resourceName)
-    if (GetCurrentResourceName() ~= resourceName) then
-        return
-    end
-
-    Notifications = nil
-
-end)
+core.OnResourceStop = function() core.notifications = nil end
 
 -----------------------------------------------------------
 --[[ Functions  ]]--
