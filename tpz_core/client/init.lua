@@ -11,7 +11,7 @@ InvokeNative    = Citizen.InvokeNative
 function core.RequestModuleAwait(module)
 
     Citizen.CreateThread(function()
-        while module == nil or module and not module.loaded() do
+        while module == nil or module and not module.loaded do
             Citizen.Wait(50)
         end
     end)
@@ -21,7 +21,7 @@ end
 function core.IsModuleLoaded(module, callback)
     Citizen.CreateThread(function()
 
-        while module == nil or module and not module.loaded() do
+        while module == nil or module and not module.loaded do
             Citizen.Wait(50)
         end
 
