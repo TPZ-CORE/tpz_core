@@ -1,6 +1,6 @@
 core.functions = {}
 
-core.onResourceStop = function()
+core.OnResourceStop = function()
     core.functions = nil
 end
 
