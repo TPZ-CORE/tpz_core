@@ -13,6 +13,10 @@ exports('getCoreAPI', function()
         return Timeout()
     end
 
+    self.Waiter = function()
+        return Waiter()
+    end
+
     self.RpcCall = function(name, callback, ...) 
         ClientRPC.Callback.TriggerAsync(name, callback, ...) 
     end
