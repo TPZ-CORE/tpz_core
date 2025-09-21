@@ -391,3 +391,7 @@ function table.getDeep(t, keys)
   if deep[last] == nil then return nil, false, last end
   return deep[last], true, ""
 end
+
+function GetTableFunctionUtilities()
+  return table
+end
