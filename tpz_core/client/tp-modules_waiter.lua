@@ -32,5 +32,5 @@ function waiter.exec(condition, executable, loopSpeed, maxDuration)
 end
 
 function Waiter()
-    retuen waiter
+    return waiter
 end
