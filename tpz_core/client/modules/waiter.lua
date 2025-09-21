@@ -2,7 +2,7 @@
 
 core.waiter = {}
 
-core.OnResourceStop() = function() 
+core.stop() = function() 
   core.waiter = nil 
 end
 
