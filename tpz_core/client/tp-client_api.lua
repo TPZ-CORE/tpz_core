@@ -6,7 +6,11 @@ exports('getCoreAPI', function()
     end
 
     self.Table = function()
-        return GetTableFunctionUtilities()
+        return Table()
+    end
+
+    self.Timeout = function()
+        return Timeout()
     end
 
     self.RpcCall = function(name, callback, ...) 
