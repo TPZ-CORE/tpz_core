@@ -807,3 +807,5 @@ core.keys = {
     ["ScriptedFlyZdown"] = 0x9C5E030C,
     ["Count"] = 0x8EDFFB30
 }
+
+SetModuleLoaded("keys")
