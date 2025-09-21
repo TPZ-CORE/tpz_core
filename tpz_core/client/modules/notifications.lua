@@ -1,5 +1,4 @@
 core.notifications       = {}
-core.notifications.loaded = false
 
 core.stop() = function() 
   core.notifications = nil 
@@ -238,7 +237,7 @@ Citizen.CreateThread(function()
       InvokeNative(0x4ACA10A91F66F1E2, dict1)
   end
 
-  core.notifications.loaded = true
+  SetModuleLoaded("notifications")
 end)
 
 -----------------------------------------------------------
