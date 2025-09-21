@@ -1,3 +1,4 @@
+
 local TextureDicts = { "rpg_meter", "rpg_meter_track", "generic_textures" }
 
 local Text = function(x, y, scale, text, colour, align, force, w)
@@ -14,7 +15,7 @@ local Text = function(x, y, scale, text, colour, align, force, w)
     DisplayText(str, x, y)
 end
 
-IsModuleLoaded("functions", function(functions)
+core.IsModuleLoaded("functions", function(functions)
 
     core.functions.DisplayProgressBar = function(time, desciption, cb)
 
