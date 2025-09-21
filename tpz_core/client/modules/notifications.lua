@@ -1,7 +1,7 @@
 core.notifications       = {}
 core.notifications.loaded = false
 
-core.OnResourceStop() = function() 
+core.stop() = function() 
   core.notifications = nil 
 end
 
