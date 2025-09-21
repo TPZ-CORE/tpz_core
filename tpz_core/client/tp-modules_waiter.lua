@@ -1,3 +1,5 @@
+-- @credits to KadDarem for the shared code that was found on @jo libs. 
+
 local waiter = {}
 local context = IsDuplicityVersion() and "server" or "client"
 
