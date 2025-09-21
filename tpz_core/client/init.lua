@@ -6,8 +6,17 @@ InvokeNative = Citizen.InvokeNative
 
 core = {}
 
-function core.onResourceStop()
+function core.OnResourceStop()
     -- todo, nothing. 
+end
+
+function core.IsModuleLoaded(module, callback)
+    Citizen.CreateThread(function()
+        while module == nil do
+            Citizen.Wait(0)
+        end
+        callback(module)
+    end)
 end
 
 -- Event: only runs once when resource stops
