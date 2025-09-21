@@ -5,16 +5,8 @@ exports('getCoreAPI', function()
         GetFunctions().CloseMapUI()
     end
 
-    self.Table = function()
-        return Table()
-    end
-
-    self.Timeout = function()
-        return Timeout()
-    end
-
-    self.Waiter = function()
-        return Waiter()
+    self.Modules = function()
+        return core
     end
 
     self.RpcCall = function(name, callback, ...) 
