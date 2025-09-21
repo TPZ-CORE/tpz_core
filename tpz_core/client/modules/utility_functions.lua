@@ -5,7 +5,7 @@ core.onResourceStop = function()
 end
 
 -----------------------------------------------------------
---[[ Utility Functions  ]]--
+--[[ General Utility Functions  ]]--
 -----------------------------------------------------------
 
 core.functions.LoadTexture = function(hash)
@@ -58,6 +58,10 @@ core.functions.GetTableLength = function(T)
     for _ in pairs(T) do count = count + 1 end
     return count
 end
+
+-----------------------------------------------------------
+--[[ Player & Ped Utility Functions  ]]--
+-----------------------------------------------------------
 
 core.functions.PlayAnimation = function(ped, anim)
 
