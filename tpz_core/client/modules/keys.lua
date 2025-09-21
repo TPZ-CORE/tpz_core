@@ -809,3 +809,7 @@ core.keys = {
 }
 
 SetModuleLoaded("keys")
+
+core.stop = function()
+    core.keys = nil
+end
