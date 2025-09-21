@@ -5,6 +5,10 @@ exports('getCoreAPI', function()
         GetFunctions().CloseMapUI()
     end
 
+    self.Table = function()
+        return GetTableFunctionUtilities()
+    end
+
     self.RpcCall = function(name, callback, ...) 
         ClientRPC.Callback.TriggerAsync(name, callback, ...) 
     end
