@@ -1,7 +1,4 @@
 
---jo.require("ped-texture")
-
-
 core.RequestModuleAwait("table")
 core.RequestModuleAwait("timeout")
 core.RequestModuleAwait("dataview")
