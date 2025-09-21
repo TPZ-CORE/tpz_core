@@ -1,5 +1,4 @@
 core.functions = {}
-core.functions.loaded = false
 
 core.stop = function()
     core.functions = nil
@@ -209,5 +208,5 @@ Citizen.CreateThread(function()
     
     end
 
-    core.functions.loaded = true
+    SetModuleLoaded("functions")
 end)
