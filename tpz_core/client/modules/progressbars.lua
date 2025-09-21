@@ -16,7 +16,7 @@ end
 
 IsModuleLoaded(core.functions, function(functions)
 
-    functions.DisplayProgressBar = function(time, desciption, cb)
+    core.functions.DisplayProgressBar = function(time, desciption, cb)
 
         for k, v in pairs(TextureDicts) do
             GetFunctions().LoadTexture(v)
