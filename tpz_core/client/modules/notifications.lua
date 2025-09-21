@@ -1,6 +1,6 @@
 core.notifications = {}
 
-core.onResourceStop() = function() 
+core.OnResourceStop() = function() 
   core.notifications = nil 
 end
 
