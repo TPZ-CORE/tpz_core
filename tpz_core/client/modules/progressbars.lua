@@ -1,3 +1,4 @@
+core.RequestModuleAwait("functions")
 
 local TextureDicts = { "rpg_meter", "rpg_meter_track", "generic_textures" }
 
@@ -15,7 +16,6 @@ local Text = function(x, y, scale, text, colour, align, force, w)
     DisplayText(str, x, y)
 end
 
-core.IsModuleLoaded("functions", function(functions)
 
     core.functions.DisplayProgressBar = function(time, desciption, cb)
 
@@ -51,5 +51,3 @@ core.IsModuleLoaded("functions", function(functions)
             Wait(timer)
         end
     end
-
-end)
