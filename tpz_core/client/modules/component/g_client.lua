@@ -105,7 +105,7 @@ core.component.data.horseCategories = {
   "horse_bridles",
 }
 
-core.component.data.order = table.copy(core.component.data.pedCategories)
+core.component.data.order = core.table.copy(core.component.data.pedCategories)
 for i = 1, #core.component.data.horseCategories do
   core.component.data.order[#core.component.data.order + 1] = core.component.data.horseCategories[i]
 end
@@ -120,7 +120,7 @@ local categoryNotClothes = {
   eyes = true,
   neckerchiefs = true
 }
-core.component.data.pedClothes = table.filter(core.component.data.pedCategories, function(cat) return not categoryNotClothes[cat] end)
+core.component.data.pedClothes = core.table.filter(core.component.data.pedCategories, function(cat) return not categoryNotClothes[cat] end)
 core.component.data.clothesCategories = {}
 
 for i = 1, #core.component.data.pedClothes do
@@ -415,7 +415,7 @@ end
 
 ---@return any data formatted table for component data
 local function formatComponentData(_data)
-  local data = table.copy(_data)
+  local data = core.table.copy(_data)
   if type(data) ~= "table" then
     data = { hash = data }
   end
@@ -502,7 +502,7 @@ function core.component.getBaseLayer(ped, hash, inTable)
 end
 
 local function convertToMetaTag(ped, data)
-  data = table.copy(data)
+  data = core.table.copy(data)
   --restrict to hats & masks
   if not data.hash then return data end
   if data.albedo then return data end
@@ -577,13 +577,13 @@ end
 ---@param tint2 integer
 local function addCachedComponent(ped, index, category, hash, wearableState, drawable, albedo, normal, material, palette, tint0, tint1, tint2)
   category = core.component.getCategoryHash(category)
-  table.addMultiLevels(core.cache.component.color, ped, category)
+  core.table.addMultiLevels(core.cache.component.color, ped, category)
   core.cache.component.color[ped][category] = Component.new(index, category, hash, wearableState, drawable, albedo, normal, material, palette, tint0, tint1, tint2)
   if category == `neckwear` then
-    core.cache.component.color[ped][`neckerchiefs`] = table.copy(core.cache.component.color[ped][category])
+    core.cache.component.color[ped][`neckerchiefs`] = core.table.copy(core.cache.component.color[ped][category])
     core.cache.component.color[ped][`neckerchiefs`].category = "neckerchiefs"
   elseif category == `neckerchiefs` then
-    core.cache.component.color[ped][`neckwear`] = table.copy(core.cache.component.color[ped][category])
+    core.cache.component.color[ped][`neckwear`] = core.table.copy(core.cache.component.color[ped][category])
     core.cache.component.color[ped][`neckwear`].category = "neckwear"
   end
 end
@@ -605,7 +605,7 @@ local function initCachePedComponents(ped)
       addCachedComponent(ped, index, category, hash, wearableState, drawable, albedo, normal, material, palette, tint0, tint1, tint2)
     end
   end
-  return table.copy(core.cache.component.color[ped])
+  return core.table.copy(core.cache.component.color[ped])
 end
 -------------
 -- END COLOR MANAGEMENT
@@ -621,7 +621,7 @@ local function reapplyComponentStats(ped)
       if isEquiped then
         local state = Entity(ped).state["wearableState:" .. category] or "base"
         local stateName = core.component.getWearableStateNameFromHash(state)
-        if stateName ~= "base" and table.includes(list, stateName) then
+        if stateName ~= "base" and core.table.includes(list, stateName) then
           local hash = GetShopItemComponentAtIndex(ped, index)
           if Config.Debug then
             print("Reapply state of %s: %s (%d)", category, core.component.getWearableStateNameFromHash(state), state)
@@ -769,7 +769,7 @@ function core.component.apply(ped, category, _data)
   if cached and cached[categoryHash] then
     if categoryName ~= "unknown" then
       local stateName = core.component.getWearableStateNameFromHash(cached[categoryHash].wearableStateHash)
-      if not Entity(ped).state["wearableState:" .. categoryName] and stateName ~= "base" and table.includes(list, stateName) then
+      if not Entity(ped).state["wearableState:" .. categoryName] and stateName ~= "base" and core.table.includes(list, stateName) then
         print("Save the wearable state of %s: %s", categoryName, tostring(stateName))
         Entity(ped).state["wearableState:" .. categoryName] = cached[categoryHash].wearableStateHash
       end
@@ -981,7 +981,7 @@ function core.component.applySkin(ped, skin)
         default.palette = "metaped_tint_hair"
         default.tint0 = 135
       end
-      overlay = table.merge(default, overlay)
+      overlay = core.table.merge(default, overlay)
     end
   end
   --if core.IsModuleLoaded("pedTexture") and NetworkGetEntityIsNetworked(ped) then -- FINISH
@@ -1210,10 +1210,10 @@ function core.component.getCategoriesEquiped(ped)
       categoryHash = category
     }
     if category == `neckwear` then
-      categories[`neckerchiefs`] = table.copy(categories[category])
+      categories[`neckerchiefs`] = core.table.copy(categories[category])
       categories[`neckerchiefs`].category = "neckerchiefs"
     elseif category == `neckerchiefs` then
-      categories[`neckwear`] = table.copy(categories[category])
+      categories[`neckwear`] = core.table.copy(categories[category])
       categories[`neckwear`].category = "neckwear"
     end
   end
