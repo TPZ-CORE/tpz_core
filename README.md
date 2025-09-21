@@ -56,7 +56,7 @@ For more information and support related to our Framework you can contact us on 
 
 ## Disclaimer and Credits
 
-- Credits to KadDarem (Jump On Studios) for all the shared modules, utilities and components.
+- Credits to KadDarem (Jump On Studios) for all the shared modules, utilities and components which are taken from [jo libs)](https://github.com/Jump-On-Studios/RedM-jo_libs)
 - Credits to VORP-CORE for the logic of Server & Client Callbacks, Notifications and to REDEM:RP for useful native and clothing functions.
 
 
