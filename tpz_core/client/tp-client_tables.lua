@@ -392,6 +392,6 @@ function table.getDeep(t, keys)
   return deep[last], true, ""
 end
 
-function GetTableFunctionUtilities()
+function Table()
   return table
 end
