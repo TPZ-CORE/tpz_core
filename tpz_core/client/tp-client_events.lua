@@ -1,5 +1,5 @@
 
-core.RequestModuleAwait("core.functions")
+core.RequestModuleAwait("functions")
 
 -- The following event is triggered when the player selected a character and successfully spawned (teleported) to the last saved location.
 RegisterNetEvent('tpz_core:isPlayerReady')
