@@ -9,7 +9,7 @@ version '1.0.7'
 ui_page 'html/index.html'
 
 shared_scripts { 'config.lua', 'locales.lua'   }
-client_scripts { 'client/*.lua' }
+client_scripts { 'client/*.lua' 'client/modules/*.lua' 'client/api/*.lua' }
 server_scripts { 'server/*.lua' }
 
 files { 'html/**/*' }
