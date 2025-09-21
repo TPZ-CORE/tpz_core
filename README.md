@@ -56,6 +56,7 @@ For more information and support related to our Framework you can contact us on 
 
 ## Disclaimer and Credits
 
-Credits to VORP-CORE for the logic of Server & Client Callbacks, Notifications and to REDEM:RP for useful native and clothing functions.
+- Credits to KadDarem (Jump On Studios) for all the shared modules, utilities and components.
+- Credits to VORP-CORE for the logic of Server & Client Callbacks, Notifications and to REDEM:RP for useful native and clothing functions.
 
 
