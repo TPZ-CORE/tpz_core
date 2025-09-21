@@ -39,5 +39,5 @@ AddEventHandler('onResourceStop', function(resourceName)
         return
     end
 
-    core.onResourceStop()
+    core.stop()
 end)
