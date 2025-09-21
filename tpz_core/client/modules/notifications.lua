@@ -234,3 +234,82 @@ core.notifications.NotifyLeftRank = function(title, subtitle, dict1, texture, du
     Citizen.InvokeNative(0x3F9FDDBA79117C69, struct1:Buffer(), struct2:Buffer(), 1, 1)
     Citizen.InvokeNative(0x4ACA10A91F66F1E2, dict1)
 end
+
+-----------------------------------------------------------
+--[[ Event Registrations ]]--
+-----------------------------------------------------------
+
+RegisterNetEvent('tpz_core:sendLeftNotification')
+AddEventHandler('tpz_core:sendLeftNotification', function(firsttext, secondtext, dict, icon, duration, color)
+    core.notifications.NotifyLeft(tostring(firsttext), tostring(secondtext), tostring(dict), tostring(icon), tonumber(duration), (tostring(color) or "COLOR_WHITE"))
+end)
+
+RegisterNetEvent('tpz_core:sendTipNotification')
+AddEventHandler('tpz_core:sendTipNotification', function(text, duration)
+    core.notifications.NotifyTip(tostring(text), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendTopNotification')
+AddEventHandler('tpz_core:sendTopNotification', function(text, location, duration)
+    core.notifications.NotifyTop(tostring(text), tostring(location), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendRightTipNotification')
+AddEventHandler('tpz_core:sendRightTipNotification', function(text, duration)
+    core.notifications.NotifyRightTip(tostring(text), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendBottomTipNotification')
+AddEventHandler('tpz_core:sendBottomTipNotification', function(text, duration)
+    core.notifications.NotifyObjective(tostring(text), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendSimpleTopNotification')
+AddEventHandler('tpz_core:sendSimpleTopNotification', function(title, subtitle, duration)
+    core.notifications.NotifySimpleTop(tostring(title), tostring(subtitle), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendAdvancedRightNotification')
+AddEventHandler('tpz_core:sendAdvancedRightNotification', function(text, dict, icon, text_color, duration, quality)
+    core.notifications.NotifyAvanced(tostring(text), tostring(dict), tostring(icon), tostring(text_color), tonumber(duration), quality)
+end)
+
+RegisterNetEvent('tpz_core:sendBasicTopNotification')
+AddEventHandler('tpz_core:sendBasicTopNotification', function(text, duration)
+    core.notifications.NotifyBasicTop(tostring(text), tonumber(duration))
+end)       
+
+RegisterNetEvent('tpz_core:sendSimpleCenterNotification')
+AddEventHandler('tpz_core:sendSimpleCenterNotification', function(text, duration)
+    core.notifications.NotifyCenter(tostring(text), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendBottomRightNotification')
+AddEventHandler('tpz_core:sendBottomRightNotification', function(text, duration)
+    core.notifications.NotifyBottomRight(tostring(text), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendFailMissionNotification')
+AddEventHandler('tpz_core:sendFailMissionNotification', function(title, subtitle, duration)
+    core.notifications.NotifyFail(tostring(title), tostring(subtitle), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendDeadPlayerNotification')
+AddEventHandler('tpz_core:sendDeadPlayerNotification', function(title, audioRef, audioName, duration)
+    core.notifications.NotifyDead(tostring(title), tostring(audioRef), tostring(audioName), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendMissionUpdateNotification')
+AddEventHandler('tpz_core:sendMissionUpdateNotification', function(utitle, umsg, duration)
+    core.notifications.NotifyUpdate(tostring(utitle), tostring(umsg), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendWarningNotification')
+AddEventHandler('tpz_core:sendWarningNotification', function(title, msg, audioRef, audioName, duration)
+    core.notifications.NotifyWarning(tostring(title), tostring(msg), tostring(audioRef), tostring(audioName), tonumber(duration))
+end)
+
+RegisterNetEvent('tpz_core:sendLeftRankNotification')
+AddEventHandler('tpz_core:sendLeftRankNotification', function(title, subtitle, dict, icon, duration, color)
+    core.notifications.NotifyLeftRank(tostring(title), tostring(subtitle), tostring(dict), tostring(icon) , tonumber(duration), (tostring(color))) 
+end)
