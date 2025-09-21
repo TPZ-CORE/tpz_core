@@ -4,11 +4,12 @@ CreateThreadNow = Citizen.CreateThreadNow
 Await = Citizen.Await
 InvokeNative = Citizen.InvokeNative
 
+
 core = {}
 
-function core.OnResourceStop()
-    -- todo, nothing. 
-end
+-----------------------------------------------------------
+--[[ Functions ]]--
+-----------------------------------------------------------
 
 function core.IsModuleLoaded(module, callback)
     Citizen.CreateThread(function()
@@ -19,10 +20,15 @@ function core.IsModuleLoaded(module, callback)
     end)
 end
 
+-----------------------------------------------------------
+--[[ Events  ]]--
+-----------------------------------------------------------
+
 -- Event: only runs once when resource stops
 AddEventHandler('onResourceStop', function(resourceName)
     if GetCurrentResourceName() ~= resourceName then
         return
     end
+
     core.onResourceStop()
 end)
