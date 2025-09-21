@@ -59,6 +59,37 @@ core.functions.GetTableLength = function(T)
     return count
 end
 
+core.functions.PlayAnimation = function(ped, anim)
+
+    if not DoesAnimDictExist(anim.dict) then
+        return false
+    end
+    
+    local await = 10000
+    local loaded = true
+
+    RequestAnimDict(anim.dict)
+    
+    while not HasAnimDictLoaded(anim.dict) do
+
+        await = await - 10
+
+        if await <= 0 then
+            loaded = false
+            break
+        end
+
+        Citizen.Wait(10)
+    end
+
+    if loaded then
+        TaskPlayAnim(ped, anim.dict, anim.name, anim.blendInSpeed, anim.blendOutSpeed, anim.duration, anim.flag, anim.playbackRate, false, false, false, '', false)
+        RemoveAnimDict(anim.dict)
+    end
+
+    return loaded
+end
+
 core.functions.LoadModel = function(model)
     local model = GetHashKey(model)
 
