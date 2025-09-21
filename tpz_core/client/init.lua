@@ -1,11 +1,8 @@
-
+core           = {}
 
 CreateThreadNow = Citizen.CreateThreadNow
-Await = Citizen.Await
-InvokeNative = Citizen.InvokeNative
-
-
-core = {}
+Await           = Citizen.Await
+InvokeNative    = Citizen.InvokeNative
 
 -----------------------------------------------------------
 --[[ Functions ]]--
@@ -14,7 +11,7 @@ core = {}
 function core.IsModuleLoaded(module, callback)
     Citizen.CreateThread(function()
         while module == nil do
-            Citizen.Wait(1000)
+            Citizen.Wait(50)
         end
         callback(module)
     end)
