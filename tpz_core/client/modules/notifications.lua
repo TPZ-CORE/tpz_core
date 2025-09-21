@@ -1,7 +1,8 @@
 core.notifications = {}
 
-
-core.OnResourceStop = function() core.notifications = nil end
+core.onResourceStop() = function() 
+  core.notifications = nil 
+end
 
 -----------------------------------------------------------
 --[[ Functions  ]]--
