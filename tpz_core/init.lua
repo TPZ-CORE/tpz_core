@@ -4,7 +4,7 @@ InvokeNative  = Citizen.InvokeNative
 local LoadedModules = {}
 
 -----------------------------------------------------------
---[[ Functions ]]--
+--[[ Core Table Functions ]]--
 -----------------------------------------------------------
 
 function core.RequestModuleAwait(module)
@@ -32,6 +32,10 @@ end
 function core.stop()
     LoadedModules = nil
 end
+
+-----------------------------------------------------------
+--[[ Init Functions ]]--
+-----------------------------------------------------------
 
 function GetHashFromString(value)
     if type(value) == "string" then
