@@ -230,7 +230,7 @@ core.component.data.wearableStates = {
 core.component.data.wearableStatesName = {}
 for category, states in pairs(core.component.data.wearableStates) do
   for _, state in pairs(states) do
-    core.component.data.wearableStatesName[GetHashFromString(state)] = state
+    core.component.data.wearableStatesName[core.functions.GetHashFromString(state)] = state
   end
 end
 
@@ -264,7 +264,7 @@ core.component.palettes = core.component.data.palettes --deprecated name
 core.component.data.palettesName = {}
 for i = 1, #core.component.data.palettes do
   local palette = core.component.data.palettes[i]
-  local hash = GetHashFromString(palette)
+  local hash = core.functions.GetHashFromString(palette)
   core.component.data.palettesName[hash] = palette
 end
 
@@ -350,14 +350,14 @@ local invokeNative = Citizen.InvokeNative
 local function SetTextureOutfitTints(ped, category, palette, tint0, tint1, tint2)
   if not palette then return end
   if palette == 0 then return end
-  return invokeNative(0x4EFC1F8FF1AD94DE, ped, core.component.getCategoryHash(category), GetHashFromString(palette), tint0, tint1,
+  return invokeNative(0x4EFC1F8FF1AD94DE, ped, core.component.getCategoryHash(category), core.functions.GetHashFromString(palette), tint0, tint1,
     tint2)
 end
 local function SetActiveMetaPedComponentsUpdated(ped) return invokeNative(0xAAB86462966168CE, ped, true) end
 local function N_0x704C908E9C405136(ped) return invokeNative(0x704C908E9C405136, ped) end
 local function GetShopItemBaseLayers(hash, metapedType, isMp)
   return invokeNative(0x63342C50EC115CE8,
-    GetHashFromString(hash), 0, 0, metapedType, isMp, Citizen.PointerValueInt(), Citizen.PointerValueInt(),
+    core.functions.GetHashFromString(hash), 0, 0, metapedType, isMp, Citizen.PointerValueInt(), Citizen.PointerValueInt(),
     Citizen.PointerValueInt(), Citizen.PointerValueInt(), Citizen.PointerValueInt(), Citizen.PointerValueInt(),
     Citizen.PointerValueInt(), Citizen.PointerValueInt())
 end
@@ -366,7 +366,7 @@ local function IsPedReadyToRender(...) return invokeNative(0xA0BC8FAED8CFEB3C, .
 local function IsThisModelAHorse(...) return invokeNative(0x772A1969F649E902, ...) == 1 end
 local function ApplyShopItemToPed(ped, hash, immediatly, isMp, p4)
   return invokeNative(0xD3A7B003ED343FD9, ped,
-    GetHashFromString(hash), immediatly, isMp, p4)
+    core.functions.GetHashFromString(hash), immediatly, isMp, p4)
 end
 local function GetMetaPedAssetTint(ped, index)
   return invokeNative(0xE7998FEC53A33BBE, ped, index,
@@ -375,12 +375,12 @@ end
 local function GetNumComponentsInPed(ped) return invokeNative(0x90403E8107B60E81, ped) or 0 end
 local function GetShopItemComponentCategory(...) return invokeNative(0x5FF9A878C3D115B8, ...) end
 local function UpdateShopItemWearableState(ped, hash, state)
-  return invokeNative(0x66B957AAC2EAAEAB, ped, GetHashFromString(hash), GetHashFromString(state), 0, true, 1)
+  return invokeNative(0x66B957AAC2EAAEAB, ped, core.functions.GetHashFromString(hash), core.functions.GetHashFromString(state), 0, true, 1)
 end
 local function SetMetaPedTag(ped, drawable, albedo, normal, material, palette, tint0, tint1, tint2)
   return invokeNative(
-    0xBC6DF00D7A4A6819, ped, GetHashFromString(drawable), GetHashFromString(albedo), GetHashFromString(normal),
-    GetHashFromString(material), GetHashFromString(palette), tint0, tint1, tint2)
+    0xBC6DF00D7A4A6819, ped, core.functions.GetHashFromString(drawable), core.functions.GetHashFromString(albedo), core.functions.GetHashFromString(normal),
+    core.functions.GetHashFromString(material), core.functions.GetHashFromString(palette), tint0, tint1, tint2)
 end
 
 local function refreshPed(ped)
@@ -455,7 +455,7 @@ function Component.new(index, category, hash, wearableState, drawable, albedo, n
     tint2 = tint2,
     hash = hash,
     wearableState = core.component.getWearableStateNameFromHash(wearableState),
-    wearableStateHash = GetHashFromString(wearableState) or false,
+    wearableStateHash = core.functions.GetHashFromString(wearableState) or false,
     index = index,
     drawable = drawable,
     albedo = albedo,
@@ -545,7 +545,7 @@ end
 ---@param state string|integer
 local function updateComponentWearableState(ped, category, hash, state)
   category = core.component.getCategoryNameFromHash(category)
-  state = GetHashFromString(state)
+  state = core.functions.GetHashFromString(state)
   Entity(ped).state:set("wearableState:" .. category, state)
   UpdateShopItemWearableState(ped, type(hash) == "table" and hash.hash or hash, state)
 end
@@ -693,7 +693,7 @@ end
 ---@return integer,boolean (1st: Return hash value of the category <br> 2nd: Return `true` if it's a MP component, `false` otherwise)
 function core.component.getComponentCategory(ped, hash)
   local isMp = true
-  hash = GetHashFromString(hash)
+  hash = core.functions.GetHashFromString(hash)
   local categoryHash = GetShopItemComponentCategory(hash, GetMetaPedType(ped), true)
   if not categoryHash then
     isMp = false
@@ -707,7 +707,7 @@ end
 ---@param hash integer (The component hash)
 ---@return boolean (Return `true` if it's an MP component, `false` otherwise)
 function core.component.isMpComponent(ped, hash)
-  hash = GetHashFromString(hash)
+  hash = core.functions.GetHashFromString(hash)
   local metapedType = DoesEntityExist(ped) and GetMetaPedType(ped) or ped
   local categoryHash = GetShopItemComponentCategory(hash, metapedType, true)
   if not categoryHash then
@@ -892,7 +892,7 @@ function core.component.applySkin(ped, skin)
   if not skin then return end
 
   if skin.model then
-    local modelHash = GetHashFromString(skin.model)
+    local modelHash = core.functions.GetHashFromString(skin.model)
     if GetEntityModel(ped) ~= modelHash then
       if (ped ~= PlayerPedId()) then
         eprint("You can't swap the model of existing ped. Current model:", GetEntityModel(ped), "Request model:",
@@ -1011,7 +1011,7 @@ end
 --- @param data table (The component data, see the structure in [core.component.apply()](#core-component-apply))
 --- @param state integer|string (The wearable state to apply on the component <br>  The list of wearable state can be find in the `tpz_core>module>component>client.lua` file `line 76`)
 function core.component.setWearableState(ped, category, data, state)
-  local stateHash = GetHashFromString(state)
+  local stateHash = core.functions.GetHashFromString(state)
   local categoryName = core.component.getCategoryNameFromHash(category)
   local categoryHash = core.component.getCategoryHash(category)
 
