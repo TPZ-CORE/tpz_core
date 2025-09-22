@@ -9,10 +9,10 @@ Config.Debug   = false
 ---------------------------------------------------------------
 
 /*
-    ABOUT:
+    [ABOUT]:
     The specified feature is for advanced permissions which are based on the discord roles of your discord server.
 
-    HOW TO INSERT TOKEN:
+    [ HOW TO INSERT TOKEN]:
     1. Your discord bot token, if does not exist, create a bot in the url below:
     https://discord.com/developers/applications
 
