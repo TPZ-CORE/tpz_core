@@ -479,7 +479,7 @@ end
 ---@param inTable? boolean (`true` to get the result as a table, `false` to get the result as separate values<br> Default: `false`)
 ---@return table|integer,integer,integer,integer,integer,integer,integer,integer (When inTable is true: returns a table with {drawable, albedo, normal, material, palette, tint0, tint1, tint2} <br> When inTable is false: 1st: drawable <br> 2nd: albedo <br> 3rd: normal <br> 4th: material <br> 5th: palette <br> 6th: tint0 <br> 7th: tint1 <br> 8th: tint2)
 function core.component.getBaseLayer(ped, hash, inTable)
-  inTable = core.functions.getValue(inTable, false)
+  inTable = core.functions.GetValue(inTable, false)
   local metapedType = DoesEntityExist(ped) and GetMetaPedType(ped) or ped
   local drawable, albedo, normal, material, palette, tint0, tint1, tint2 = GetShopItemBaseLayers(hash, metapedType, core.component.isMpComponent(ped, hash))
   if drawable == 0 or drawable == 1 then drawable = nil end
