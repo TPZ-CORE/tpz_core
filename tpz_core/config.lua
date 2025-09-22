@@ -10,9 +10,10 @@ Config.Debug   = false
 
 /*
     [ABOUT]:
-    The specified feature is for advanced permissions which are based on the discord roles of your discord server.
+    The specified feature is for advanced permissions which are based on the discord roles of your discord server,
+    we not only support groups or ace permissions but also discord roles. 
 
-    [ HOW TO INSERT TOKEN]:
+    [HOW TO INSERT DISCORD BOT TOKEN]:
     1. Your discord bot token, if does not exist, create a bot in the url below:
     https://discord.com/developers/applications
 
