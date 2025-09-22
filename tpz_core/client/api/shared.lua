@@ -17,7 +17,7 @@ exports('getCoreAPI', function()
         return core
     end
 
-    --- @deprecated : Use TPZ.modules().keys instead.
+    --- @deprecated : Use TPZ.module().keys instead.
     self.GetKeys = function()
         return core.keys
     end

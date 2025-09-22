@@ -11,11 +11,6 @@ local TimeoutClass = {
   canceled = false,
 }
 
-core.stop = function() 
-  core.timeout = nil 
-  delays = nil
-end
-
 Citizen.CreateThread(function()
 
   --- Initialize a new timeout

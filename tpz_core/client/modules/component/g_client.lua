@@ -1,10 +1,12 @@
 
-core.RequestModuleAwait("table")
+--jo.require("ped-texture")
+
+
 core.RequestModuleAwait("timeout")
-core.RequestModuleAwait("dataview")
 core.RequestModuleAwait("waiter")
 core.RequestModuleAwait("utils")
 core.RequestModuleAwait("component")
+core.RequestModuleAwait("table")
 
 -------------
 -- VARIABLES
@@ -103,6 +105,7 @@ core.component.data.horseCategories = {
 }
 
 core.component.data.order = core.table.copy(core.component.data.pedCategories)
+
 for i = 1, #core.component.data.horseCategories do
   core.component.data.order[#core.component.data.order + 1] = core.component.data.horseCategories[i]
 end
@@ -1004,8 +1007,8 @@ end
 --- A function to edit the wearable state of a category
 --- @param ped integer (The entity ID)
 --- @param category integer|string (The category of the component)
---- @param data table (The component data, see the structure in [core.component.apply()](#jo-component-apply))
---- @param state integer|string (The wearable state to apply on the component <br>  The list of wearable state can be find in the `jo_libs>module>component>client.lua` file `line 76`)
+--- @param data table (The component data, see the structure in [core.component.apply()](#core-component-apply))
+--- @param state integer|string (The wearable state to apply on the component <br>  The list of wearable state can be find in the `tpz_core>module>component>client.lua` file `line 76`)
 function core.component.setWearableState(ped, category, data, state)
   local stateHash = GetHashFromString(state)
   local categoryName = core.component.getCategoryNameFromHash(category)
@@ -1110,7 +1113,7 @@ core.component.isCollarOpened = core.component.collarIsOpened
 
 --- A function to unroll sleeve
 ---@param ped integer (The entity ID)
----@param data table (The component data, see the structure in [core.component.apply()](#jo-component-apply))
+---@param data table (The component data, see the structure in [core.component.apply()](#core-component-apply))
 function core.component.sleeveUnroll(ped, hash)
   if core.component.isCollarOpened(ped) then
     core.component.setWearableState(ped, "shirts_full", hash, "open_collar_full_sleeve")
@@ -1123,7 +1126,7 @@ core.component.unrollSleeve = core.component.sleeveUnroll
 
 --- A function to roll sleeve
 ---@param ped integer (The entity ID)
----@param data table (The component data, see the structure in [core.component.apply()](#jo-component-apply))
+---@param data table (The component data, see the structure in [core.component.apply()](#core-component-apply))
 function core.component.sleeveRoll(ped, data)
   local state = core.component.isCollarOpened(ped) and "open_collar_rolled_sleeve" or "closed_collar_rolled_sleeve"
   core.component.setWearableState(ped, "shirts_full", data, state)
@@ -1133,7 +1136,7 @@ core.component.rollSleeve = core.component.sleeveRoll
 
 --- A function to open the collar
 ---@param ped integer (The entity ID)
----@param data table (The component data, see the structure in [core.component.apply()](#jo-component-apply))
+---@param data table (The component data, see the structure in [core.component.apply()](#core-component-apply))
 function core.component.collarOpen(ped, data)
   local state = core.component.isSleeveRolled(ped) and "open_collar_rolled_sleeve" or "open_collar_full_sleeve"
   core.component.setWearableState(ped, "shirts_full", data, state)
@@ -1143,7 +1146,7 @@ core.component.openCollar = core.component.collarOpen
 
 --- A function to close the collar
 ---@param ped integer (The entity ID)
----@param data table (The component data, see the structure in [core.component.apply()](#jo-component-apply))
+---@param data table (The component data, see the structure in [core.component.apply()](#core-component-apply))
 function core.component.collarClose(ped, data)
   local state = core.component.isSleeveRolled(ped) and "closed_collar_rolled_sleeve" or "base"
   core.component.setWearableState(ped, "shirts_full", data, state)

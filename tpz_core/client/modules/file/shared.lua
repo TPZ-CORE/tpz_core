@@ -1,9 +1,5 @@
 core.file = {}
 
-core.stop = function() 
-  core.file = nil 
-end
-
 Citizen.CreateThread(function()
 
   local function convertModName(modname)
