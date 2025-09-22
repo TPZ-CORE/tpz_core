@@ -1,4 +1,5 @@
 core.RequestModuleAwait("file")
+core.RequestModuleAwait("functions")
 
 core.component = {}
 
@@ -34,7 +35,7 @@ Citizen.CreateThread(function()
   ---@param hashData boolean (Hash the value is true)
   ---@return any data (The foormatted table for component data)
   function core.component.formatComponentData(_data, hashData)
-    hashData = GetValue(hashData, false)
+    hashData = core.functions.GetValue(hashData, false)
     local data = table.copy(_data)
     if type(data) ~= "table" then
       data = { hash = data }
