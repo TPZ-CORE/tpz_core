@@ -17,7 +17,7 @@ Config.Debug   = false
     1. Your discord bot token, if does not exist, create a bot in the url below:
     https://discord.com/developers/applications
 
-    2. For inserting the discord bot token, go to server/discord_api.lua on the line: (1), called local TOKEN = 0
+    2. For inserting the discord bot token, go to server/discord_api.lua on the line: (1), called local TOKEN = "tokenhere"
 
 */
 
@@ -586,6 +586,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
