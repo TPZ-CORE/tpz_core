@@ -8,16 +8,20 @@ Config.Debug   = false
 --[[ Discord API Configurations ]]--
 ---------------------------------------------------------------
 
--- The specified feature is for advanced permissions which are based on the discord roles of your discord server.
+/*
+    ABOUT:
+    The specified feature is for advanced permissions which are based on the discord roles of your discord server.
+
+    HOW TO INSERT TOKEN:
+    1. Your discord bot token, if does not exist, create a bot in the url below:
+    https://discord.com/developers/applications
+
+    2. For inserting the discord bot token, go to server/discord_api.lua on the line: (1), called local TOKEN = 0
+
+*/
 
 -- Your discord server ID.
 Config.DiscordServerID = 'xxxxxxxxxxxxxxxxxxxxxxxx'
-
--- DISCORD BOT TOKEN
--- Your discord bot token, if does not exist, create a bot in the url below:
--- https://discord.com/developers/applications
--- (!) For inserting the discord bot token, go to server/discord_api.lua on the 
--- line: (1), called local TOKEN = 0
 
 -- The specified discord roles will be considered as administrators and will be used in some CORE Functions such as API.DisconnectAll()
 Config.DiscordAdministratorRoles = { 1111111111111111, 222222222222222222 }
