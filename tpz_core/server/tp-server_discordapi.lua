@@ -1,4 +1,4 @@
-local TOKEN = 0 -- REPLACE 0 TO THE DESIRED BOT TOKEN. 
+local TOKEN = "tokenhere" -- REPLACE 0 TO THE DESIRED BOT TOKEN. 
 local FormattedToken = "Bot " .. TOKEN
 
 local error_codes_defined = {
@@ -135,4 +135,5 @@ function GetUserRolesInGuild (user, guild)
 		return false
 	end
 end
+
 
