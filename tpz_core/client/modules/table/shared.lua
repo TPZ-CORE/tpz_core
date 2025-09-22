@@ -5,6 +5,10 @@ local setmetatable = setmetatable
 local getmetatable = getmetatable
 local pairs = pairs
 
+core.stop = function() 
+  core.table = nil 
+end
+
 Citizen.CreateThread(function()
 
   --- Deep copies a table. Unlike "=", it doesn't keep the link between both tables.
