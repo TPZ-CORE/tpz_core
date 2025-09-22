@@ -21,7 +21,7 @@ Config.Debug   = false
 
 */
 
--- Your discord server ID.
+-- Your discord server ID (Right click on the discord server to retrive it)
 Config.DiscordServerID = 'xxxxxxxxxxxxxxxxxxxxxxxx'
 
 -- The specified discord roles will be considered as administrators and will be used in some CORE Functions such as API.DisconnectAll()
