@@ -57,7 +57,7 @@ Citizen.CreateThread(function()
   
     if hashData then
       for key, value in pairs(data) do
-        data[key] = GetHashFromString(value)
+        data[key] = core.functions.GetHashFromString(value)
       end
     end
   
