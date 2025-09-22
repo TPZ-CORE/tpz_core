@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
       modpath = modpath:sub(resource:len() + 3)
     else
       resource = "tpz_core"
-      modpath = "modules/" .. modpath
+      modpath = "client/modules/" .. modpath
     end
     return resource, modpath
   end
@@ -24,12 +24,12 @@ Citizen.CreateThread(function()
   ---@return any (The result of the executed file, or `false` if there was an error)
   function core.file.load(modname)
     if type(modname) ~= "string" then return end
-    dprint(modname, "~orange~: Start loading")
+    --print(modname, "~orange~: Start loading")
   
     local file, resource, modpath = core.file.read(modname)
   
     if not file then
-      return false, eprint(modname, ": Impossible to load. File doesn't exist.")
+      return false, print(modname, ": Impossible to load. File doesn't exist.")
     end
   
     local fn, err = load(file, ("@@%s/%s.lua"):format(resource, modpath))
@@ -38,12 +38,12 @@ Citizen.CreateThread(function()
       return error(("\n^1Error loading file (%s): %s^0"):format(modname, err), 3)
     end
   
-    dprint(modname, "~green~: Loaded")
+    --print(modname, "~green~: Loaded")
   
     local success, result = pcall(fn)
   
     if not success then
-      return false, eprint(("Error loading file (%s):\n %s"):format(modname, result))
+      return false, print(("Error loading file (%s):\n %s"):format(modname, result))
     end
     return result
   end
