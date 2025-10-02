@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 
 author 'Nosmakos'
 description 'TPZ-CORE Base'
-version '1.0.5'
+version '2.0.0'
 
 ui_page 'html/index.html'
 
@@ -19,16 +19,21 @@ client_scripts {
 	"client/modules/component/horseComponents.lua",
 	"client/modules/component/data/horseComponents.lua",
 	"client/modules/component/data/playerComponents.lua",
+    "client/modules/component/data/playerHairComponents.lua",
     'client/player/*.lua',
     'client/nui/*.lua',
     'client/api/*.lua'
 }
 
-server_scripts { 'server/*.lua' }
+server_scripts { 
+    'server/*.lua', 
+    'server/discord/*.lua/', 
+    'server/player/*.lua', 
+    'server/api/*lua' 
+}
 
 files { 'html/**/*' }
 
 lua54 'yes'
-
 
 

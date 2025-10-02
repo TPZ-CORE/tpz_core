@@ -8,7 +8,7 @@ Locales = {
     ['NOT_CONNECTED_STEAM']                   = "You are not connected to Steam.",
 
     ['PLAYER_CONNECTED_TO_THE_GAME']          = "The following player ( %s ) has successfully connected to the game.",
-    
+
     ['PLAYER_JOB_COMMAND']                    = "Your Player Job: ~o~%s (Grade: %s)",
     ['PLAYER_ID_COMMAND']                     = "Your Player ID: ~o~%s",
 
@@ -36,6 +36,5 @@ Locales = {
     ['MINUTES']                               = "minutes",
     ['AND']                                   = "and",
 }
-
 
 
