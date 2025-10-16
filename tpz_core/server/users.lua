@@ -234,7 +234,7 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
     -- mandatory wait!
     Wait(0)
 
-    if steamIdentifier then
+    if steamIdentifier ~= nil then
 
         exports.ghmattimysql:execute('SELECT `banned_until`, `banned_reason` FROM `users` WHERE `identifier` = @identifier', { ['@identifier'] = steamIdentifier
         }, function(result)
@@ -283,3 +283,4 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
     end
 
 end)
+
