@@ -4,6 +4,13 @@ core.RequestModuleAwait("functions")
 -- The following event is triggered when the player selected a character and successfully spawned (teleported) to the last saved location.
 RegisterNetEvent('tpz_core:isPlayerReady')
 AddEventHandler("tpz_core:isPlayerReady", function(newChar)
+    
+    local a2 = DataView.ArrayBuffer(12 * 8)
+    local a3 = DataView.ArrayBuffer(12 * 8)
+    Citizen.InvokeNative(0xCB5D11F9508A928D, 1, a2:Buffer(), a3:Buffer(), GetHashKey("UPGRADE_HEALTH_TANK_1"), 1084182731, Config.MaxHealth, 752097756)
+    local a2 = DataView.ArrayBuffer(12 * 8)
+    local a3 = DataView.ArrayBuffer(12 * 8)
+    Citizen.InvokeNative(0xCB5D11F9508A928D, 1, a2:Buffer(), a3:Buffer(), GetHashKey("UPGRADE_STAMINA_TANK_1"), 1084182731, Config.MaxStamina, 752097756)
 
     if Config.PlayAnimPostFX then
         AnimpostfxPlay("Title_Gen_FewHoursLater")
@@ -69,4 +76,5 @@ end)
 RegisterNetEvent('tpz_core:sendAnnouncement')
 AddEventHandler('tpz_core:sendAnnouncement', function(title, description, duration, title_rgba, description_rgba)
     SendAnnouncement(title, description, duration, title_rgba, description_rgba)
+
 end)
