@@ -168,7 +168,7 @@ CreateThread(function()
             local parts = {}
     
             if Info.OnlinePlayers then
-                players = ClientRPC.Callback.TriggerAwait("tpz_core:callback:getOnlinePlayers", {})
+                players = ClientRPC.Callback.TriggerAwait("tpz_core:getOnlinePlayers", {})
                 table.insert(parts, players .. "/" .. maxplayers)
             end
 
@@ -217,4 +217,5 @@ if Config.DisableRDRPrompts.Enabled then
        end
  
     end)
+
  end
