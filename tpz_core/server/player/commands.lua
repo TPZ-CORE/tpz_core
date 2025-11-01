@@ -209,6 +209,98 @@ RegisterCommand("setinventoryweight", function(source, args, rawCommand)
 
 end, false)
 
+--[[ Delete Character ]] --
+RegisterCommand("deletecharacter", function(source, args, rawCommand)
+    local _source = source
+   
+    local hasPermissions, await = false, true
+    
+    if _source ~= 0 then
+    
+        hasPermissions  = HasPermissionsByAce("tpzcore.deletecharacter", _source)
+
+        if not hasPermissions then
+            hasPermissions = HasAdministratorPermissions(_source, Config.Commands['deletecharacter'].Groups, Config.Commands['deletecharacter'].DiscordRoles)
+        end
+
+        await = false
+
+    else
+        hasPermissions = true -- CONSOLE HAS PERMISSIONS.
+        await = false
+    end
+
+    while await do
+        Wait(100)
+    end
+    
+    if hasPermissions then
+
+        local target = args[1]
+        
+        if target == nil or target == '' or tonumber(target) == nil or reason == nil or reason == '' then
+            SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
+            return
+        end
+
+        local targetSteamName = GetPlayerName(tonumber(target))
+
+        local webhookData = Config.Commands['deletecharacter'].Webhook
+
+        if webhookData.Enabled then
+            local title   = "📋` /deletecharacter ".. target .. " " .. reason .. "`"
+            local message = 'The specified command has been executed from the console (txadmin?).'
+
+            if _source ~= 0 then
+    
+                local xPlayer         = PlayerData[_source]
+
+                local identifier      = xPlayer.identifier
+                local ip              = GetPlayerEndpoint(_source)
+        
+                local discordIdentity = GetIdentity(_source, "discord")
+                local discordId       = string.sub(discordIdentity, 9)
+        
+                local steamName       = GetPlayerName(_source)
+            
+                message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Deleted User Character`"
+           
+            end
+
+            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+        end
+
+        if targetSteamName then
+            local tPlayer = PlayerData[tonumber(target)]
+
+            if tPlayer then
+
+                local reasonConcat = table.concat(args, " ", 2)
+                
+                local Parameters = { 
+                    ['identifier']     = PlayerData[tonumber(target)].identifier, 
+                    ['charidentifier'] = PlayerData[tonumber(target)].charIdentifier, 
+                }
+        
+                exports.ghmattimysql:execute("DELETE FROM `characters` WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
+                
+                PlayerData[tonumber(target)] = nil
+                DropPlayer(tonumber(target), reasonConcat)
+
+                SendCommandNotification(_source, string.format("A player character has been permanently deleted, reason: %s", reasonConcat), 'success', 3000)
+
+            else
+                SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
+            end
+
+        else
+            SendCommandNotification(_source, Locales['PLAYER_NOT_ONLINE'], 'error', 3000)
+        end
+    else
+        SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
+    end
+    
+end, false)
 
 --[[ Set Max Chars Command ]] --
 RegisterCommand("setmaxchars", function(source, args, rawCommand)
@@ -1232,3 +1324,4 @@ AddEventHandler("tpz_core:registerChatSuggestions", function()
   end
 
 end)
+
