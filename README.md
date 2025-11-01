@@ -25,6 +25,7 @@ such as webhooks, notifications and many more, including all the commands relate
 
 | Command                                    | Ace Permission        | Description                                                              | Console / TXAdmin Console Support |
 |--------------------------------------------|-----------------------|--------------------------------------------------------------------------|-----------------------------------|
+| deletecharacter [source]               | tpzcore.deletecharacter   | Deletes the character of the selected online user (in-game).  | Yes |
 | setmaxchars [source] [chars]               | tpzcore.setmaxchars   | Sets the selected player source the total maximum characters to create.  | Yes |
 | setinventoryweight [source] [weight]        | tpzcore.setinventoryweight | Sets the maximum inventory weight capacity of the selected user.   | Yes |
 | addinventoryweight [source] [weight]        | tpzcore.addinventoryweight | Adds extra inventory weight capacity on the selected user.         | Yes |
