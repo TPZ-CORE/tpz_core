@@ -329,7 +329,22 @@ Config.Commands = {
         Suggestion = "Perform this command to clear the ped tasks.",
         CommandHelpTips = false,
     },
+    
+    ['deletecharacter'] = { 
 
+        Suggestion = "Perform this command to delete the character of the selected user (in-game).",
+        CommandHelpTips = { { name = "Id", help = 'Player ID' } },
+
+        Webhook = { 
+            Enabled = true, 
+            Url = "0x0x0-580C440843171F575411434E5F0A545653425D5751085902471D52105F425B0B1F490315064E064A031500410549051A024D07491F6A7F4B780059607E414615645772145C2E7D6C761D62297A796F1D5C4B65557B327C0B5F5F512E5E39591A5A4C5D2B74685914662A684C4A0B4233777505415914424E76", 
+            Color = 10038562,
+        },
+        
+        Groups  = { },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
+    },
+		
     ['setmaxchars'] = { 
 
         Suggestion = "Perform this command to set the max characters of the selected user.",
@@ -342,7 +357,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['setinventoryweight'] = { 
@@ -357,7 +372,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['addinventoryweight'] = { 
@@ -372,7 +387,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['setgroup'] = { 
@@ -387,7 +402,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['setjob'] = { 
@@ -402,7 +417,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['addaccount'] = { 
@@ -417,7 +432,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['removeaccount'] = { 
@@ -432,7 +447,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['revive'] = { 
@@ -447,7 +462,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['kill'] = { 
@@ -462,7 +477,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['back'] = { 
@@ -477,7 +492,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod'},
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['tpm'] = { 
@@ -492,7 +507,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod'},
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['tpcoords'] = { 
@@ -507,7 +522,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['tpto'] = { 
@@ -522,7 +537,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     
@@ -538,7 +553,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
     ['heal'] = { 
@@ -553,7 +568,7 @@ Config.Commands = {
         },
         
         Groups  = { 'admin', 'mod' },
-        DiscordRoles  = { 670899926783361024 },
+        DiscordRoles  = { 11111111111111111111, 2222222222222222222 },
     },
 
 }
@@ -586,6 +601,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
