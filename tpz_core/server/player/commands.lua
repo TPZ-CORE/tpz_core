@@ -824,6 +824,7 @@ RegisterCommand("heal", function(source, args, rawCommand)
 
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
+                TriggerEvent("tpz_medics:server:set_poisoned_state", tonumber(target), false)
                 
                 SendCommandNotification(_source, string.format("You successfully healed a player with the following ID: %s.", target), 'success', 3000)
                 SendCommandNotification(tonumber(target), "You have been healed.", 'info', 3000)
@@ -915,7 +916,8 @@ RegisterCommand("revive", function(source, args, rawCommand)
 
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
-
+                TriggerEvent("tpz_medics:server:set_poisoned_state", tonumber(target), false)
+               
                 SendCommandNotification(_source, string.format("You successfully revived a player with the following ID: %s.", target), 'success', 3000)
                 SendCommandNotification(tonumber(target), "You have been revived.", 'info', 3000)
 
@@ -1324,4 +1326,5 @@ AddEventHandler("tpz_core:registerChatSuggestions", function()
   end
 
 end)
+
 
