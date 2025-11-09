@@ -346,11 +346,7 @@ ResurrectPlayer = function(currentHospital, hasBeenRevived)
   else
     DoScreenFadeIn(2000) 
 
-    local innerHealth = Citizen.InvokeNative(0x36731AC041289BB1, PlayerPedId(), 0)
-
-    if innerHealth then
-      SetEntityHealth(PlayerPedId(), Config.OnPlayerDeath.HealthOnRespawn + innerHealth)
-    end
+    core.functions.HealPlayer()
 
   end
 
@@ -450,3 +446,4 @@ ProcessNewPosition = function()
 
     return pos
 end
+
