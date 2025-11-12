@@ -1,5 +1,9 @@
 local TaskManager = { list = {}, count = 0 }
 
+core.stop = function()
+    self.list = nil
+end
+
 -- Register script as busy / not. 
 function TaskManager:SetBusy(scriptName, state)
 
