@@ -6,7 +6,7 @@ core.stop = function() self.list = nil end
 --[[ Functions ]]--
 -------------------------------------------------------------
 
--- Register script as busy / not. 
+-- Register script as busy. 
 function TaskManager:SetBusy(scriptName, state)
 
     if state and self.list[scriptName] == nil then
@@ -21,7 +21,7 @@ function TaskManager:SetBusy(scriptName, state)
 
 end
 
--- Check if any script action is busy.
+-- Check if count > 0 to return the player as busy if there is any active. 
 function TaskManager:IsPlayerBusy()
     return self.count > 0
 end
