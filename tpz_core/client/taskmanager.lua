@@ -14,7 +14,7 @@ function TaskManager:SetBusy(scriptName, state)
 
     if not state and self.list[scriptName] then
         self.count = math.max(0, self.count - 1)
-        self.list[scriptName] = false
+        self.list[scriptName] = nil
     end
 
 end
