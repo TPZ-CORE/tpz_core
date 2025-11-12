@@ -54,8 +54,10 @@ The Task Manager system is designed to be manually integrated into any script wh
 Its primary purpose is to prevent tasks from running faster than 1000ms and add a wait (manually) if the system detects the player is busy.
 
 This system provides two exports:
-	1.	SetBusy(scriptName, state) – Use this to mark a script as busy when a player starts an action, and to unset it when the action ends.
-	2.	IsPlayerBusy() – Returns whether the player is currently busy, allowing scripts to conditionally wait or pause operations.
+
+1.	SetBusy(scriptName, state) – Use this to mark a script as busy when a player starts an action, and to unset it when the action ends.
+
+2.	IsPlayerBusy() – Returns whether the player is currently busy, allowing scripts to conditionally wait or pause operations.
 
 By using these exports, scripts can safely coordinate actions, prevent performance issues, and ensure tasks do not run too frequently.
 
