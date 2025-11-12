@@ -24,9 +24,4 @@ function TaskManager:IsPlayerBusy()
     return self.count > 0
 end
 
-function GetTaskManager()
-    return TaskManager
-end
-
-exports('IsPlayerBusy', function() return TaskManager:IsPlayerBusy() end)
-exports('SetBusy', function(scriptName, state) TaskManager:SetBusy(scriptName, state) end)
+function GetTaskManager() return TaskManager end
