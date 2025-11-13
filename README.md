@@ -63,6 +63,7 @@ By using these exports, scripts can safely coordinate actions, prevent performan
 
 ```lua
 exports.tpz_core:getCoreAPI().SetBusy(scriptName, state) -- true / false
+exports.tpz_core:getCoreAPI().SetBusy(GetCurrentResourceName(), state) -- you can also use that than inserting the script name manually.
 
 local isBusy = exports.tpz_core:getCoreAPI().IsPlayerBusy()
 ```
