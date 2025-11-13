@@ -18,11 +18,11 @@ exports('getCoreAPI', function()
     end
 
     self.IsPlayerBusy = function() 
-        return TaskManager:IsPlayerBusy()
+        return GetTaskManager():IsPlayerBusy()
     end
 
     self.SetBusy = function(scriptName, state) 
-        TaskManager:SetBusy(scriptName, state) 
+        GetTaskManager():SetBusy(scriptName, state) 
     end
 
     --- @deprecated : Use TPZ.module().keys instead.
@@ -223,6 +223,7 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
 
 
 
