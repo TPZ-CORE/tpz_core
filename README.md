@@ -48,26 +48,6 @@ such as webhooks, notifications and many more, including all the commands relate
 
 - All the commands and descriptions and permissions are fully configurable.
 
-## TaskManager - how it works
-
-The Task Manager system is designed to be manually integrated into any script where task management is required.
-Its primary purpose is to prevent tasks from running faster than 1000ms and add a wait (manually) if the system detects the player is busy.
-
-This system provides two exports:
-
-1.	SetBusy(scriptName, state) – Use this to mark a script as busy when a player starts an action, and to unset it when the action ends.
-
-2.	IsPlayerBusy() – Returns whether the player is currently busy, allowing scripts to conditionally wait or pause operations.
-
-By using these exports, scripts can safely coordinate actions, prevent performance issues, and ensure tasks do not run too frequently.
-
-```lua
-exports.tpz_core:getCoreAPI().SetBusy(scriptName, state) -- true / false
-exports.tpz_core:getCoreAPI().SetBusy(GetCurrentResourceName(), state) -- you can also use that than inserting the script name manually.
-
-local isBusy = exports.tpz_core:getCoreAPI().IsPlayerBusy()
-```
-
 ## Webhooks
 
 You want your webhooks to be fully-protected by DevTools or Injections? You better checkout `server\tp-server_webhooks.lua` file which allows you to add webhooks and get them through the API (`TPZ.GetWebhookUrl(webhook)`) for using them to other scripts. 
