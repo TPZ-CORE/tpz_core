@@ -165,6 +165,7 @@ Citizen.CreateThread(function()
 
             if await <= 0 then
                 loaded = false
+                print('attempted to load a model but took too long.', 'model: ' .. model)
                 break
             end
 
