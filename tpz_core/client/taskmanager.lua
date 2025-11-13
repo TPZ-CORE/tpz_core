@@ -2,7 +2,7 @@ local TaskManager = { list = {}, count = 0 }
 
 core.stop = function() self.list = nil end
 
------------------------------------------------------------
+-------------------------------------------------------------
 --[[ Functions ]]--
 -------------------------------------------------------------
 
@@ -27,3 +27,11 @@ function TaskManager:IsPlayerBusy()
 end
 
 function GetTaskManager() return TaskManager end
+
+-------------------------------------------------------------
+--[[ Events ]]--
+-------------------------------------------------------------
+
+AddEventHandler("onResourceStop", function(resourceName)
+    if TaskManager[resourceName] then TaskManager:SetBusy(resourceName, false) end
+end)
