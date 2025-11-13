@@ -35,3 +35,19 @@ function GetTaskManager() return TaskManager end
 AddEventHandler("onResourceStop", function(resourceName)
     if self.list[resourceName] then self:SetBusy(resourceName, false) end
 end)
+
+-------------------------------------------------------------
+--[[ Commands ]]--
+-------------------------------------------------------------
+
+RegisterCommand("taskmanager_debug", function()
+    local busyList = {}
+    for scriptName, _ in pairs(TaskManager.list) do
+        table.insert(busyList, scriptName)
+    end
+
+    local count = TaskManager.count
+    local listString = #busyList > 0 and table.concat(busyList, ", ") or "None"
+
+    print(string.format("Busy scripts count: %d | Active scripts: %s", count, listString))
+end, false)
