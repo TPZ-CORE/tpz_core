@@ -18,7 +18,7 @@ exports('getCoreAPI', function()
     end
 
     self.IsPlayerBusy = function() 
-        return TaskManager:IsPlayerBusy() end)
+        return TaskManager:IsPlayerBusy()
     end
 
     self.SetBusy = function(scriptName, state) 
@@ -223,5 +223,6 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
 
 
