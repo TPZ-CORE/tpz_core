@@ -33,5 +33,5 @@ function GetTaskManager() return TaskManager end
 -------------------------------------------------------------
 
 AddEventHandler("onResourceStop", function(resourceName)
-    if TaskManager[resourceName] then TaskManager:SetBusy(resourceName, false) end
+    if self.list[resourceName] then self:SetBusy(resourceName, false) end
 end)
