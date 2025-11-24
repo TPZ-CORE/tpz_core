@@ -124,7 +124,11 @@ Config.DisableRDRPrompts = {
     Enabled = true,
     Prompts = { 1, 2, 3 },
 }
-
+	
+Config.KickPlayerOnEthernetDisconnect = {
+    Enabled = true,
+    DisplayKickMessage = 'You have been disconnected from the server due to network issues.',
+}
 ---------------------------------------------------------------
 --[[ New Character Settings ]]--
 ---------------------------------------------------------------
@@ -601,6 +605,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
