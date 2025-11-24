@@ -10,6 +10,10 @@ if Config.KickPlayerOnEthernetDisconnect.Enabled then
     AddEventHandler("tpz_core:server:heartbeat", function() 
         local _source = source
     
+        if PlayerData[_source] == nil then
+            return
+        end
+
         if UserHeartbeats[_source] == nil then
     
             UserHeartbeats[_source] = { 
