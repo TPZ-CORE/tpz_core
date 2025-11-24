@@ -125,6 +125,8 @@ Config.DisableRDRPrompts = {
     Prompts = { 1, 2, 3 },
 }
 	
+-- The specified option is when players are disconnected from their network, this can also prevent
+-- ethernet dups by disconnecting them.
 Config.KickPlayerOnEthernetDisconnect = {
     Enabled = true,
     DisplayKickMessage = 'You have been disconnected from the server due to network issues.',
@@ -605,6 +607,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
