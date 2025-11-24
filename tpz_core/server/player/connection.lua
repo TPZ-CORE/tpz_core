@@ -13,7 +13,6 @@ if Config.KickPlayerOnEthernetDisconnect.Enabled then
             UserHeartbeats[_source] = { 
                 timer = 0, 
                 triggered = 0, 
-                type = -1 
             }
     
         end
@@ -46,7 +45,6 @@ if Config.KickPlayerOnEthernetDisconnect.Enabled then
     
                 else 
                     user.triggered = 0
-                    user.type = -1
                 end
     
                 if GetPlayerName(tonumber(source)) == nil then 
