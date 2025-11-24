@@ -37,14 +37,17 @@ if Config.KickPlayerOnEthernetDisconnect.Enabled then
     
                 if diff > 2000 then
                     
-                    if user.triggered == 1 and GetPlayerName(tonumber(source)) then 
-                        
-                        TriggerClientEvent("tpz_core:client:desync", tonumber(source), true)
-    
-                        DropPlayer(tonumber(source), Config.KickPlayerOnEthernetDisconnect.DisplayKickMessage)
+                    if user.triggered == 0 then 
+                        user.triggered = 1
+
+                        if GetPlayerName(tonumber(source)) then
+                            TriggerClientEvent("tpz_core:client:desync", tonumber(source), true)
+                            DropPlayer(tonumber(source), Config.KickPlayerOnEthernetDisconnect.DisplayKickMessage)
+                        end
+
                         UserHeartbeats[source] = nil
                     end
-    
+
                 else 
                     user.triggered = 0
                 end
