@@ -13,7 +13,19 @@ CreateThread(function()
             Citizen.InvokeNative(0xD66A941F401E7302, 3)
             Citizen.InvokeNative(0x19B4F71703902238, 3)
         end
+         
+        if Config.DisableHeadshots then 
+            SetPedConfigFlag(PlayerPedId(),263,true) -- No Critical Hits
+        end
 
+        if Config.DisableGrapples then 
+            SetPedConfigFlag(PlayerPedId(),169,true) -- Disable Grapple
+        end
+
+        if Config.DisableMeleeTakeDowns then 
+            SetPedConfigFlag(PlayerPedId(),340,true) -- Disable All Melee TakeDowns
+        end
+         
     end
 end)
 
@@ -219,3 +231,4 @@ if Config.DisableRDRPrompts.Enabled then
     end)
 
  end
+
