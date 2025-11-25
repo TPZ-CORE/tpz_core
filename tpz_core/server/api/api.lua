@@ -426,7 +426,15 @@ exports('getCoreAPI', function()
             return false
     
         end
-    
+        
+        functions.hasLostConnection = function()
+            return PlayerData[_source].connection_lost == 1 and true or false
+        end
+
+        functions.setConnectionLost = function(state) -- 0-1
+            PlayerData[_source].connection_lost = state
+        end
+			
         functions.saveCharacter = function()
             SaveCharacter(_source)
         end
@@ -952,3 +960,4 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
