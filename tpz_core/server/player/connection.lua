@@ -41,11 +41,14 @@ Citizen.CreateThread(function()
             if diff > 2000 then
                 
                 user.triggered = 1
-                PlayerData[source].connection_lost = 1
+
+                if PlayerData[source] then
+                    PlayerData[source].connection_lost = 1
+                end
 
                 if Config.KickPlayerOnEthernetDisconnect.Enabled then
 
-                    if source ~= nil and GetPlayerName(source) ~= nil then
+                    if PlayerData[source] and GetPlayerName(source) ~= nil then
                         DropPlayer(source, Config.KickPlayerOnEthernetDisconnect.DisplayKickMessage)
                     end
 
@@ -54,7 +57,10 @@ Citizen.CreateThread(function()
 
             else 
 
-                PlayerData[source].connection_lost = 0
+                if PlayerData[source] then
+                    PlayerData[source].connection_lost = 0
+                end
+
                 user.triggered = 0
             end
 
