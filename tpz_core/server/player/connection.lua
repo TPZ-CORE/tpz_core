@@ -1,69 +1,70 @@
 local UserHeartbeats = {}
 
+
+-----------------------------------------------------------
+--[[ Public Events ]]--
+-----------------------------------------------------------
+
+RegisterNetEvent("tpz_core:server:heartbeat")
+AddEventHandler("tpz_core:server:heartbeat", function() 
+    local _source = source
+
+    if UserHeartbeats[_source] == nil then
+
+        UserHeartbeats[_source] = { 
+            timer = 0, 
+            triggered = 0, 
+        }
+
+    end
+    
+    UserHeartbeats[_source].timer = GetGameTimer() 
+end)
+
 -----------------------------------------------------------
 --[[ Threads ]]--
 -----------------------------------------------------------
 
-if Config.KickPlayerOnEthernetDisconnect.Enabled then
+Citizen.CreateThread(function()
     
-    RegisterNetEvent("tpz_core:server:heartbeat")
-    AddEventHandler("tpz_core:server:heartbeat", function() 
-        local _source = source
-    
-        if PlayerData[_source] == nil then
-            return
-        end
+    while true do
+        Wait(1000)
 
-        if UserHeartbeats[_source] == nil then
-    
-            UserHeartbeats[_source] = { 
-                timer = 0, 
-                triggered = 0, 
-            }
-    
-        end
-        
-        UserHeartbeats[_source].timer = GetGameTimer() 
-    end)
-    
-    Citizen.CreateThread(function()
-    
-        while true do
-            Wait(1000)
-    
-            local now = GetGameTimer()
-    
-            for source, user in pairs(UserHeartbeats) do
-    
-                source = tonumber(source)
-    
-                local diff = now - user.timer
-    
-                if diff > 2000 then
-                    
-                    if user.triggered == 0 then 
-                        user.triggered = 1
+        local now = GetGameTimer()
 
-                        if GetPlayerName(source) then
-                            TriggerClientEvent("tpz_core:client:desync", source, true)
-                            DropPlayer(source, Config.KickPlayerOnEthernetDisconnect.DisplayKickMessage)
-                        end
+        for source, user in pairs(UserHeartbeats) do
 
-                        UserHeartbeats[source] = nil
+            source = tonumber(source)
+
+            local diff = now - user.timer
+
+            if diff > 2000 then
+                
+                user.triggered = 1
+                PlayerData[source].connection_lost = 1
+
+                if Config.KickPlayerOnEthernetDisconnect.Enabled then
+
+                    if source ~= nil and GetPlayerName(source) ~= nil then
+                        DropPlayer(source, Config.KickPlayerOnEthernetDisconnect.DisplayKickMessage)
                     end
 
-                else 
-                    user.triggered = 0
-                end
-    
-                if GetPlayerName(tonumber(source)) == nil then 
                     UserHeartbeats[source] = nil
                 end
-    
-            end
-    
-        end
-    
-    end)
 
-end
+            else 
+
+                PlayerData[source].connection_lost = 0
+                user.triggered = 0
+            end
+
+            if GetPlayerName(tonumber(source)) == nil then 
+                UserHeartbeats[source] = nil
+            end
+
+        end
+
+    end
+
+end)
+
