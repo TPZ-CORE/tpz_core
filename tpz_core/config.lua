@@ -39,7 +39,12 @@ Config.MaxCharacters = 2 -- By Default! Change manually through users database t
 Config.SavePlayerLocationTime = 120000 -- in milliseconds, 120.000 = every 2 minutes.
 Config.SavePlayerData = 10 -- Time in minutes to save all player data
 Config.SavePlayerHealthAndStaminaTime = 300000 -- in milliseconds, 300.000 = 5 minutes.
-Config.DisableAutoAim = true
+	
+Config.DisableAutoAim        = true
+Config.DisableHeadshots      = true 
+Config.DisableGrapples       = true 
+Config.DisableMeleeTakeDowns = true
+	
 Config.HideOnlyDeadEye = true
 
 -- If true, a map object will be attached to the players hand when opening the map.
@@ -607,6 +612,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
