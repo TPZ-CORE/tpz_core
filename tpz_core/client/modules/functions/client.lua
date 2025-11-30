@@ -234,25 +234,41 @@ Citizen.CreateThread(function()
         if not waypoint then
             return
         end
+
         DoScreenFadeOut(500)
-        Wait(1000)
+        Wait(500)
+
+        if IsPedOnMount(ped) then
+            TaskDismountAnimal(ped, 0, 0, 0, 0, 0)
+        end
+
+        if IsPedInAnyVehicle(ped, true) then 
+            TaskLeaveVehicle(ped, GetVehiclePedIsIn(ped, true), 0)
+        end
+
+        while (IsPedOnMount(ped) or IsPedInAnyVehicle(ped, true)) do 
+            Wait(50)
+        end
+
         FreezeEntityPosition(ped, true)
+
         for i = startingpoint, 0, -25.0 do
             local z = i
             if (i % 2) ~= 0 then
                 z = startingpoint + i
             end
-            SetEntityCoords(ped, x, y, z - 1000)
-            Wait(1000)
+            SetEntityCoords(ped, x, y, z - 500)
+            Wait(500)
             found, groundZ = GetGroundZAndNormalFor_3dCoord(x, y, z)
             if found then
                 SetEntityCoords(ped, x, y, groundZ)
                 FreezeEntityPosition(ped, false)
-                Wait(1000)
-                DoScreenFadeIn(650)
+                Wait(500)
+                DoScreenFadeIn(500)
                 break
             end
         end
+
     end
     
     core.functions.GetPlayerData = function()
