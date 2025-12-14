@@ -192,6 +192,8 @@ Citizen.CreateThread(function()
         SetEntityHealth(ped, 600, 1) -- outter after
         InvokeNative(0xC6258F41D86676E0, ped, 1, 100) -- fills inner
         InvokeNative(0x675680D089BFA21F, ped, 1065330373) -- fills outter.
+
+        InvokeNative(0x66560A0D4C64FD21) -- ANIMPOSTFX_STOP_ALL
     end
     
     core.functions.TeleportToCoords = function(x, y, z, heading)
