@@ -96,7 +96,7 @@ function Character(source, identifier, charIdentifier, group, firstname, lastnam
         lastname           = lastname,
         gender             = gender,
         dob                = dob,
-        skinComp           = json.encode(skinComp),
+        skinComp           = skinComp,
         job                = job,
         jobGrade           = tonumber(jobGrade),
 
@@ -219,4 +219,5 @@ AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
 
 
 end)
+
 
