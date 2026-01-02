@@ -84,48 +84,40 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
 end
 
 function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapon, inventoryCapacity)
+  
+    local decodedAccounts = json.decode(accounts) -- accounts returns the result.accounts from `characters` table.
 
-    PlayerData[source]            = {}
+    PlayerData[source] = {
+        source             = tonumber(source),
+        identifier         = identifier,
+        charIdentifier     = tonumber(charIdentifier),
+        group              = group,
+        firstname          = firstname,
+        lastname           = lastname,
+        gender             = gender,
+        dob                = dob,
+        skinComp           = json.encode(skinComp),
+        job                = job,
+        jobGrade           = tonumber(jobGrade),
 
-    local data                    = PlayerData[source]
+        account = { 
+            [0] = decodedAccounts.cash, 
+            [1] = decodedAccounts.gold, 
+            [2] = decodedAccounts.black_money 
+        },
 
-    data.source                   = tonumber(source)
-
-    data.identifier               = identifier
-    data.charIdentifier           = tonumber(charIdentifier)
-    data.group                    = group
-
-    data.firstname                = firstname
-    data.lastname                 = lastname
-
-    data.gender                   = gender
-
-    data.dob                      = dob
-    data.skinComp                 = json.encode(skinComp)
-
-    data.job                      = job
-    data.jobGrade                 = tonumber(jobGrade)
-
-    local decodedAccounts         = json.decode(accounts) -- accounts returns the result.accounts from `characters` table.
-
-    data.account                  = { 
-        [0] = decodedAccounts.cash, 
-        [1] = decodedAccounts.gold, 
-        [2] = decodedAccounts.black_money 
+        identity_id        = identityId,
+        healthOuter        = tonumber(healthOuter),
+        healthInner        = tonumber(healthInner),
+        staminaOuter       = tonumber(staminaOuter),
+        staminaInner       = tonumber(staminaInner),
+        coords             = coords,
+        isdead             = tonumber(isdead),
+        default_weapon     = default_weapon,
+        inventory_capacity = inventoryCapacity,
+        connection_lost    = 0,
     }
 
-    data.identity_id              = identityId
-
-    data.healthOuter              = tonumber(healthOuter)
-    data.healthInner              = tonumber(healthInner)
-    data.staminaOuter             = tonumber(staminaOuter)
-    data.staminaInner             = tonumber(staminaInner)
-
-    data.coords                   = coords
-    data.isdead                   = tonumber(isdead)
-
-    data.default_weapon           = default_weapon
-    data.inventory_capacity       = inventoryCapacity
 end
 
 function SaveCharacter(_source, cb)
@@ -227,3 +219,4 @@ AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
 
 
 end)
+
