@@ -63,7 +63,7 @@ onSelectedCharacter = function(tSource, charId, newChar, firstname, lastname, do
             if lastLocation and lastLocation.x then
         
                 local status = { healthOuter = data.healthOuter, healthInner = data.healthInner, staminaOuter = data.staminaOuter, staminaInner = data.staminaInner }
-                TriggerClientEvent("tpz_core:onPlayerFirstSpawn", _source, lastLocation, status, tonumber(data.isdead), 1)
+                TriggerClientEvent("tpz_core:onPlayerFirstSpawn", _source, lastLocation, status, tonumber(data.isdead), 1, tonumber(result[1].charidentifier))
             end
     
         end)
@@ -170,3 +170,4 @@ RegisterServerEvent('tpz_core:onSelectedCharacter')
 AddEventHandler('tpz_core:onSelectedCharacter', function(tSource, charId, newChar, firstname, lastname, dob)
     onSelectedCharacter(tSource, charId, newChar, firstname, lastname, dob)
 end)
+
