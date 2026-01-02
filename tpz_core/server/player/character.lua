@@ -60,7 +60,9 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
         ['isdead']              = 0,
         ['inventory_capacity']  = defaultInventoryCapacity,
     }
-
+    
+    PlayerData[_source].skinComp = json.encode(skinData)
+    
     Citizen.CreateThread(function()
 
         exports.ghmattimysql:execute("INSERT INTO characters (`identifier`, `steamname`, `group`, `firstname`, `lastname`, `gender`, `dob`, `skinComp`, `job`, `jobGrade`,`accounts`, `identity_id`, `healthOuter`, `healthInner`, `staminaOuter`, `staminaInner`, `coords`, `isdead`, `inventory_capacity` ) VALUES (@identifier, @steamname, @group, @firstname, @lastname, @gender, @dob, @skinComp, @job, @jobGrade, @accounts, @identity_id, @healthOuter, @healthInner, @staminaOuter, @staminaInner, @coords, @isdead, @inventory_capacity)", Parameters)
@@ -219,5 +221,6 @@ AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
 
 
 end)
+
 
 
