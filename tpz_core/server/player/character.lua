@@ -101,7 +101,7 @@ function Character(source, identifier, charIdentifier, group, firstname, lastnam
     data.gender                   = gender
 
     data.dob                      = dob
-    data.skinComp                 = skinComp
+    data.skinComp                 = json.encode(skinComp)
 
     data.job                      = job
     data.jobGrade                 = tonumber(jobGrade)
@@ -224,5 +224,6 @@ AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
     Citizen.CreateThread(function()
         exports.ghmattimysql:execute("UPDATE `characters` SET `isdead` = @isdead WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
     end)
+
 
 end)
