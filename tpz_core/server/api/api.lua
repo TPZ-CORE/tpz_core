@@ -49,8 +49,8 @@ exports('getCoreAPI', function()
 
     end
 
-    self.GetWebhookUrl = function(webhook)
-        return GetWebhookUrlByName(webhook)
+    self.GetWebhookUrl = function(script, webhooktype)
+        return GetWebhookUrlByName(script, webhooktype)
     end
 
     -- Notifications
@@ -960,4 +960,5 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
 
