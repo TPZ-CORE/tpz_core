@@ -20,6 +20,42 @@ local WEBHOOKS = {
         ['DEVTOOLS_INJECTION_CHEAT'] = "",
     },
 
+    ["tpz_users_inactivity"] = {
+        ['ALL'] = "",
+    },
+
+    ["tpz_passports"] = {
+        ['CREATED_PASSPORT'] = "",
+        ['RETRIEVED_PASSPORT'] = "",
+        ['RENEWED_PASSPORT'] = "",
+    },
+
+    ["tpz_police"] = {
+        ['COMMANDS'] = "",
+    },
+
+    ["tpz_fishing"] = {
+        ['FISH_RECEIVED'] = "",
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
+    },
+
+    ["tpz_stables"] = {
+        ['COMMANDS'] = "",
+        ['BOUGHT'] = "",
+        ['SOLD'] = "",
+        ['SOLD_TAMED_HORSE'] = "",
+        ['TRANSFERRED'] = "",
+        ['RECEIVED_TAMED_HORSE'] = "",
+    },
+
+    ["tpz_society"] = {
+        
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
+
+        -- Insert below the society job name for the webhook url from Config.Societies.
+        ['police'] = "",
+        ['medic'] = "",
+    },
 
 }
 
