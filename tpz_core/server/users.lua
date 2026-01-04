@@ -240,9 +240,12 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
         }, function(result)
 
             if (not result) or (result and not result[1]) then
-
-				local Parameters = { ['identifier'] = steamIdentifier, ['steamname']  = GetPlayerName(_source), ["max_chars"] = Config.MaxCharacters }
-				exports.ghmattimysql:execute("INSERT INTO `users` (`identifier`, `steamname`, `max_chars` ) VALUES (@identifier, @steamname, @max_chars)", Parameters)
+						
+                if steamName ~= nil then 
+                    
+                    local Parameters = { ['identifier'] = steamIdentifier, ['steamname'] = steamName, ["max_chars"] = Config.MaxCharacters }
+                    exports.ghmattimysql:execute("INSERT INTO `users` (`identifier`, `steamname`, `max_chars` ) VALUES (@identifier, @steamname, @max_chars)", Parameters)
+                end
 
                 -- Not banned
 				deferrals.done()
@@ -283,4 +286,5 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
     end
 
 end)
+
 
