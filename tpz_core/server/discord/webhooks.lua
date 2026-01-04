@@ -62,6 +62,22 @@ local WEBHOOKS = {
         ['ALERTS'] = "", 
     },
    
+    ['tpz_crafting'] = {
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
+    },
+
+    ['tpz_goldpanning'] = {
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
+    },
+
+    ['tpz_search'] = {
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
+    },
+
+    ['tpz_weapons'] = {
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
+    },
+   
 }
 
 ----------------------------------------------
