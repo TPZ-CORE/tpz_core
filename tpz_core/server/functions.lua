@@ -210,4 +210,19 @@ GetTableLength = function(T)
     local count = 0
     for _ in pairs(T) do count = count + 1 end
     return count
+
+end
+
+parseXYZ = function(input)
+    local nums = {}
+
+    for num in input:gmatch("[-%d%.]+") do
+        table.insert(nums, tonumber(num))
+    end
+
+    return nums[1], nums[2], nums[3]
+end
+
+hasXYZLetters = function(input)
+    return input:lower():find("[xyz]") ~= nil
 end
