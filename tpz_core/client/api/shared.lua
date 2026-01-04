@@ -41,10 +41,6 @@ exports('getCoreAPI', function()
         return str
     end
 
-    self.GetWebhookUrl = function(webhook)
-        return core.functions.GetWebhookUrl(webhook)
-    end
-
     --- @deprecated : Use TPZ.modules().functions.DisplayProgressBar(time, desciption, cb) instead.
     self.DisplayProgressBar = function(time, desciption, cb)
         core.functions.DisplayProgressBar(time, desciption, cb)
@@ -223,6 +219,7 @@ exports('getCoreAPI', function()
 
     return self
 end)
+
 
 
 
