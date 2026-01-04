@@ -78,6 +78,9 @@ local WEBHOOKS = {
         ['DEVTOOLS_INJECTION_CHEAT'] = "",
     },
    
+    ['tpz_admin'] = {
+        ['COMMANDS'] = "",
+    },
 }
 
 ----------------------------------------------
