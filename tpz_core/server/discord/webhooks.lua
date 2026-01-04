@@ -80,6 +80,7 @@ local WEBHOOKS = {
    
     ['tpz_admin'] = {
         ['COMMANDS'] = "",
+        ['DEVTOOLS_INJECTION_CHEAT'] = "",
     },
 }
 
