@@ -38,19 +38,6 @@ Citizen.CreateThread(function()
         DisplayText(str, x, y)
     end
     
-    core.functions.GetWebhookUrl = function(webhook)
-        local wait = true
-        local data_result
-    
-        TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_core:getWebhookUrl", function(cb) data_result = cb wait = false end, { webhook = webhook } )
-    
-        while wait do
-            Wait(1)
-        end
-    
-        return data_result
-    end
-    
     core.functions.CloseMapUI = function()
         InvokeNative(0x2FF10C9C3F92277E,GetHashKey('MAP'))
     end
