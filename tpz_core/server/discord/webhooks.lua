@@ -82,6 +82,10 @@ local WEBHOOKS = {
         ['COMMANDS'] = "",
         ['DEVTOOLS_INJECTION_CHEAT'] = "",
     },
+
+    ['tpz_death_logs'] = {
+        ['ALL'] = "",
+    },
 }
 
 ----------------------------------------------
