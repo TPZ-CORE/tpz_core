@@ -1132,6 +1132,12 @@ RegisterCommand("tpcoords", function(source, args, rawCommand)
 
         local coordsX, coordsY, coordsZ = args[1], args[2], args[3]
 
+        local fullargs = table.concat(args, " ")
+
+        if hasXYZLetters(fullargs) then 
+            coordsX, coordsY, coordsZ = parseXYZ(fullargs)
+        end
+
         local identifier      = xPlayer.identifier
 
         local ip              = GetPlayerEndpoint(_source)
@@ -1326,5 +1332,6 @@ AddEventHandler("tpz_core:registerChatSuggestions", function()
   end
 
 end)
+
 
 
