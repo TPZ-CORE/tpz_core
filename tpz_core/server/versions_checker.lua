@@ -43,7 +43,7 @@ if Config.VersionChecker then
     AddEventHandler('onResourceStart', function(resourceName)
 
         -- If the started resource does not start with `tpz_` which returns titans productions scripts, we return the code.
-        if not startsWith(resourceName, "tp_") then
+        if not startsWith(resourceName, "tpz_") then
            return
         end
        
