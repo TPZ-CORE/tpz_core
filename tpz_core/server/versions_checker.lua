@@ -38,7 +38,6 @@ end
 --[[ Base Events  ]]--
 -----------------------------------------------------------
 
-if Config.VersionChecker then
 
     AddEventHandler('onResourceStart', function(resourceName)
 
@@ -72,5 +71,3 @@ if Config.VersionChecker then
         end)
      
     end)
-
-end
