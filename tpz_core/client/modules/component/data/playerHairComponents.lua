@@ -2802,28 +2802,7 @@ return {
 					hashname = '',
 				},
 			},
-			{
-				{
-					hash = 0x2A640582,
-					hash_dec_signed = 711198082,
-					hashname = '',
-				},
-				{
-					hash = 0x71BF8D56,
-					hash_dec_signed = 1908378966,
-					hashname = '',
-				},
-				{
-					hash = 0x8F4328D0,
-					hash_dec_signed = -1891424048,
-					hashname = '',
-				},
-				{
-					hash = 0xB7772FA8,
-					hash_dec_signed = -1216925784,
-					hashname = '',
-				},
-			}
+
 		}
 	},
 
