@@ -64,7 +64,7 @@ end
            text = tostring(text)
 
            if isOutdated(currentVersion, text) then
-             local log = string.format("(!) Outdated Resource Version - Current Version: %s | Required Version: %s (Checkout: https://github.com/TPZ-CORE/%s", currentVersion, text, resourceName)
+             local log = string.format("(!) Outdated version, current: %s - latest: %s (checkout: https://github.com/TPZ-CORE/%s", currentVersion, text, resourceName)
               print(('^5['.. resourceName..']%s %s^7'):format('^1', log))
            end
      
