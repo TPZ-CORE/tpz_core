@@ -120,10 +120,11 @@ CreateThread(function()
         if not SpawnPlayerData.FirstSpawn then
             local multiplierH = Citizen.InvokeNative(0x22CD23BB0C45E0CD, PlayerId()) -- GetPlayerHealthRechargeMultiplier
 
-            if multiplierHealth and multiplierHealth ~= multiplierH then
+            if SpawnPlayerData.MultiplierHealth and SpawnPlayerData.MultiplierHealth ~= multiplierH then
                 Wait(500)
                 Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), Config.HealthRecharge.Multiplier) -- SetPlayerHealthRechargeMultiplier
-            elseif not multiplierHealth and multiplierH then
+          
+            elseif not SpawnPlayerData.MultiplierHealth and multiplierH then
                 Wait(500)
                 Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), 0.0) -- SetPlayerHealthRechargeMultiplier
             end
@@ -310,4 +311,5 @@ CreateThread(function()
         end
     end
 end)
+
 
