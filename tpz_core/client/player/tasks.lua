@@ -153,7 +153,7 @@ Citizen.CreateThread(function()
 
 end)
 
-CreateThread(function()
+Citizen.CreateThread(function()
     local maxplayers = GetConvarInt('sv_maxClients', Config.sv_maxClients)
     local players    = 0
 
@@ -231,4 +231,32 @@ if Config.DisableRDRPrompts.Enabled then
     end)
 
  end
+
+
+-- show players id or a text replacement when focus on players. 
+Citizen.CreateThread(function()
+   
+    while true do
+        local sleep = 1000
+
+        if #GetActivePlayers() > 1 then
+            sleep = 400
+
+            for _, playersid in ipairs(GetActivePlayers()) do
+                if playersid ~= PlayerId() then
+                    local ped = GetPlayerPed(playersid)
+                    
+                    if Config.DisplayPlayerFocus.Type == "ID" then
+                        SetPedPromptName(ped, Config.DisplayPlayerFocus.Text .. GetPlayerServerId(playersid))
+
+                    elseif Config.DisplayPlayerFocus.Type == "TEXT" then
+                        SetPedPromptName(ped, Config.DisplayPlayerFocus.Text)
+                    end
+                end
+            end
+
+        end
+        Wait(sleep)
+    end
+end)
 
