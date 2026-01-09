@@ -136,6 +136,18 @@ Config.KickPlayerOnEthernetDisconnect = {
     Enabled = true,
     DisplayKickMessage = 'You have been disconnected from the server due to network issues.',
 }
+
+Config.DisplayPlayerFocus = {
+
+    -- @param Type:
+    -- 1. "TEXT" (Displays just a text, like the example below).
+    -- 2. "ID" (Displays text + focused player Id).
+    Type = "TEXT",
+
+    -- @param Text : If @Type == "ID" the Text will be Text + ID
+    Text = "STRANGER",
+}
+
 ---------------------------------------------------------------
 --[[ New Character Settings ]]--
 ---------------------------------------------------------------
