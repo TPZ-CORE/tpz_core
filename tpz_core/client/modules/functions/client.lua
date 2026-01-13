@@ -194,7 +194,13 @@ Citizen.CreateThread(function()
         while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
             Wait(500)
         end
-    
+
+        SetEntityCoords(playerPedId, x, y, z, true, true, true, false)
+
+        if heading then
+            SetEntityHeading(playerPedId, heading)
+        end
+
     end
     
     core.functions.TeleportPedToCoords = function(ped, x, y, z, heading)
@@ -207,6 +213,12 @@ Citizen.CreateThread(function()
     
         while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
             Wait(500)
+        end
+            
+        SetEntityCoords(playerPedId, x, y, z, true, true, true, false)
+    
+        if heading then
+            SetEntityHeading(playerPedId, heading)
         end
     
     end
