@@ -272,19 +272,70 @@ Config.OnPlayerDeathRespawn = {
 
 -- The specified features DOES NOT restart your server but it creates a system to prevent the players to join in the server while
 -- its getting restarted, it is also kicking them few minutes before in order to save all data properly.
+
+/* (READ ME)
+
+    Time converts:
+
+    1. If time is 15:00, The input should be 15:0
+    2. If time is 15:01 - 15:09, The input should be 15:1 - 15:9
+
+*/
+
 Config.RestartManagement = {
-    Enabled = false,
+    Enabled = true,
 
-    BlockedJoiningTime = { "7:55" , "13:55", "19:55", "1:55" }, -- The time to prevent players joining the game (5 minutes before restart as default).
-    KickPlayersTime    = { "7:58" , "13:58", "19:58", "1:58" }, -- The time to kick all the connected players (2 minutes before restart as default, to save each player properly).
+    Debug  = false, -- Set to true if you want to display every minute a print of the current time (converted time) - this is for testing purposes.
+    
+    -- The time to prevent players joining the game (5 minutes before restart as default).
+    BlockedJoiningTime = { 
+        { from = "1:50",  to = "1:59"  },
+        { from = "5:50",  to = "5:59"  },
+        { from = "9:50",  to = "9:59"  },
+        { from = "13:50", to = "13:59" },
+        { from = "17:50", to = "17:59" },
+        { from = "21:50", to = "21:59" },
+    },
+ 
+    KickPlayersTime    = { "1:57", "5:57", "9:57", "13:57", "17:57", "21:57" }, -- The time to kick all the connected players (2 minutes before restart as default, to save each player properly).
 
-    KickWarning        = "[Server Name]: The server is now restarting, please try to connect within a few minutes.",
-    ConnectWarning     = "[Server Name]: The server is restarting, please try to connect within a few minutes.",
+    KickWarning        = "[Daisy Town Roleplay]: The server is now restarting, please try to connect within a few minutes.",
+    ConnectWarning     = "[Daisy Town Roleplay]: The server is restarting, please try to connect within a few minutes.",
+
+    ScheduledAnnouncementsTitle = 'Server Restart Schedule',
+
+    -- @param duration : Time in seconds.
+    -- To disable, set ScheduledAnnouncements = false
+    ScheduledAnnouncements = {
+
+        ["2:0"]  = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["6:0"]  = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["10:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["14:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["18:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["22:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+
+        ["2:30"]  = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["6:30"]  = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["10:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["14:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["18:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["22:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+
+        ["2:45"]  = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["6:45"]  = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["10:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["14:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["18:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["22:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+    },
+
 }
 
 -- If your scripts are taking time to ensure or you want to give to the server some time
 -- before allowing the players to join, set it to true.
-Config.PreventPlayersJoiningDelay = { Enabled = false, Delay = 60, DeferNotify = 'The server is still starting, please wait %s seconds before joining again.' } -- time in seconds.
+Config.PreventPlayersJoiningDelay = { Enabled = true, Delay = 30, DeferNotify = 'The server is still starting, please wait %s seconds before joining again.' } -- time in seconds.
+
 
 ---------------------------------------------------------------
 --[[ Discord Webhooking ]]--
@@ -624,6 +675,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
