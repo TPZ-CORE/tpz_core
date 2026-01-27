@@ -299,8 +299,8 @@ Config.RestartManagement = {
  
     KickPlayersTime    = { "1:57", "5:57", "9:57", "13:57", "17:57", "21:57" }, -- The time to kick all the connected players (2 minutes before restart as default, to save each player properly).
 
-    KickWarning        = "[Daisy Town Roleplay]: The server is now restarting, please try to connect within a few minutes.",
-    ConnectWarning     = "[Daisy Town Roleplay]: The server is restarting, please try to connect within a few minutes.",
+    KickWarning        = "[TPZ-CORE]: The server is now restarting, please try to connect within a few minutes.",
+    ConnectWarning     = "[TPZ-CORE]: The server is restarting, please try to connect within a few minutes.",
 
     ScheduledAnnouncementsTitle = 'Server Restart Schedule',
 
@@ -675,6 +675,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
