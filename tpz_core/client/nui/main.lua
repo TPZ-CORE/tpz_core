@@ -73,29 +73,3 @@ end
 RegisterNUICallback('close', function()
 	ToggleUI(false)
 end)
-
------------------------------------------------------------
---[[ Threads ]]--
------------------------------------------------------------
-
-Citizen.CreateThread(function()
-
-    while true do 
-
-        local sleep = 1500
-
-        if IsNuiFocused() then 
-            sleep = 0
-
-            for _, key in ipairs(Config.DisabledControlKeysOnNuiFocused) do
-                DisableControlAction(0, key, true)
-            end
-
-        end
-
-
-        Wait(sleep)
-
-    end
-
-end)
