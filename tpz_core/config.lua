@@ -148,12 +148,6 @@ Config.DisplayPlayerFocus = {
     Text = "STRANGER",
 }
 
--- This option below is disbaling control keys when a NUI is active.
-Config.DisabledControlKeysOnNuiFocused = {
-    0x24978A28, -- H (Horse calling)
-    0xF3830D8E, -- J (Wagon calling)
-}
-
 ---------------------------------------------------------------
 --[[ New Character Settings ]]--
 ---------------------------------------------------------------
@@ -681,6 +675,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
