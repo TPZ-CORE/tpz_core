@@ -308,26 +308,26 @@ Config.RestartManagement = {
     -- To disable, set ScheduledAnnouncements = false
     ScheduledAnnouncements = {
 
-        ["2:0"]  = { text = "The server will restart in 60 minutes.", duration = 10 }, 
-        ["6:0"]  = { text = "The server will restart in 60 minutes.", duration = 10 }, 
-        ["10:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
-        ["14:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
-        ["18:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
-        ["22:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["1:0"]  = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["5:0"]  = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["9:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["13:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["17:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
+        ["21:0"] = { text = "The server will restart in 60 minutes.", duration = 10 }, 
 
         ["2:30"]  = { text = "The server will restart in 30 minutes.", duration = 10 }, 
-        ["6:30"]  = { text = "The server will restart in 30 minutes.", duration = 10 }, 
-        ["10:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
-        ["14:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
-        ["18:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
-        ["22:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["5:30"]  = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["9:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["13:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["17:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
+        ["21:30"] = { text = "The server will restart in 30 minutes.", duration = 10 }, 
 
         ["2:45"]  = { text = "The server will restart in 15 minutes.", duration = 10 }, 
-        ["6:45"]  = { text = "The server will restart in 15 minutes.", duration = 10 }, 
-        ["10:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
-        ["14:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
-        ["18:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
-        ["22:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["5:45"]  = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["9:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["13:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["17:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
+        ["21:45"] = { text = "The server will restart in 15 minutes.", duration = 10 }, 
     },
 
 }
@@ -675,6 +675,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
