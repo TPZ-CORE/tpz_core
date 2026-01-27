@@ -92,6 +92,7 @@ end)
 if Config.RestartManagement.Enabled then
 
     Citizen.CreateThread(function()
+        
         while true do
             Wait(60000)
 
@@ -100,10 +101,19 @@ if Config.RestartManagement.Enabled then
             local time        = os.date("*t") 
             local currentTime = table.concat({time.hour, time.min}, ":")
     
+            if Config.RestartManagement.Debug then 
+                print("Converted time now is: ", currentTime)
+            end
+
             for index, blockedTime in pairs (Config.RestartManagement.BlockedJoiningTime) do
 
-                if currentTime == blockedTime then
+                local fromMinutes = blockedTime.from 
+                local toMinutes   = blockedTime.to 
+                
+                if currentTime >= fromMinutes and currentTime <= toMinutes then
                     allowedToJoin = false
+                    finished = true
+                    break
                 end
 
                 if next(Config.RestartManagement.BlockedJoiningTime, index) == nil then
@@ -114,7 +124,17 @@ if Config.RestartManagement.Enabled then
             while not finished do
                 Wait(500)
             end
+
+            if Config.RestartManagement.ScheduledAnnouncements ~= false then
+
+                if Config.RestartManagement.ScheduledAnnouncements[currentTime] then
+                    local _an = Config.RestartManagement.ScheduledAnnouncements[currentTime]
+                    
+                    TriggerClientEvent('tpz_core:sendAnnouncement', -1, Config.RestartManagement.ScheduledAnnouncementsTitle, _an.text, _an.duration * 1000)
+                end
     
+            end
+
             if not allowedToJoin then
 
                 for _index, kickTime in pairs (Config.RestartManagement.KickPlayersTime) do
@@ -203,5 +223,6 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
         } 
     ) 
 end)    
+
 
 
