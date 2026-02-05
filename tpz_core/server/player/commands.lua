@@ -1,6 +1,31 @@
 local PreviousLocation = nil -- for /back command. 
 
 --[[ ------------------------------------------------
+   Local Functions
+]]---------------------------------------------------
+
+-- @function FindSourceTarget is used for commands to be able to get an input source id to replace executed source id
+-- $[id]. This is for in case a command is used server side and want to replace the 0 source to the executed source.
+local function FindSourceTarget(source, args)
+    local resolvedSource = source
+
+    if args[1] then
+        local embeddedSource = args[1]:match("%$%[(%d+)%]")
+
+        if embeddedSource then
+            resolvedSource = tonumber(embeddedSource)
+            args[1] = args[1]:gsub("%$%[%d+%]", "")
+        end
+
+        args[1] = args[1]:match("^%s*(.-)%s*$")
+        args[1] = tonumber(args[1])
+    end
+
+    return resolvedSource, args[1]
+end
+
+
+--[[ ------------------------------------------------
    Commands Registration
 ]]---------------------------------------------------
 
@@ -44,7 +69,12 @@ end, false)
 
 --[[ Add Inventory Weight Command ]] --
 RegisterCommand("addinventoryweight", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
+
     local hasPermissions, await = false, true
    
     if _source ~= 0 then
@@ -126,7 +156,11 @@ end, false)
 
 --[[ Set Inventory Weight Command ]] --
 RegisterCommand("setinventoryweight", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
    
     local hasPermissions, await = false, true
    
@@ -209,9 +243,14 @@ RegisterCommand("setinventoryweight", function(source, args, rawCommand)
 
 end, false)
 
+
 --[[ Delete Character ]] --
 RegisterCommand("deletecharacter", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
    
     local hasPermissions, await = false, true
     
@@ -304,7 +343,11 @@ end, false)
 
 --[[ Set Max Chars Command ]] --
 RegisterCommand("setmaxchars", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
    
     local hasPermissions, await = false, true
     
@@ -388,7 +431,11 @@ end, false)
 
 --[[ Set Group Command ]] --
 RegisterCommand("setgroup", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
    
     local hasPermissions, await = false, true
     
@@ -475,7 +522,12 @@ end, false)
 
 --[[ Set Job Command ]] --
 RegisterCommand("setjob", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
+
     local hasPermissions, await = false, true
      
     if _source ~= 0 then
@@ -565,7 +617,11 @@ end, false)
 
 --[[ Add Account Money Command ]] --
 RegisterCommand("addaccount", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
 
     local hasPermissions, await = false, true
 
@@ -655,7 +711,11 @@ end, false)
 
 --[[ Remove Account Money Command ]] --
 RegisterCommand("removeaccount", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
    
     local hasPermissions, await = false, true
  
@@ -754,7 +814,11 @@ end, false)
 
 --[[ Heal Player Command ]] --
 RegisterCommand("heal", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
 
     local hasPermissions, await = false, true
  
@@ -824,8 +888,8 @@ RegisterCommand("heal", function(source, args, rawCommand)
 
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
-                TriggerEvent("tpz_medics:server:set_poisoned_state", tonumber(target), false)
                 
+                TriggerEvent("tpz_medics:server:set_poisoned_state", tonumber(target), false)
                 SendCommandNotification(_source, string.format("You successfully healed a player with the following ID: %s.", target), 'success', 3000)
                 SendCommandNotification(tonumber(target), "You have been healed.", 'info', 3000)
 
@@ -845,7 +909,11 @@ RegisterCommand("heal", function(source, args, rawCommand)
 
 --[[ Revive Player Command ]] --
 RegisterCommand("revive", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
    
     local hasPermissions, await = false, true
  
@@ -916,8 +984,9 @@ RegisterCommand("revive", function(source, args, rawCommand)
 
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "STRESS", "remove", 100)
                 TriggerClientEvent("tpz_metabolism:setMetabolismValue", tonumber(target), "ALCOHOL", "remove", 100)
+
                 TriggerEvent("tpz_medics:server:set_poisoned_state", tonumber(target), false)
-               
+                
                 SendCommandNotification(_source, string.format("You successfully revived a player with the following ID: %s.", target), 'success', 3000)
                 SendCommandNotification(tonumber(target), "You have been revived.", 'info', 3000)
 
@@ -937,7 +1006,11 @@ end, false)
 
 --[[ Kill Player Command ]] --
 RegisterCommand("kill", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
 
     local hasPermissions, await = false, true
   
@@ -1173,7 +1246,11 @@ end, false)
 
 --[[ Teleport To Player Command ]] --
 RegisterCommand("tpto", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
 
     if _source == 0 then
         print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
@@ -1240,9 +1317,14 @@ RegisterCommand("tpto", function(source, args, rawCommand)
 
 end, false)
 
+
 --[[ Teleport Player Here Command ]] --
 RegisterCommand("tphere", function(source, args, rawCommand)
-    local _source = source
+    local _source, replacedArg = FindSourceTarget(source, args)
+
+    if replacedArg then 
+        args[1] = replacedArg
+    end
 
     if _source == 0 then
         print(Locales['COMMAND_NOT_PERMITTED_ON_CONSOLE'])
@@ -1332,6 +1414,3 @@ AddEventHandler("tpz_core:registerChatSuggestions", function()
   end
 
 end)
-
-
-
