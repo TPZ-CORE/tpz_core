@@ -147,6 +147,9 @@ Config.DisplayPlayerFocus = {
     -- @param Text : If @Type == "ID" the Text will be Text + ID
     Text = "STRANGER",
 }
+	
+-- Set to true if you are using tpz_admin.
+Config.tpz_admin = true
 
 ---------------------------------------------------------------
 --[[ New Character Settings ]]--
@@ -190,9 +193,6 @@ Config.NewCharacter = {
     },
 
 }
-
--- Set to true if you are using tpz_admin.
-Config.tpz_admin = true
 
 ---------------------------------------------------------------
 --[[ Player Death Settings ]]--
@@ -677,6 +677,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
