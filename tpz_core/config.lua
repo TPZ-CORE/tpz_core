@@ -191,6 +191,8 @@ Config.NewCharacter = {
 
 }
 
+-- Set to true if you are using tpz_admin.
+Config.tpz_admin = true
 
 ---------------------------------------------------------------
 --[[ Player Death Settings ]]--
@@ -675,6 +677,7 @@ function SendCommandNotification(source, message, type, duration) -- ONLY RELATE
     end
   
 end
+
 
 
 
