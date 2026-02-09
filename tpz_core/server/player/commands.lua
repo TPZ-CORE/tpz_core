@@ -104,6 +104,10 @@ RegisterCommand("addinventoryweight", function(source, args, rawCommand)
             return
         end
 
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">addinventoryweight ' .. target .. ' ' .. weight .. '</span>'))
+        end
+
         local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['addinventoryweight'].Webhook
@@ -190,6 +194,10 @@ RegisterCommand("setinventoryweight", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil or weight == nil or weight == '' or tonumber(weight) == nil then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">setinventoryweight ' .. target .. ' ' .. weight .. '</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
@@ -280,6 +288,10 @@ RegisterCommand("deletecharacter", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil or reason == nil or reason == '' then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">deletecharacter ' .. target .. '</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
@@ -379,6 +391,10 @@ RegisterCommand("setmaxchars", function(source, args, rawCommand)
             return
         end
 
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">setmaxchars ' .. target .. ' ' .. chars .. '</span>'))
+        end
+
         local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['setmaxchars'].Webhook
@@ -465,6 +481,10 @@ RegisterCommand("setgroup", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil or newgroup == nil or newgroup == '' then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">setgroup ' .. target .. ' ' .. newgroup .. '</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
@@ -556,6 +576,10 @@ RegisterCommand("setjob", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil or newjob == nil or newjob == '' or newGrade == nil or newGrade == '' or tonumber(newGrade) == nil then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">setjob ' .. target .. ' ' .. newjob .. ' ' .. newGrade .. '</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
@@ -652,6 +676,10 @@ RegisterCommand("addaccount", function(source, args, rawCommand)
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
+        
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">addaccount ' .. target .. ' ' .. moneytype .. ' ' .. quantity .. '</span>'))
+        end
 
         local targetSteamName = GetPlayerName(tonumber(target))
 
@@ -746,7 +774,11 @@ RegisterCommand("removeaccount", function(source, args, rawCommand)
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
         end
-        
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">removeaccount ' .. target .. ' ' .. moneytype .. ' ' .. quantity .. '</span>'))
+        end
+
         local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['removeaccount'].Webhook
@@ -850,6 +882,10 @@ RegisterCommand("heal", function(source, args, rawCommand)
            return
         end
 
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">heal ' .. target .. '</span>'))
+        end
+
         local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['heal'].Webhook
@@ -945,6 +981,10 @@ RegisterCommand("revive", function(source, args, rawCommand)
             return
         end
 
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">revive ' .. target .. '</span>'))
+        end
+        
         local targetSteamName = GetPlayerName(tonumber(target))
 
         local webhookData = Config.Commands['revive'].Webhook
@@ -1040,6 +1080,10 @@ RegisterCommand("kill", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">kill ' .. target ..'</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
@@ -1167,7 +1211,7 @@ RegisterCommand("tpm", function(source)
         local discordIdentity = GetIdentity(_source, "discord")
         local discordId       = string.sub(discordIdentity, 9)
 
-         previousLocation = GetEntityCoords(GetPlayerPed(_source))
+        previousLocation = GetEntityCoords(GetPlayerPed(_source))
 
         TriggerClientEvent('tpz_core:teleportToWayPoint', _source)
 
@@ -1225,9 +1269,13 @@ RegisterCommand("tpcoords", function(source, args, rawCommand)
             return
         end
 
-         previousLocation = GetEntityCoords(GetPlayerPed(_source))
+        previousLocation = GetEntityCoords(GetPlayerPed(_source))
 
         TriggerClientEvent('tpz_core:teleportToCoords', _source, tonumber(coordsX), tonumber(coordsY), tonumber(coordsZ))
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">tpcoords ' .. tostring(coordsX) .. ' ' .. tostring(coordsY) .. ' ' .. tostring(coordsZ) .. '</span>'))
+        end
 
         local webhookData = Config.Commands['tpcoords'].Webhook
     
@@ -1270,6 +1318,10 @@ RegisterCommand("tpto", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">tpto ' .. target ..'</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
@@ -1344,6 +1396,10 @@ RegisterCommand("tphere", function(source, args, rawCommand)
         if target == nil or target == '' or tonumber(target) == nil then
             SendCommandNotification(_source, Locales['INVALID_SYNTAX'], 'error', 3000)
             return
+        end
+
+        if Config.tpz_admin and _source ~= 0 then 
+            exports.tpz_admin:getAPI().InsertHistoryAction(_source, string.format(Locales['COMMAND_HISTORY_ACTION_DESCRIPTION'], '<span style="color: gray;">tphere ' .. target ..'</span>'))
         end
 
         local targetSteamName = GetPlayerName(tonumber(target))
