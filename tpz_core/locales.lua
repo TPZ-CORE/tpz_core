@@ -37,7 +37,10 @@ Locales = {
     ['SECOND']                                = "second",
     ['SECONDS']                               = "seconds",
     ['AND']                                   = "and",
+
+    ['COMMAND_HISTORY_ACTION_DESCRIPTION']    = "Executed Command: ",
 }
+
 
 
 
