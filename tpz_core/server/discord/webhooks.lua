@@ -79,6 +79,7 @@ local WEBHOOKS = {
     },
    
     ['tpz_admin'] = {
+        ['TICKETS'] = "",
         ['COMMANDS'] = "",
         ['DEVTOOLS_INJECTION_CHEAT'] = "",
     },
