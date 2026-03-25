@@ -68,6 +68,23 @@ AddEventHandler('onResourceStart', function(resourceName)
         SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
     end
 
+    local logo = [[
+^1  _______ _____ ______     ____ ____  _____  ______ 
+^1 |__   __|  __ \___  /    / ____/ __ \|  __ \|  ____|
+^1    | |  | |__) | / /    | |   | |  | | |__) | |__   
+^1    | |  |  ___/ / /     | |   | |  | |  _  /|  __|  
+^1    | |  | |    / /__    | |___| |__| | | \ \| |____ 
+^1    |_|  |_|   /_____|    \_____\____/|_|  \_\______|
+^0]]
+
+    print("-----------------------------------------------------------")
+    print(logo)
+    print("-----------------------------------------------------------")
+end)
+
+
+
+
 end)
 
 AddEventHandler("playerConnecting", OnPlayerConnecting)
