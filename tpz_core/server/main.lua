@@ -82,11 +82,6 @@ AddEventHandler('onResourceStart', function(resourceName)
     print("-----------------------------------------------------------")
 end)
 
-
-
-
-end)
-
 AddEventHandler("playerConnecting", OnPlayerConnecting)
 
 -- Saving player data when dropped.
