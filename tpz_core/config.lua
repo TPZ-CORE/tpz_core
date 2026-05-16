@@ -348,6 +348,7 @@ Config.DiscordWebhooking = {
     ImageUrl = "https://i.imgur.com/XK16oK4.png",
     Footer = "© TPZ-CORE",
 
+    -- Checkout server/discord/webhooks.lua to insert the webhook urls. 
     URL = {
         ['SERVER_STARTUP']       = { Enabled = false, Title = "[Server Name]", Description = "📣 The server has been succesffully started. Join us now!", color = 10038562},
         ['CREATE_NEW_CHARACTER'] = { Enabled = false, Color = 10038562},
@@ -399,6 +400,7 @@ Config.DiscordRichPresence = {
 --[[ Commands ]]--
 ---------------------------------------------------------------
 
+-- Checkout server/discord/webhooks.lua to insert the webhook urls. 
 Config.Commands = {
 
     ['cleartasks'] = { 
