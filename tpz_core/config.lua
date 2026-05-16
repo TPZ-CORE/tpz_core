@@ -349,8 +349,8 @@ Config.DiscordWebhooking = {
     Footer = "© TPZ-CORE",
 
     URL = {
-        ['SERVER_STARTUP']       = { Enabled = false, Url = "", Title = "[Server Name]", Description = "📣 The server has been succesffully started. Join us now!", color = 10038562},
-        ['CREATE_NEW_CHARACTER'] = { Enabled = false, Url = "", Color = 10038562},
+        ['SERVER_STARTUP']       = { Enabled = false, Title = "[Server Name]", Description = "📣 The server has been succesffully started. Join us now!", color = 10038562},
+        ['CREATE_NEW_CHARACTER'] = { Enabled = false, Color = 10038562},
     },
 
 }
