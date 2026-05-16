@@ -131,7 +131,7 @@ RegisterCommand("addinventoryweight", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Add Inventory Weight Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -224,7 +224,7 @@ RegisterCommand("setinventoryweight", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Inventory Weight Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -318,7 +318,7 @@ RegisterCommand("deletecharacter", function(source, args, rawCommand)
            
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -419,7 +419,7 @@ RegisterCommand("setmaxchars", function(source, args, rawCommand)
            
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -510,7 +510,7 @@ RegisterCommand("setgroup", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Group Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -605,7 +605,7 @@ RegisterCommand("setjob", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Set Job Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -703,7 +703,7 @@ RegisterCommand("addaccount", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Add Account Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -800,7 +800,7 @@ RegisterCommand("removeaccount", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Remove Account Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -908,7 +908,7 @@ RegisterCommand("heal", function(source, args, rawCommand)
             
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -1008,7 +1008,7 @@ RegisterCommand("revive", function(source, args, rawCommand)
 
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -1110,7 +1110,7 @@ RegisterCommand("kill", function(source, args, rawCommand)
                 message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Kill Command`"
             end
 
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -1176,7 +1176,7 @@ RegisterCommand("back", function(source)
         if webhookData.Enabled then  
             local title   = "📋` /back " .. "`"
             local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used TPM Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
     else
         SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
@@ -1220,7 +1220,7 @@ RegisterCommand("tpm", function(source)
         if webhookData.Enabled then  
             local title   = "📋` /tpm " .. "`"
             local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used TPM Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
     else
         SendCommandNotification(_source, Locales['NO_PERMISSIONS'], 'error', 3000)
@@ -1283,7 +1283,7 @@ RegisterCommand("tpcoords", function(source, args, rawCommand)
             local title   = "📋` /tpcoords { x = " .. coordsX .. ", y = " .. coordsY .. ", z = " .. coordsZ .. " }" .. "`"
 
             local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Teleport To Coords Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
     else
@@ -1342,7 +1342,7 @@ RegisterCommand("tpto", function(source, args, rawCommand)
 
             local title   = "📋` /tpto " .. target .. "`"
             local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Teleport To Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
@@ -1421,7 +1421,7 @@ RegisterCommand("tphere", function(source, args, rawCommand)
 
             local title   = "📋` /tphere " .. target .. "`"
             local message = "**Steam name: **`" .. steamName .. " (" .. xPlayer.group .. ")`**\nIdentifier**`" .. identifier .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `Used Bring Command`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "COMMANDS"), title, message, webhookData.Color)
         end
 
         if targetSteamName then
