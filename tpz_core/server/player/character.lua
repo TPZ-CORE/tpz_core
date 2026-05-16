@@ -35,7 +35,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
 
     local defaultInventoryCapacity = exports["tpz_inventory"].getInventoryAPI().getConfig().InventoryDefaultWeight
 
-    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, SkinData, 'unemployed', 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity)
+    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, skinData, 'unemployed', 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity)
 
     local Parameters = {
         ['identifier']          = tostring(sid),
