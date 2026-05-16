@@ -77,10 +77,6 @@ end
 SendToDiscordWebhook = function(webhook, name, description, color)
     local data = Config.DiscordWebhooking
 
-    if string.sub(webhook, 1, 6) == "0x0x0-" then
-        webhook = DecodeHexString(webhook, "0x0x0-")
-    end
-
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
         embeds = {
             {
