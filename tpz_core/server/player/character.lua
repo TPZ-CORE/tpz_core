@@ -78,7 +78,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
         if webhookData.Enabled then
             local title   = "📋` New Character Created` "
             local message = "**Steam name: **`" .. steamName .. "`**\nSteam Identifier**`" .. tostring(sid) .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `The following player created a character with the following information: { firstname: " .. firstname .. ", lastname: " .. lastname .. ", dob: " .. dob .. " }`"
-            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "CREATE_NEW_CHARACTER"), title, message, webhookData.Color)
         end
 
     end)
