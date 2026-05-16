@@ -95,6 +95,7 @@ local WEBHOOKS = {
    ["tpz_core"] = {
       ["COMMANDS"] = "",
       ["SERVER_STARTUP"] = "",
+      ["CREATE_NEW_CHARACTER"] = "",
    },
 }
 
