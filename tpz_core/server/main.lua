@@ -65,7 +65,7 @@ AddEventHandler('onResourceStart', function(resourceName)
     if webhookData.Enabled then
         local title   = webhookData.title
         local message = webhookData.message
-        SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
+        SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "SERVER_STARTUP"), title, message, webhookData.Color)
     end
 
     Wait(5000)
