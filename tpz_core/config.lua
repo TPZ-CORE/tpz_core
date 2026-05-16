@@ -412,8 +412,7 @@ Config.Commands = {
         CommandHelpTips = { { name = "Id", help = 'Player ID' } },
 
         Webhook = { 
-            Enabled = true, 
-            Url = "0x0x0-580C440843171F575411434E5F0A545653425D5751085902471D52105F425B0B1F490315064E064A031500410549051A024D07491F6A7F4B780059607E414615645772145C2E7D6C761D62297A796F1D5C4B65557B327C0B5F5F512E5E39591A5A4C5D2B74685914662A684C4A0B4233777505415914424E76", 
+            Enabled = true,  
             Color = 10038562,
         },
         
@@ -428,7 +427,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -443,7 +441,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -458,7 +455,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -473,7 +469,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -488,7 +483,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -503,7 +497,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -518,7 +511,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -533,7 +525,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -548,7 +539,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -563,7 +553,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -578,7 +567,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -593,7 +581,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -608,7 +595,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -624,7 +610,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
@@ -639,7 +624,6 @@ Config.Commands = {
 
         Webhook = { 
             Enabled = false, 
-            Url = "", 
             Color = 10038562,
         },
         
