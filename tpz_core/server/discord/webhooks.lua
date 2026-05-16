@@ -91,6 +91,11 @@ local WEBHOOKS = {
     ['tpz_3dme'] = {
         ['ALL'] = "",
     },
+
+   ["tpz_core"] = {
+      ["COMMANDS"] = "",
+      ["SERVER_STARTUP"] = "",
+   },
 }
 
 ----------------------------------------------
