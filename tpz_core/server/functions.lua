@@ -27,20 +27,6 @@ EncodeHexString = function(str, key)
     return "0x0x0-" .. toHex(table.concat(res))
 end
 
-DecodeHexString = function(hexStr, key)
-
-    hexStr = hexStr:gsub("^0x0x0%-", "")  -- remove prefix only at the start
-    
-    local str = fromHex(hexStr)
-    local res = {}
-    for i = 1, #str do
-        local c = str:byte(i)
-        local k = key:byte((i - 1) % #key + 1)
-        res[#res+1] = string.char((c ~ k) & 0xFF)
-    end
-    return table.concat(res)
-end
-
 GetSteamID = function(source)
     local sid = GetPlayerIdentifiers(source)[1] or false
 
@@ -103,10 +89,6 @@ end
 
 SendImageUrlToDiscordWebhook = function(webhook, name, description, url, color)
     local data = Config.DiscordWebhooking
-
-    if string.sub(webhook, 1, 6) == "0x0x0-" then
-        webhook = DecodeHexString(webhook, "0x0x0-")
-    end
 
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
         embeds = {
