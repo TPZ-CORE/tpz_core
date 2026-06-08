@@ -558,7 +558,11 @@ exports('getCoreAPI', function()
         functions.addItemMetadata = function(item, itemId, metadata)
             exports['tpz_inventory']:getInventoryAPI().addItemMetadata(_source, item, itemId, metadata)
         end
-        
+			
+        functions.setItemMetadata = function(item, itemId, metadata)
+            exports['tpz_inventory']:getInventoryAPI().setItemMetadata(_source, item, itemId, metadata)
+        end
+			
         functions.saveInventoryContents = function()
             exports['tpz_inventory']:getInventoryAPI().saveInventoryContents(_source)
         end
