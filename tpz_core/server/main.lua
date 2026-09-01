@@ -211,6 +211,12 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
         _source = tonumber(data.source)
     end
 
+    -- Client RPC callers may read only their own data.  Player data includes
+    -- balances, identity data, outfit data, and inventory capacity.
+    if _source ~= source then
+        return cb(nil)
+    end
+
     if PlayerData[_source] == nil then 
         return cb(nil)
     end

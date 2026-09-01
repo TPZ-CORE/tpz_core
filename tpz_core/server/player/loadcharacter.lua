@@ -13,22 +13,31 @@ end)
 --[[ Functions ]]--
 -----------------------------------------------------------
 
-onSelectedCharacter = function(tSource, charId, newChar, firstname, lastname, dob)
-    local _source = tSource
+onSelectedCharacter = function(playerSource, charId, newChar, firstname, lastname, dob)
+    local _source = tonumber(playerSource)
 
-    if _source == nil then 
-        _source = source
+    if not _source or not GetPlayerName(_source) then
+        return
     end
 
     local sid = GetSteamID(_source)
 
     if not newChar then
-        exports["ghmattimysql"]:execute("SELECT * FROM characters WHERE charidentifier = @charidentifier", { ["@charidentifier"] = tonumber(charId),
+        if not tonumber(charId) then
+            return
+        end
+
+        exports["ghmattimysql"]:execute("SELECT * FROM characters WHERE identifier = @identifier AND charidentifier = @charidentifier", {
+            ["@identifier"] = sid,
+            ["@charidentifier"] = tonumber(charId),
             
         }, function(result)
 
-            while not result[1] do
-                Wait(10)
+            if not result or not result[1] then
+                if Config.Debug then
+                    print(("[tpz_core] Blocked character-selection ownership violation from %s for character %s"):format(_source, charId))
+                end
+                return
             end
     
             local res = result[1]
@@ -168,7 +177,10 @@ end)
 
 RegisterServerEvent('tpz_core:onSelectedCharacter')
 AddEventHandler('tpz_core:onSelectedCharacter', function(tSource, charId, newChar, firstname, lastname, dob)
-    onSelectedCharacter(tSource, charId, newChar, firstname, lastname, dob)
+    -- Never trust a source ID supplied by the client.
+    -- New-character spawning is initiated only by CreateNewCharacter on the
+    -- server; a client may only select one of its existing characters.
+    onSelectedCharacter(source, charId, false)
 end)
 
 

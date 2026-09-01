@@ -27,7 +27,7 @@ client_scripts {
 
 server_scripts { 
     'server/*.lua', 
-    'server/discord/*.lua/', 
+    'server/discord/*.lua', 
     'server/player/*.lua', 
     'server/api/*lua' 
 }

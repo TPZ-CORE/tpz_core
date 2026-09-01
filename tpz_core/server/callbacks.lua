@@ -30,11 +30,15 @@ end
 
 local RegisteredCalls = {}
 
+-- Kept as a local server event for resource compatibility.  It is deliberately
+-- not registered as a network event.
+AddEventHandler("tpz_core:addNewCallBack", ServerRPC.Callback.Register)
+
 RegisterNetEvent("tpz_core:TriggerServerCallback", function(name, uniqueId, isSync, ...)
     local _source = source
 
     if not RegisteredCalls[name] then
-        return error("Callback " .. name .. " hasn't been registered.", 1)
+        return
     end
 
     RegisteredCalls[name]:Trigger(_source, uniqueId, isSync, ...)
@@ -48,17 +52,19 @@ end)
 function ServerRPC.Callback.Register(name, callback)
     -- error handling
 
-    if name == nil or type(name) ~= "string" then
-        return error("Parameter \"name\" must be a string!", 1)
+    if type(name) ~= "string" or type(callback) ~= "function" then
+        return error("Callback name must be a string and callback must be a function!", 1)
     end
 
     RegisteredCalls[name] = ServerRPC:New(name, callback)
 end
 
 -- Events backwars compatibility
-RegisterNetEvent("tpz_core:addNewCallBack", ServerRPC.Callback.Register)
-
-addNewCallBack = function(name, cb) TriggerEvent("tpz_core:addNewCallBack", name, cb) end
+-- Callback registration is server-only.  Registering this as a network event let
+-- any client overwrite a callback with a nil/non-function value and deny service.
+addNewCallBack = function(name, cb)
+    return ServerRPC.Callback.Register(name, cb)
+end
 
 -- * TRIGGER CLIENT CALLBACKS
 local callBackId = 0
@@ -84,7 +90,7 @@ function ServerRPC:TriggerRpcAsync(source, ...)
 
     TriggerClientEvent("tpz_core:TriggerServerCallback", source, self.name, self.uniqueId, false, ...)
 
-    TriggeredCalls[self.uniqueId] = self._callback
+    TriggeredCalls[self.uniqueId] = { source = source, callback = self._callback }
 end
 
 function ServerRPC:TriggerRpcAwait(source, ...)
@@ -101,7 +107,7 @@ function ServerRPC:TriggerRpcAwait(source, ...)
     TriggerClientEvent("tpz_core:TriggerServerCallback", source, self.name, self.uniqueId, true, ...)
 
     local promise = promise.new()
-    TriggeredCalls[self.uniqueId] = promise
+    TriggeredCalls[self.uniqueId] = { source = source, promise = promise }
 
     local result = Citizen.Await(promise)
     return result
@@ -109,14 +115,22 @@ end
 
 function ServerRPC.ExecuteRpc(uniqueId, isSync, ...)
     local _source = source
-    if not TriggeredCalls[uniqueId] then
-        return error("No callback with this id found!", 1)
+    local call = TriggeredCalls[uniqueId]
+    if not call then
+        return
+    end
+
+    -- A response is valid only from the player to whom this RPC was sent.
+    if call.source ~= _source then
+        return
     end
 
     if not isSync then
-        TriggeredCalls[uniqueId](...)
+        if type(call.callback) == "function" then
+            call.callback(...)
+        end
     else
-        TriggeredCalls[uniqueId]:resolve(...)
+        call.promise:resolve(...)
     end
 
     TriggeredCalls[uniqueId] = nil
