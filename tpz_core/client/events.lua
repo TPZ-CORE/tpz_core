@@ -1,33 +1,46 @@
 
 core.RequestModuleAwait("functions")
 
+local LOADED_FIRST_TIME_CHAR_SELECT = false 
+local CHARACTER_SELECTED = false 
+
+GetPlayerCharacterSelectedState = function() return CHARACTER_SELECTED end
+
 -- The following event is triggered when the player selected a character and successfully spawned (teleported) to the last saved location.
 RegisterNetEvent('tpz_core:isPlayerReady')
 AddEventHandler("tpz_core:isPlayerReady", function(newChar)
+
+    CHARACTER_SELECTED = true
+
+    if not LOADED_FIRST_TIME_CHAR_SELECT then -- prevents any kind of bugs.
     
-    local a2 = DataView.ArrayBuffer(12 * 8)
-    local a3 = DataView.ArrayBuffer(12 * 8)
-    Citizen.InvokeNative(0xCB5D11F9508A928D, 1, a2:Buffer(), a3:Buffer(), GetHashKey("UPGRADE_HEALTH_TANK_1"), 1084182731, Config.MaxHealth, 752097756)
-    local a2 = DataView.ArrayBuffer(12 * 8)
-    local a3 = DataView.ArrayBuffer(12 * 8)
-    Citizen.InvokeNative(0xCB5D11F9508A928D, 1, a2:Buffer(), a3:Buffer(), GetHashKey("UPGRADE_STAMINA_TANK_1"), 1084182731, Config.MaxStamina, 752097756)
+        LOADED_FIRST_TIME_CHAR_SELECT = true 
 
-    if Config.PlayAnimPostFX then
-        AnimpostfxPlay("Title_Gen_FewHoursLater")
-    end
-
-    CreateThread(function()
-        while true do
-            Wait(60000 * Config.SavePlayerData)
-
-            if PlayerPedId() == nil or PlayerPedId() and not DoesEntityExist(PlayerPedId()) then
-                break
-            end
-
-            TriggerServerEvent("tpz_core:tpz_core:saveCharacter")
+        local a2 = DataView.ArrayBuffer(12 * 8)
+        local a3 = DataView.ArrayBuffer(12 * 8)
+        Citizen.InvokeNative(0xCB5D11F9508A928D, 1, a2:Buffer(), a3:Buffer(), GetHashKey("UPGRADE_HEALTH_TANK_1"), 1084182731, Config.MaxHealth, 752097756)
+        local a2 = DataView.ArrayBuffer(12 * 8)
+        local a3 = DataView.ArrayBuffer(12 * 8)
+        Citizen.InvokeNative(0xCB5D11F9508A928D, 1, a2:Buffer(), a3:Buffer(), GetHashKey("UPGRADE_STAMINA_TANK_1"), 1084182731, Config.MaxStamina, 752097756)
+    
+        if Config.PlayAnimPostFX then
+            AnimpostfxPlay("Title_Gen_FewHoursLater")
         end
+    
+        CreateThread(function()
+            while true do
+                Wait(60000 * Config.SavePlayerData)
+    
+                if PlayerPedId() == nil or PlayerPedId() and not DoesEntityExist(PlayerPedId()) then
+                    break
+                end
+    
+                TriggerServerEvent("tpz_core:tpz_core:saveCharacter")
+            end
+    
+        end)
 
-    end)
+    end
 
 end)
 
