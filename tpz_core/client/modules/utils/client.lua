@@ -56,10 +56,8 @@ Citizen.CreateThread(function()
 			return
 		end
 		if DoesAnimDictExist(name) then
-			if not HasAnimDictLoaded(name) then
-				if HasAnimDictLoaded(name) then
-					RemoveAnimDict(name)
-				end
+			if HasAnimDictLoaded(name) then
+				RemoveAnimDict(name)
 			end
 		end
 	end
