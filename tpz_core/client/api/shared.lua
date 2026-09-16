@@ -13,6 +13,10 @@ exports('getCoreAPI', function()
         return Config
     end
 
+    self.loaded = function()
+        return GetPlayerCharacterSelectedState()
+    end
+
     self.modules = function()
         return core
     end
