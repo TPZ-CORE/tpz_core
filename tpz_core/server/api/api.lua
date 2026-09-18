@@ -2,7 +2,7 @@
 exports('getCoreAPI', function()
     local self = {}
 
-    self.addNewCallBack = function(name, cb) TriggerEvent("tpz_core:addNewCallBack", name, cb) end
+    self.addNewCallBack = function(name, cb) return addNewCallBack(name, cb) end
 
     self.GetConfig = function()
         return Config
