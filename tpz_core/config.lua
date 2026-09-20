@@ -127,7 +127,7 @@ Config.NotifyWhenPlayerDropped = { Enabled = true, Message = '^3A player with th
 
 Config.DisableRDRPrompts = {
     Enabled = true,
-    Prompts = { 1, 2, 3 },
+    Prompts = { 1, 2 },
 }
 	
 -- The specified option is when players are disconnected from their network, this can also prevent
