@@ -56,8 +56,8 @@ Config.PlayAnimPostFX = true
 Config.HidePlayersCore = false
 Config.HideHorsesCore = false
 
-Config.MaxHealth = 5 -- 10 is max value, 0 is empty core for the players.
-Config.MaxStamina = 5 -- 10 is max value, 0 is empty core for the players.
+Config.MaxHealth = 10 -- 10 is max value, 0 is empty core for the players.
+Config.MaxStamina = 10 -- 10 is max value, 0 is empty core for the players.
 
 Config.MapTypeOnFoot = 1 -- 0 = Off(no radar), 1 = Regular 2 = Expanded  3 = Simple(compass)
 Config.MapTypeOnMount = 1 -- 0 = Off(no radar), 1 = Regular 2 = Expanded  3 = Simple(compass)
