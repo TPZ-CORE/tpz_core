@@ -9,18 +9,22 @@ local PreviousLocation = nil -- for /back command.
 local function FindSourceTarget(source, args)
     local resolvedSource = source
 
-    if args[1] then
-        local embeddedSource = args[1]:match("%$%[(%d+)%]")
+    if not args[1] then
+        return resolvedSource, nil
+    end
 
+    -- `$[id]` is a console convenience only.  Allowing a network player to
+    -- provide it made the subsequent permission check run as that target ID.
+    if source == 0 then
+        local embeddedSource = args[1]:match("%$%[(%d+)%]")
         if embeddedSource then
             resolvedSource = tonumber(embeddedSource)
             args[1] = args[1]:gsub("%$%[%d+%]", "")
         end
-
-        args[1] = args[1]:match("^%s*(.-)%s*$")
-        args[1] = tonumber(args[1])
     end
 
+    args[1] = args[1]:match("^%s*(.-)%s*$")
+    args[1] = tonumber(args[1])
     return resolvedSource, args[1]
 end
 
