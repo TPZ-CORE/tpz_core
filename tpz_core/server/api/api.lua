@@ -184,12 +184,20 @@ exports('getCoreAPI', function()
             return PlayerData[_source].isDead
         end
     
-        functions.getDefaultUsedWeaponId = function()
-            return PlayerData[_source].default_weapon
+        functions.clearDefaultWeapons = function()-- 2.1.0
+            PlayerData[_source].default_weapons = {}
         end
     
-        functions.setDefaultUsedWeapon = function(weaponId)
-            PlayerData[_source].default_weapon = weaponId
+        functions.removeDefaultWeaponById = function(weaponId)-- 2.1.0
+            PlayerData[_source].default_weapons[weaponId] = nil
+        end
+
+        functions.getDefaultUsedWeaponIds = function()-- 2.1.0
+            return PlayerData[_source].default_weapons  -- 2.1.0 (used to be default_weapon)
+        end
+    
+        functions.setDefaultUsedWeapons = function(weaponId) -- 2.1.0
+            PlayerData[_source].default_weapons[weaponId] = { id = weaponId } -- 2.1.0 (used to be default_weapon)
         end
     
         functions.getIdentityId = function()
