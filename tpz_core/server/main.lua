@@ -232,7 +232,7 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
             job             = xPlayer.job,
             jobGrade        = xPlayer.jobGrade,
             identityId      = xPlayer.identity_id,
-            defaultWeapon   = xPlayer.default_weapon,
+            defaultWeapons     = xPlayer.default_weapons, -- 2.1.0
             inventoryMaxWeight = xPlayer.inventory_capacity,
             skinComp        = xPlayer.skinComp,
         } 
