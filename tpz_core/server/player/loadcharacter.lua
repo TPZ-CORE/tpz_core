@@ -35,7 +35,7 @@ onSelectedCharacter = function(tSource, charId, newChar, firstname, lastname, do
 
             local decodedCoords = json.decode(res.coords)
             
-            Character(_source, sid, charId, res.group, res.firstname,res.lastname,res.gender,res.dob,res.skinComp,res.job,res.jobGrade, res.accounts, res.identity_id, res.healthOuter,res.healthInner,res.staminaOuter,res.staminaInner,decodedCoords, tonumber(res.isdead), tostring(res.default_weapon), res.inventory_capacity) 
+            Character(_source, sid, charId, res.group, res.firstname,res.lastname,res.gender,res.dob,res.skinComp,res.job,res.jobGrade, res.accounts, res.identity_id, res.healthOuter,res.healthInner,res.staminaOuter,res.staminaInner,decodedCoords, tonumber(res.isdead), res.default_weapons, res.inventory_capacity) -- 2.1.0
             Wait(1000)
 
             local data         = PlayerData[_source]
@@ -170,5 +170,3 @@ RegisterServerEvent('tpz_core:onSelectedCharacter')
 AddEventHandler('tpz_core:onSelectedCharacter', function(tSource, charId, newChar, firstname, lastname, dob)
     onSelectedCharacter(tSource, charId, newChar, firstname, lastname, dob)
 end)
-
-
