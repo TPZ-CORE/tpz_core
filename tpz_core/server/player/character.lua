@@ -35,7 +35,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
 
     local defaultInventoryCapacity = exports["tpz_inventory"].getInventoryAPI().getConfig().InventoryDefaultWeight
 
-    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, skinData, 'unemployed', 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity)
+    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, SkinData, 'unemployed', 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity)
 
     local Parameters = {
         ['identifier']          = tostring(sid),
@@ -60,9 +60,9 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
         ['isdead']              = 0,
         ['inventory_capacity']  = defaultInventoryCapacity,
     }
-    
+
     PlayerData[_source].skinComp = json.encode(skinData)
-    
+
     Citizen.CreateThread(function()
 
         exports.ghmattimysql:execute("INSERT INTO characters (`identifier`, `steamname`, `group`, `firstname`, `lastname`, `gender`, `dob`, `skinComp`, `job`, `jobGrade`,`accounts`, `identity_id`, `healthOuter`, `healthInner`, `staminaOuter`, `staminaInner`, `coords`, `isdead`, `inventory_capacity` ) VALUES (@identifier, @steamname, @group, @firstname, @lastname, @gender, @dob, @skinComp, @job, @jobGrade, @accounts, @identity_id, @healthOuter, @healthInner, @staminaOuter, @staminaInner, @coords, @isdead, @inventory_capacity)", Parameters)
@@ -78,14 +78,14 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
         if webhookData.Enabled then
             local title   = "📋` New Character Created` "
             local message = "**Steam name: **`" .. steamName .. "`**\nSteam Identifier**`" .. tostring(sid) .. "` \n**Discord:** <@" .. discordId .. ">**\nIP: **`" .. ip .. "`\n **Action:** `The following player created a character with the following information: { firstname: " .. firstname .. ", lastname: " .. lastname .. ", dob: " .. dob .. " }`"
-            SendToDiscordWebhook(GetWebhookUrlByName("tpz_core", "CREATE_NEW_CHARACTER"), title, message, webhookData.Color)
+            SendToDiscordWebhook(webhookData.Url, title, message, webhookData.Color)
         end
 
     end)
 
 end
 
-function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapon, inventoryCapacity)
+function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapons, inventoryCapacity) -- 2.1.0
   
     local decodedAccounts = json.decode(accounts) -- accounts returns the result.accounts from `characters` table.
 
@@ -115,7 +115,7 @@ function Character(source, identifier, charIdentifier, group, firstname, lastnam
         staminaInner       = tonumber(staminaInner),
         coords             = coords,
         isdead             = tonumber(isdead),
-        default_weapon     = default_weapon,
+        default_weapons    = json.decode(default_weapons), -- 2.1.0
         inventory_capacity = inventoryCapacity,
         connection_lost    = 0,
     }
@@ -144,12 +144,13 @@ function SaveCharacter(_source, cb)
             ['coords']             = json.encode(data.coords),
 
             ['identity_id']        = data.identity_id,
-            ['default_weapon']     = data.default_weapon,
+            ['default_weapons']    = json.encode(data.default_weapons), -- 2.1.0
             ['inventory_capacity'] = data.inventory_capacity,
         }
     
         Citizen.CreateThread(function()
-            exports.ghmattimysql:execute("UPDATE `characters` SET `firstname` = @firstname, `lastname` = @lastname, `dob` = @dob, `group` = @group, `job` = @job, `jobGrade` = @jobGrade, `accounts` = @accounts, `coords` = @coords, `identity_id` = @identity_id, `default_weapon` = @default_weapon, `inventory_capacity` = @inventory_capacity WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
+            -- 2.1.0 default_weapons
+            exports.ghmattimysql:execute("UPDATE `characters` SET `firstname` = @firstname, `lastname` = @lastname, `dob` = @dob, `group` = @group, `job` = @job, `jobGrade` = @jobGrade, `accounts` = @accounts, `coords` = @coords, `identity_id` = @identity_id, `default_weapons` = @default_weapons, `inventory_capacity` = @inventory_capacity WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
         end)
 
         if cb then
@@ -219,8 +220,4 @@ AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
         exports.ghmattimysql:execute("UPDATE `characters` SET `isdead` = @isdead WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
     end)
 
-
 end)
-
-
-
