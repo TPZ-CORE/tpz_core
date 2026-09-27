@@ -76,6 +76,15 @@ end
 --[[ General Events  ]]--
 -----------------------------------------------------------
 
+RegisterServerEvent('tpz_core:requestplayerJoiningData') -- 2.1.1
+AddEventHandler('tpz_core:requestplayerJoiningData', function()
+    local _source = source
+
+    local UserData = GetUserData(_source)
+    TriggerClientEvent('tpz_core:playerJoining', _source, UserData)
+end)
+
+
 RegisterServerEvent('tpz_core:requestCharacters')
 AddEventHandler('tpz_core:requestCharacters', function(refresh)
 
