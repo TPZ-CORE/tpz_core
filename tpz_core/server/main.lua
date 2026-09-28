@@ -218,9 +218,9 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
     local xPlayer = PlayerData[_source]
 
     local last_play = 'N/A'
-
-    if xPlayer.last_play ~= 0 then 
-        last_play = os.date("%d/%m/%Y %H:%M", xPlayer.last_play)
+		
+    if xPlayer.last_play ~= '0' then 
+        last_play = os.date("%d/%m/%Y %H:%M", tonumber(xPlayer.last_play))
     end
 
     return cb(
