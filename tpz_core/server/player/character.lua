@@ -35,7 +35,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
 
     local defaultInventoryCapacity = exports["tpz_inventory"].getInventoryAPI().getConfig().InventoryDefaultWeight
 
-    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, SkinData, 'unemployed', 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity)
+    Character(_source, sid, nil, "user", firstname,lastname,gender,dob, SkinData, 'unemployed', 0, accounts, generatedIdentityId, 500,100,500,100, newCoords, 0, "0", defaultInventoryCapacity, 0)
 
     local Parameters = {
         ['identifier']          = tostring(sid),
@@ -87,7 +87,7 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
 
 end
 
-function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapons, inventoryCapacity) -- 2.1.0
+function Character(source, identifier, charIdentifier, group, firstname, lastname, gender, dob, skinComp, job, jobGrade, accounts, identityId, healthOuter, healthInner, staminaOuter, staminaInner, coords, isdead, default_weapons, inventoryCapacity, played_time) -- 2.1.0
   
     local decodedAccounts = json.decode(accounts) -- accounts returns the result.accounts from `characters` table.
 
