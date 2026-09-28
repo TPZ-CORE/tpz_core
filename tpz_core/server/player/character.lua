@@ -59,6 +59,8 @@ function CreateNewCharacter(source, firstname, lastname, gender, dob, skinData)
         ['coords']              = json.encode(newCoords),
         ['isdead']              = 0,
         ['inventory_capacity']  = defaultInventoryCapacity,
+        ['played_time']         = 0,
+        ['last_play']           = os.time()
     }
 
     PlayerData[_source].skinComp = json.encode(skinData)
@@ -118,6 +120,8 @@ function Character(source, identifier, charIdentifier, group, firstname, lastnam
         default_weapons    = json.decode(default_weapons), -- 2.1.0
         inventory_capacity = inventoryCapacity,
         connection_lost    = 0,
+        played_time        = 0,
+        last_play          = os.time()
     }
 
 end
@@ -146,11 +150,13 @@ function SaveCharacter(_source, cb)
             ['identity_id']        = data.identity_id,
             ['default_weapons']    = json.encode(data.default_weapons), -- 2.1.0
             ['inventory_capacity'] = data.inventory_capacity,
+            ['played_time']        = data.played_time,
+            ['last_play']          = os.time()
         }
     
         Citizen.CreateThread(function()
             -- 2.1.0 default_weapons
-            exports.ghmattimysql:execute("UPDATE `characters` SET `firstname` = @firstname, `lastname` = @lastname, `dob` = @dob, `group` = @group, `job` = @job, `jobGrade` = @jobGrade, `accounts` = @accounts, `coords` = @coords, `identity_id` = @identity_id, `default_weapons` = @default_weapons, `inventory_capacity` = @inventory_capacity WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
+            exports.ghmattimysql:execute("UPDATE `characters` SET `firstname` = @firstname, `lastname` = @lastname, `dob` = @dob, `group` = @group, `job` = @job, `jobGrade` = @jobGrade, `accounts` = @accounts, `coords` = @coords, `identity_id` = @identity_id, `default_weapons` = @default_weapons, `inventory_capacity` = @inventory_capacity, `played_time` = @played_time, `last_play` = @last_play WHERE `identifier` = @identifier AND `charidentifier` = @charidentifier", Parameters)
         end)
 
         if cb then
