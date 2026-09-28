@@ -120,7 +120,7 @@ function Character(source, identifier, charIdentifier, group, firstname, lastnam
         default_weapons    = json.decode(default_weapons), -- 2.1.0
         inventory_capacity = inventoryCapacity,
         connection_lost    = 0,
-        played_time        = 0,
+        played_time        = played_time,
         last_play          = os.time()
     }
 
