@@ -217,6 +217,12 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
 
     local xPlayer = PlayerData[_source]
 
+    local last_play = 'N/A'
+
+    if xPlayer.last_play ~= 0 then 
+        last_play = os.date("%d/%m/%Y %H:%M", xPlayer.last_play)
+    end
+
     return cb(
         { 
             source          = tonumber(_source),
@@ -235,8 +241,8 @@ addNewCallBack("tpz_core:getPlayerData", function(source, cb, data)
             defaultWeapons     = xPlayer.default_weapons, -- 2.1.0
             inventoryMaxWeight = xPlayer.inventory_capacity,
             skinComp           = xPlayer.skinComp,
-            played_time        = xPlayer.played_time,
-            last_play          = xPlayer.last_play
+            played_time        = xPlayer.played_time,-- 2.1.1
+            last_play          = last_play-- 2.1.1
         } 
     ) 
 end)    
