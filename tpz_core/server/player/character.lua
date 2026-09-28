@@ -227,3 +227,24 @@ AddEventHandler('tpz_core:savePlayerDeathStatus', function(cb)
     end)
 
 end)
+
+-----------------------------------------------------------
+--[[ Threads  ]]--
+-----------------------------------------------------------
+
+CreateThread(function()
+
+    while true do 
+        Wait(60000)
+
+        if next(PlayerData) then
+            
+            for _, player in pairs (PlayerData) do 
+                player.played_time = player.played_time + 1
+            end
+
+        end
+
+    end
+
+end)
