@@ -50,6 +50,8 @@ AddEventHandler("tpz_core:onPlayerDeathContents", function()
         if configData.RemoveInventoryContents then
             TriggerClientEvent("tpz_inventory:clearEquippedWeapon", _source)
             exports.tpz_inventory:getInventoryAPI().clearInventoryContents(_source)
+
+            PlayerData[_source].default_weapons = {}
         end
     
         Wait(2000)
