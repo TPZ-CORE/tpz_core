@@ -34,6 +34,8 @@ Config.AdministratorGroups = { 'admin' }
 --[[ General Settings ]]--
 ---------------------------------------------------------------
 
+Config.sv_maxClients = 48
+	
 Config.MaxCharacters = 2 -- By Default! Change manually through users database table. 
 
 -- Some people know how to open (2) RedM clients at the same time and play with the same steam and rockstar account, set it to true
