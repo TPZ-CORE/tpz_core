@@ -235,7 +235,31 @@ AddEventHandler("playerConnecting", function (name, kick, deferrals)
     Wait(0)
 
     if steamIdentifier ~= nil then
+			
+        if Config.PreventDuplicateSteamClient then 
 
+            local playerList = GetPlayers()
+            local found = false
+
+            for _, player in pairs (playerList) do 
+
+                local _tsource = tonumber(player)
+                local _steamIdentifier = GetSteamID(_tsource)
+
+                if steamIdentifier == _steamIdentifier then 
+                    deferrals.done('You are not allowed to have multiple RedM clients running on our server.')
+                    found = true
+                    break
+                end
+
+            end
+
+            if found then
+                return
+            end
+
+        end    
+			
         exports.ghmattimysql:execute('SELECT `banned_until`, `banned_reason` FROM `users` WHERE `identifier` = @identifier', { ['@identifier'] = steamIdentifier
         }, function(result)
 
