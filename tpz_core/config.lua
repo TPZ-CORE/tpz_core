@@ -36,6 +36,10 @@ Config.AdministratorGroups = { 'admin' }
 
 Config.MaxCharacters = 2 -- By Default! Change manually through users database table. 
 
+-- Some people know how to open (2) RedM clients at the same time and play with the same steam and rockstar account, set it to true
+-- to prevent them from doing such an abuse.
+Config.PreventDuplicateSteamClient = true
+	
 Config.SavePlayerLocationTime = 120000 -- in milliseconds, 120.000 = every 2 minutes.
 Config.SavePlayerData = 10 -- Time in minutes to save all player data
 Config.SavePlayerHealthAndStaminaTime = 300000 -- in milliseconds, 300.000 = 5 minutes.
