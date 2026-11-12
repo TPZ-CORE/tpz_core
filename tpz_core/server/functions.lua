@@ -28,15 +28,10 @@ EncodeHexString = function(str, key)
 end
 
 GetSteamID = function(source)
-    local sid = GetPlayerIdentifiers(source)[1] or false
-
-    if (sid == false or sid:sub(1, 5) ~= "steam") then
-
-        return false
-    end
-
+    local sid = GetPlayerIdentifierByType(source, 'steam')
     return sid
 end
+
 
 GetIdentity = function(source, identity)
     local num = 0
