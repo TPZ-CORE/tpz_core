@@ -5,23 +5,18 @@ local allowedToJoin = true
 --[[ Local Functions  ]]--
 -----------------------------------------------------------
 
+
 local function OnPlayerConnecting(name, setKickReason, deferrals)
     local player = source
     local steamIdentifier
-    local identifiers = GetPlayerIdentifiers(player)
     deferrals.defer()
 
     -- mandatory wait!
     Wait(0)
-
+    
     deferrals.update(string.format(Locales['STEAM_CHECKING_JOIN'], name))
 
-    for _, v in pairs(identifiers) do
-        if string.find(v, "steam") then
-            steamIdentifier = v
-            break
-        end
-    end
+    steamIdentifier = GetPlayerIdentifierByType(player, "steam")
 
     -- mandatory wait!
     Wait(0)
@@ -48,7 +43,38 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
 
     end
 
-    deferrals.done()
+    local key = GetConvar('steam_webApiKey', '')
+    if key == '' or key == 'none' then return print("if you want steam names added to server.cfg set steam_webApiKey") end
+
+    local steamId = string.format('%d', tonumber(steamIdentifier:sub(7), 16))
+    local url = ('https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=%s&steamids=%s'):format(key, steamId)
+    local finished = false
+
+    local function finish()
+        if finished then return end
+        finished = true
+        deferrals.done()
+    end
+
+    SetTimeout(10000, finish)
+
+    PerformHttpRequest(url, function(status, body)
+        if finished then return end
+
+        if status == 200 then
+            local ok, name = pcall(function()
+                return json.decode(body).response.players[1].personaname
+            end)
+
+            if ok and type(name) == 'string' then
+                SetPlayerName(player, name)
+                print(name)
+            end
+        end
+
+        finish()
+    end, 'GET')
+
 end
 
 -----------------------------------------------------------
